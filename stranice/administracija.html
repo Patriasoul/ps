@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Administracija — PatriaSoul</title>
 <meta name="description" content="Privatna administratorska nadzorna ploča portala PatriaSoul.">
-<link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/admin.css">
+<link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/admin.css"><link rel="stylesheet" href="../assets/css/heritage-poll-admin.css?v=20261010-1">
 <style>.ps-admin-card-action{cursor:pointer;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}.ps-admin-card-action:hover,.ps-admin-card-action:focus-visible{border-color:var(--ps-blue);box-shadow:0 10px 28px rgba(20,32,43,.12);transform:translateY(-2px);outline:none}.ps-admin-card-action:focus-visible{outline:3px solid rgba(12,50,82,.22);outline-offset:2px}.ps-admin-target-focus{outline:3px solid rgba(12,50,82,.2);outline-offset:3px;border-radius:12px;transition:outline-color .3s ease}</style></head><body><main class="ps-admin-page">
 <section class="ps-admin-hero ps-container"><div><p class="ps-kicker">PATRIASOUL · ADMINISTRACIJA</p><h1>Nadzorna ploča</h1><p class="ps-admin-lead">Privatni centar za upravljanje sadržajem, korisnicima, zajednicom, pričama i sustavom.<br><span id="admin-access-note">Provjera ovlasti…</span></p></div><div class="ps-admin-status" id="admin-status">Provjera administratorskog pristupa…</div></section>
 <section class="ps-container" id="admin-denied" hidden><div class="ps-admin-panel ps-admin-denied"><h2>Pristup nije dopušten</h2><p>Ova stranica dostupna je samo ovlaštenim članovima PatriaSoul tima. Urednik upravlja sadržajem i moderacijom, Admin administracijom, a Vlasnik ima potpuni pristup.</p><a class="ps-admin-button" href="prijava.html">Prijava</a></div></section>
@@ -140,6 +140,16 @@
 <div id="forum-reports-manage" class="ps-admin-list"><p>Učitavanje prijava…</p></div>
 </section>
 
+
+<section class="ps-admin-panel" data-admin-group="community" id="heritage-poll-admin">
+<div class="ps-admin-panel-head"><div><p class="ps-kicker">GLAS ČITATELJA</p><h2>Anketa: Čuvari nasljeđa</h2></div><span class="ps-admin-muted"><strong data-poll-count>—</strong> glasova</span></div>
+<p class="ps-admin-section-note">Pregled odgovora na pitanje „Što danas znači čuvati hrvatsko nasljeđe?” Glasovi su anonimni; ne pohranjuju se imena ni e-adrese glasača.</p>
+<div class="ps-admin-poll-actions"><strong>Rezultati ankete</strong><button type="button" class="ps-admin-button" data-poll-refresh>Osvježi rezultate</button></div>
+<div data-poll-summary><p>Učitavanje rezultata…</p></div>
+<h3 class="ps-admin-subheading">Pojedinačni glasovi</h3>
+<div data-poll-votes class="ps-admin-list"><p>Učitavanje glasova…</p></div>
+</section>
+
 <section class="ps-admin-panel ps-admin-comments-panel" data-admin-group="community">
 <div class="ps-admin-panel-head"><div><p class="ps-kicker">ZAJEDNICA</p><h2>Komentari</h2></div><span class="ps-admin-muted">Moderacija dostupna urednicima i administratorima</span></div>
 <div id="comments-manage" class="ps-admin-list"><p>Učitavanje komentara…</p></div>
@@ -153,7 +163,7 @@
 <section class="ps-admin-panel ps-admin-overview-system" data-admin-group="overview"><div class="ps-admin-panel-head"><div><p class="ps-kicker">SIGURNOST</p><h2>Operativni pregled</h2></div></div><ul class="ps-admin-checks" id="system-checks"></ul></section>
 <div class="ps-admin-footer-actions ps-admin-global-actions"><a class="ps-admin-button" href="racun.html">Moj račun</a><a class="ps-admin-button ps-admin-button-light" href="../index.html">Naslovnica</a><button class="ps-admin-button ps-admin-button-light" id="refresh-admin" type="button">Osvježi podatke</button></div>
 </section></main>
-<script src="../assets/js/portal.js"></script><script src="../assets/js/auth.js"></script><script src="https://js.puter.com/v2/"></script><script src="../assets/js/article-editor.js"></script><script src="../assets/js/ai-article.js"></script><script src="../assets/js/admin.js"></script>
+<script src="../assets/js/portal.js"></script><script src="../assets/js/auth.js"></script><script src="https://js.puter.com/v2/"></script><script src="../assets/js/article-editor.js"></script><script src="../assets/js/ai-article.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/heritage-poll-admin.js?v=20261010-1"></script>
 <script>
 (()=>{const nav=document.getElementById("admin-module-nav");if(!nav)return;const names={overview:"Pregled sustava",content:"Sadržaj i CMS",editorial:"Urednički tijek",ai:"AI urednik i RSS redakcija",community:"Zajednica i moderacija",forum:"Forum i moderacija tema",archive:"Arhiv i medijska knjižnica",users:"Korisnici i postavke"};const desc={overview:"Stanje portala, najnoviji članci i operativne provjere.",content:"Članci, nacrti, objave i osnovne stranice portala.",editorial:"Urednička provjera, provjera činjenica, izvori i odobravanje.",ai:"AI generiranje, RSS izvori i urednički prijedlozi vijesti.",community:"Prijavljene priče i komentari zajednice.",forum:"Pregled tema, odgovora, prikvačenih rasprava i prijava na forumu.",archive:"Pravila za fotografije, dokumente, prava korištenja i arhivske metapodatke.",users:"Korisnički profili, ovlasti i sigurnosne postavke."};const activate=tab=>{nav.querySelectorAll("[data-admin-tab]").forEach(b=>{const on=b.dataset.adminTab===tab;b.classList.toggle("is-active",on);b.setAttribute("aria-pressed",String(on))});document.querySelectorAll("[data-admin-group]").forEach(el=>{el.hidden=el.dataset.adminGroup!==tab});const label=document.getElementById("admin-view-label");if(label)label.innerHTML="<span>RADNI PROSTOR</span><strong>"+names[tab]+"</strong><small>"+desc[tab]+"</small>";try{sessionStorage.setItem("ps-admin-view",tab)}catch(e){}};nav.querySelectorAll("[data-admin-tab]").forEach(b=>b.addEventListener("click",()=>activate(b.dataset.adminTab)));const openCard=card=>{const tab=card.dataset.adminOpen;if(!names[tab])return;activate(tab);const target=card.dataset.adminTarget&&document.getElementById(card.dataset.adminTarget);if(target){target.scrollIntoView({behavior:"smooth",block:"start"});target.classList.add("ps-admin-target-focus");window.setTimeout(()=>target.classList.remove("ps-admin-target-focus"),1500)} };document.querySelectorAll("[data-admin-open]").forEach(card=>{card.addEventListener("click",e=>{if(e.target.closest("a,button,select,input,textarea"))return;openCard(card)});card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openCard(card)}})});let initial="overview";try{const saved=sessionStorage.getItem("ps-admin-view");if(saved&&names[saved])initial=saved}catch(e){}activate(initial)})();
 </script>
