@@ -93,7 +93,6 @@
     <div class="ps-service"><div class="ps-container ps-service-inner">
       <span class="ps-service-label">PatriaSoul</span>
       <a href="${link("kviz/")}">Hrvatski kviz</a>
-      <a href="${link("stranice/patria-ai.html")}">PatriaSoul AI</a>
       <a href="${link("stranice/najnovije.html")}">Najnovije vijesti</a>
       <a href="${link("cuvari-nasljedja/prijavi-pricu.html")}">Pošalji priču</a>
       <a href="${link("stranice/newsletter.html")}">Prati PatriaSoul</a>
@@ -428,7 +427,7 @@
   // čak i kada se build skripta normalize-shell.js ne pokreće.
   if (!document.getElementById("ps-ai-widget") && !document.querySelector('script[data-ps-ai-widget]')) {
     const aiWidget = document.createElement("script");
-    aiWidget.src = new URL("ai-widget.js?v=20261010-1", script?.src || location.href).href;
+    aiWidget.src = new URL("ai-widget.js?v=20261010-2", script?.src || location.href).href;
     aiWidget.defer = true;
     aiWidget.dataset.psAiWidget = "true";
     document.body.append(aiWidget);
