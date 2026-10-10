@@ -145,11 +145,25 @@ async function aiCurate(articles, today) {
 }
 function fallbackSummaries(articles) {
   const seen = new Set();
-  return articles.filter(item => {
+  const unique = articles.filter(item => {
     const key = item.title.toLocaleLowerCase("hr-HR");
     if (seen.has(key)) return false;
     seen.add(key); return true;
-  }).slice(0, 10).map((item, i) => ({
+  });
+  // Kad AI ključ nije postavljen, sačuvaj raznolikost: domaće vijesti, svijet i sport.
+  const quotas = new Map([["Hrvatska", 5], ["Hrvatska i svijet", 3], ["Sport", 3]]);
+  const selected = [];
+  const used = new Set();
+  for (const [category, limit] of quotas) {
+    for (const item of unique.filter(entry => entry.category === category).slice(0, limit)) {
+      if (!used.has(item.url)) { selected.push(item); used.add(item.url); }
+    }
+  }
+  for (const item of unique) {
+    if (selected.length >= 10) break;
+    if (!used.has(item.url)) { selected.push(item); used.add(item.url); }
+  }
+  return selected.slice(0, 10).map((item, i) => ({
     id: "rss-" + dateKey(new Date()) + "-" + i,
     category: item.category,
     title: item.title,
