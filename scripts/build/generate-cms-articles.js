@@ -61,13 +61,18 @@ async function main() {
     const title = String(article.title || "PatriaSoul članak");
     const author = article.author_display && article.author_display !== "Čuvari nasljeđa" ? article.author_display : "PatriaSoul";
     const description = String(article.source_data?.seo?.description || article.excerpt || title).slice(0,300);
-    const image = normalizeImageUrl(article.image_url || "");
+    const rawImageUrl = String(article.image_url || "").trim();
+    // A PDF/document URL is not a usable <img> source. Never publish it as a hero image.
+    const image = /\\.pdf(?:[?#]|$)/i.test(rawImageUrl) ? "" : normalizeImageUrl(rawImageUrl);
+    const imageCredit = article.source_data?.image_credit && article.source_data?.image_source
+      ? '<small class="article-image-credit">Kredit: <a href="'+esc(article.source_data.image_source)+'" target="_blank" rel="noopener noreferrer">'+esc(article.source_data.image_credit)+'</a> · licenca <a href="https://creativecommons.org/licenses/by-sa/3.0/hr/deed.hr" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0 HR</a></small>'
+      : "";
     const imageAlt = String(article.image_alt || title);
     const label = categoryLabels[category] || "PatriaSoul";
     const date = formatDate(article.published_at);
     const sources = Array.isArray(article.source_data?.sources) ? article.source_data.sources.filter(x => typeof x === "string" && /^https?:\/\//i.test(x)) : [];
     const sourcesHtml = sources.length ? '<section class="article-sources"><h2>Izvori</h2><ul>'+sources.map(url=>'<li><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(url.replace(/^https?:\/\//i,"").slice(0,140))+'</a></li>').join("")+'</ul></section>' : "";
-    const imageHtml = image ? '<figure class="article-figure"><img class="article-hero" src="'+esc(image)+'" alt="'+esc(imageAlt)+'" loading="eager" decoding="async"><figcaption>'+esc(imageAlt)+'</figcaption></figure>' : "";
+    const imageHtml = image ? '<figure class="article-figure"><img class="article-hero" src="'+esc(image)+'" alt="'+esc(imageAlt)+'" loading="eager" decoding="async"><figcaption>'+esc(imageAlt)+imageCredit+'</figcaption></figure>' : "";
     const canonical = BASE_URL+relativePath;
     const page = [
       '<!doctype html><html lang="hr" data-patriasoul-cms="true"><head>',
