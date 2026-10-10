@@ -49,6 +49,8 @@ jobs:
           set -euo pipefail
           git config user.name "PatriaSoul Bot"
           git config user.email "patriasoul@protonmail.com"
+          git fetch origin main
+          git reset --mixed origin/main
           git add data/vazne-obavijesti.json
           if git diff --cached --quiet -- data/vazne-obavijesti.json; then
             echo "Dnevni pregled nije promijenjen."
