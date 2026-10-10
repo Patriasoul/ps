@@ -1,6 +1,107 @@
 {
-  "date": null,
-  "generatedAt": null,
-  "source": "PatriaSoul",
-  "items": []
+  "date": "2026-10-10",
+  "generatedAt": "2026-10-10T20:16:27.774Z",
+  "source": "PatriaSoul · HRT RSS",
+  "items": [
+    {
+      "id": "rss-2026-10-10-0",
+      "category": "Hrvatska",
+      "title": "Zagreb Security Forum posvećen sigurnosnim izazovima Zapadnog Balkana",
+      "summary": "Jedanaesti Zagreb Security Forum 2026. drugoga se dana bavio sigurnosnim izazovima Zapadnog Balkana, pri čemu su kroz izlaganja i rasprave sudionika razmotreni europski put zemalja regije i utjecaj identiteta na europske integracije te jačanje otpornosti europskih država.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/zagreb-security-forum-posvecen-sigurnosnim-izazovima-zapadnog-balkana-12950610",
+      "publishedAt": "2026-10-10T19:13:57.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-1",
+      "category": "Hrvatska",
+      "title": "Uhićen muškarac povezan s ozljeđivanjem osobe u Trogiru ubodom noža",
+      "summary": "Pronađen je i uhićen muškarac kojeg se dovodi u vezu s događajem u Trogiru gdje je u petak rano ujutro s ubodnom ranom pronađena muška osoba koja je potom operirana u splitskoj bolnici, izvijestila je policija.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/uhicen-muskarac-povezan-s-ozljedivanjem-osobe-u-trogiru-ubodom-noza-12950603",
+      "publishedAt": "2026-10-10T19:03:08.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-2",
+      "category": "Hrvatska",
+      "title": "U prometnoj nesreći u Brnazama šest ozlijeđenih",
+      "summary": "U prometnoj nesreći, u kojoj su u subotu u Brnazama kod Sinja sudjelovala tri osobna vozila, prema prvim informacijama ozlijeđeno je šest osoba, izvijestila je policija.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/u-prometnoj-nesreci-u-brnazama-sest-ozlijedenih-12950601",
+      "publishedAt": "2026-10-10T18:59:27.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-3",
+      "category": "Hrvatska",
+      "title": "U vodi s izvora u Talanima pronađene koliformne bakterije i crijevni enterokoki",
+      "summary": "Analiza vode s prirodnog izvora u zagrebačkim Talanima, koju je na ispitivanje dao građanin, pokazala je prisutnost koliformnih bakterija i crijevnih enterokoka, a Nastavni zavod za javno zdravstvo „Dr. Andrija Štampar“ upozorio je da voda nije za piće.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/u-vodi-s-izvora-u-talanima-pronadene-koliformne-bakterije-i-crijevni-enterokoki-12950573",
+      "publishedAt": "2026-10-10T18:18:16.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-4",
+      "category": "Hrvatska",
+      "title": "Ministar Ružić posjetio riječke beskućnike na Svjetski dan beskućnika",
+      "summary": "Ministar rada i socijalne politike Alen Ružić u subotu je, povodom Svjetskog dana beskućnika, posjetio udrugu Depaul Hrvatska u Rijeci, poručivši kako je važno da osobe u teškim životnim okolnostima dobiju pravodobnu, povezanu i dostojanstvenu podršku.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/ministar-ruzic-posjetio-rijecke-beskucnike-na-svjetski-dan-beskucnika-12950517",
+      "publishedAt": "2026-10-10T17:24:31.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-5",
+      "category": "Hrvatska",
+      "title": "Nestašica vode u vrgoračkom kraju, mještani traže trajno rješenje",
+      "summary": "Stanovnici vrgoračkog kraja već treći dan nemaju pitku vodu jer je zbog dugotrajne suše presušilo izvorište Banja, iz kojeg se opskrbljuje šire područje Vrgorca. U opskrbi stanovništva i punjenju vodospremnika angažirani su vatrogasci, a danas su im se pridružili i pripadnici Oružanih snaga Republike Hrvatske.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/vatrogasci-i-vojska-angazirani-na-dostavi-vode-na-podrucju-vrgorca-12950201",
+      "publishedAt": "2026-10-10T17:20:05.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-6",
+      "category": "Hrvatska",
+      "title": "Vlak iskliznuo kod Meje: U provaliju sletjelo 11 vagona, nema ozlijeđenih",
+      "summary": "Teška željeznička nesreća dogodila se jutros kod Rijeke. Teretni vlak iskliznuo je iz tračnica na ulazu u kolodvor Meja. Jedanaest vagona sletjelo je u provaliju, a lokomotiva i dva vagona ostali su na kolodvoru. Ozlijeđenih nema. Materijalna je šteta velika, a kolodvor je zatvoren za sav promet.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/vlak-iskliznuo-kod-meje-nema-ozlijedenih-12950070",
+      "publishedAt": "2026-10-10T17:17:26.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-7",
+      "category": "Hrvatska",
+      "title": "U Našicama novi prosvjed protiv spaljivanja otpada iz Gospića",
+      "summary": "U središtu Našica održan je drugi prosvjed protiv spaljivanja neopasnog otpada iz Gospića u cementari \"Nexe\". Prosvjednici su poručili da ne žele takav otpad i njegovo spaljivanje u svojem gradu, kao ni spaljivanje bilo kakvog drugog otpada u našičkoj cementari.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/u-nasicama-novi-prosvjed-protiv-spaljivanja-otpada-iz-gospica-12950099",
+      "publishedAt": "2026-10-10T14:56:27.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-8",
+      "category": "Hrvatska",
+      "title": "Vozio automobil s međunarodne tjeralice pa mu kod kuće pronađen vojni eksploziv",
+      "summary": "Primorsko-goranska policija pritvorila je 55-godišnjaka u čijem je stanu kod Crikvenice pronašla vojni eksploziv, a nakon što ga je prethodno zaustavila u vozilu za kojim je bila raspisana međunarodna potraga.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/vozio-automobil-s-medunarodne-tjeralice-pa-mu-kod-kuce-pronaden-vojni-eksploziv-12950377",
+      "publishedAt": "2026-10-10T14:55:06.000Z",
+      "priority": 1
+    },
+    {
+      "id": "rss-2026-10-10-9",
+      "category": "Hrvatska",
+      "title": "Nexe potvrdio energetsku oporabu četiri pošiljke otpada iz Gospića",
+      "summary": "Našička tvrtka \"Nexe\" izvijestila je u subotu da je do sada zaprimila i energetski oporabila četiri pošiljke otpada iz Gospića, neovisne analize potvrdile su da je riječ o neopasnom otpadu, a rezultati mjerenja kvalitete zraka u proteklom razdoblju bili su unutar propisanih graničnih vrijednosti.",
+      "source": "HRT",
+      "sourceUrl": "https://vijesti.hrt.hr/hrvatska/nexe-potvrdio-energetsku-oporabu-cetiri-posiljke-otpada-iz-gospica-12950213",
+      "publishedAt": "2026-10-10T12:19:21.000Z",
+      "priority": 1
+    }
+  ]
 }
