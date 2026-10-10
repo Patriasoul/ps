@@ -198,13 +198,13 @@ export default {
       const imageRaw = String(article.image_url || "").trim();
       const image = imageRaw && /^(https?:|data:|blob:|\/\/)/i.test(imageRaw)
         ? (imageRaw.startsWith("//") ? "https:" + imageRaw : imageRaw)
-        : imageRaw ? "https://ps.patriasoul.workers.dev/" + imageRaw.replace(/^\.\//, "").replace(/^\\//, "") : "";
+        : imageRaw ? "https://ps.patriasoul.workers.dev/" + imageRaw.replace(/^\.\//, "").replace(/^\//, "") : "";
       const date = article.published_at ? new Intl.DateTimeFormat("hr-HR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Zagreb" }).format(new Date(article.published_at)) : "";
       const sources = Array.isArray(article.source_data?.sources)
-        ? article.source_data.sources.filter(value => typeof value === "string" && /^https?:\\/\\//i.test(value))
+        ? article.source_data.sources.filter(value => typeof value === "string" && /^https?:\/\//i.test(value))
         : [];
       const sourcesHtml = sources.length
-        ? '<section class="article-sources"><h2>Izvori</h2><ul>' + sources.map(source => '<li><a href="' + escapeHtml(source) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(source.replace(/^https?:\\/\\//i, "").slice(0, 140)) + '</a></li>').join("") + '</ul></section>'
+        ? '<section class="article-sources"><h2>Izvori</h2><ul>' + sources.map(source => '<li><a href="' + escapeHtml(source) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(source.replace(/^https?:\/\//i, "").slice(0, 140)) + '</a></li>').join("") + '</ul></section>'
         : "";
       const canonical = "https://ps.patriasoul.workers.dev/" + publicPath;
       const html = [
