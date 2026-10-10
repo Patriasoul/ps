@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Čuvari nasljeđa — PatriaSoul razgovor o Hrvatskoj, njezinoj povijesti, baštini, vjeri i Domovinskom ratu.">
-<link rel="icon" href="../assets/images/patriasoul-logo.jpg" type="image/jpeg">\n<title>Čuvari nasljeđa — PatriaSoul</title>
+<link rel="icon" href="../assets/images/patriasoul-logo.jpg" type="image/jpeg">
+<title>Čuvari nasljeđa — PatriaSoul</title>
 <script>if(new URLSearchParams(location.search).get("embed")==="1")document.documentElement.classList.add("embed-mode");</script>
 <style>
 :root{--red:#c5162e;--red2:#8e0d1e;--ink:#0b0e13;--muted:#8f98a8;--panel:#121721;--line:#252d3a;--white:#f6f7f9}
@@ -47,7 +48,7 @@ html.embed-mode .hint{font-size:10px;padding-top:6px}
 <header class="top"><div class="brand"><img class="mark" src="../assets/images/patriasoul-logo.jpg" alt="PatriaSoul"><div><strong>Čuvari nasljeđa</strong><span>AI pomoćnik PatriaSoula</span></div></div></header>
 <section class="chat">
 <div class="chatbar"><div class="ai-id"><img class="ai-logo" src="../assets/images/patriasoul-logo.jpg" alt="" aria-hidden="true"><div><strong>Čuvari nasljeđa</strong><div class="online">Spremni za razgovor</div></div></div><div class="kicker">PATRIASOUL</div></div>
- <div id="messages"></div>
+ <div id="messages"><div class="msg ai welcome"><div class="mini">ČUVARI NASLJEĐA</div><strong>Pozdrav. Mi smo Čuvari nasljeđa.</strong><br><br>Čuvamo priče, pamćenje i vrijednosti Hrvatske — njezinu povijest, baštinu, vjeru, gradove i Domovinski rat.<br><br><strong>Pitajte nas. Istražimo zajedno ono što je Hrvatsku činilo, što je čuva i što moramo prenijeti budućim naraštajima.</strong><p class="welcome-prompt">Odaberi područje za lakši početak ili jednostavno napiši svoje pitanje.</p><div class="topic-grid" id="topicGrid"><button type="button" class="topic-button" data-topic="povijest">Povijest Hrvatske <span>→</span></button><button type="button" class="topic-button" data-topic="rat">Domovinski rat <span>→</span></button><button type="button" class="topic-button" data-topic="vjera">Vjera i obitelj <span>→</span></button><button type="button" class="topic-button" data-topic="danas">Hrvatska danas <span>→</span></button><button type="button" class="topic-button" data-topic="portal">Članci PatriaSoula <span>→</span></button><button type="button" class="topic-button" data-topic="opce">Opća pitanja <span>→</span></button></div><div id="topicChoices" class="topic-choices" hidden></div></div></div>
 <div class="composer"><div class="row"><textarea id="input" placeholder="Napišite svoje pitanje…" aria-label="Pitanje za Čuvare nasljeđa"></textarea><button id="send">Pošalji →</button></div><div class="hint"><span>Enter · pošalji &nbsp; Shift + Enter · novi red</span><span class="status" id="status">Baza: učitavanje · Model: gpt-6-luna</span></div></div>
 </section>
 </div>
