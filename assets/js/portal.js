@@ -427,7 +427,7 @@
   // čak i kada se build skripta normalize-shell.js ne pokreće.
   if (!document.getElementById("ps-ai-widget") && !document.querySelector('script[data-ps-ai-widget]')) {
     const aiWidget = document.createElement("script");
-    aiWidget.src = new URL("ai-widget.js?v=20261010-8", script?.src || location.href).href;
+    aiWidget.src = new URL("ai-widget.js?v=20261010-9", script?.src || location.href).href;
     aiWidget.defer = true;
     aiWidget.dataset.psAiWidget = "true";
     document.body.append(aiWidget);
