@@ -1,7 +1,8 @@
 (() => {
   "use strict";
-  const script = document.currentScript;
-  if (!script || /patria-ai-puter-test\.html$/i.test(location.pathname)) return;
+  const script = document.currentScript || document.querySelector("script[data-ps-ai-widget]") || document.querySelector('script[src*="/assets/js/ai-widget.js"]');
+  if (/patria-ai-puter-test\.html$/i.test(location.pathname)) return;
+  if (!script) { console.error("PatriaSoul AI: nije pronađena skripta widgeta."); return; }
   if (document.getElementById("ps-ai-widget")) return;
   const base = new URL("../../", script.src);
   const logo = new URL("assets/images/patriasoul-logo.jpg", base).href;
