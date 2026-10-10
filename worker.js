@@ -64,6 +64,7 @@ export default {
       "/kolacici": "/stranice/kolacici.html",
       "/na-danasnji-dan": "/stranice/na-danasnji-dan.html",
       "/najnovije": "/stranice/najnovije.html",
+      "/vazne-obavijesti": "/stranice/vazne-obavijesti.html",
       "/newsletter": "/stranice/newsletter.html",
       "/domoljubni-forum": "/stranice/domoljubni-forum.html",
       "/pravila-foruma": "/stranice/pravila-foruma.html",
