@@ -99,7 +99,7 @@ function calendarItems(today) {
     [addDays(easter, 60), "Tijelovo", "Blagdan", "Katolička svetkovina Presvetoga Tijela i Krvi Kristove."],
   ];
   for (const [date, title, category, summary] of movable) {
-    if (date.toISOString().slice(0, 10) === dateKey(today)) entries.push({ id: "calendar-" + y + "-" + title.toLowerCase().replace(/[^a-z0-9]+/g, "-"), category, title, summary, source: "Liturgijski kalendar", sourceUrl: "https://hbk.hr/", eventDate: dateKey(today), priority: 4 });
+    if (date.toISOString().slice(0, 10) === dateKey(today)) entries.push({ id: "calendar-" + y + "-" + title.toLowerCase().replace(/[^a-z0-9]+/g, "-"), category, title, summary, source: "Liturgijski kalendar", sourceUrl: "https://hbk.hr/", eventDate: dateKey(today), publishedAt: dateKey(today) + "T00:00:00.000Z", priority: 0 });
   }
   return entries;
 }
