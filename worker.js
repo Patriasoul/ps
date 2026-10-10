@@ -158,7 +158,7 @@ export default {
     // objavljeni CMS zapis odmah; tako gumb „Otvori članak” nikad ne ovisi o
     // desetominutnom rasporedu izgradnje.
     const assetResponse = await env.ASSETS.fetch(request);
-    const cmsPathMatch = url.pathname.match(/^\\/clanci\\/(domovina|povijest|vjera|cuvari-nasljedja)\\/(clanak-[a-z0-9-]+\\.html)$/i);
+    const cmsPathMatch = url.pathname.match(/^\/clanci\/(domovina|povijest|vjera|cuvari-nasljedja)\/(clanak-[a-z0-9-]+\.html)$/i);
     if (assetResponse.status !== 404 || !cmsPathMatch || !["GET", "HEAD"].includes(request.method)) {
       return assetResponse;
     }
@@ -166,7 +166,7 @@ export default {
     try {
       const cmsUrl = "https://ijimozjfdffejbczwyzb.supabase.co/rest/v1/portal_articles";
       const cmsKey = "sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr";
-      const publicPath = url.pathname.replace(/^\\//, "");
+      const publicPath = url.pathname.replace(/^\//, "");
       const query = new URL(cmsUrl);
       query.searchParams.set("select", "path,title,kicker,category,subcategory,excerpt,body_html,image_url,image_alt,author_display,published_at,source_data,status");
       query.searchParams.set("path", "eq." + publicPath);
@@ -186,19 +186,19 @@ export default {
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
       }[ch]));
       const safeBody = String(article.body_html || "")
-        .replace(/<\\s*(script|iframe|object|embed|form)\\b[^>]*>[\\s\\S]*?<\\/\\s*\\1\\s*>/gi, "")
-        .replace(/<\\s*(script|iframe|object|embed|form)\\b[^>]*\\/?>/gi, "")
-        .replace(/\\s+on[a-z]+\\s*=\\s*("[^"]*"|'[^']*'|[^\\s>]+)/gi, "")
-        .replace(/\\s+(href|src)\\s*=\\s*(["'])\\s*javascript:[\\s\\S]*?\\2/gi, "");
+        .replace(/<\s*(script|iframe|object|embed|form)\b[^>]*>[\s\S]*?<\/\s*\1\s*>/gi, "")
+        .replace(/<\s*(script|iframe|object|embed|form)\b[^>]*\/?>/gi, "")
+        .replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+        .replace(/\s+(href|src)\s*=\s*(["'])\s*javascript:[\s\S]*?\2/gi, "");
       const title = String(article.title || "PatriaSoul članak");
       const author = article.author_display && article.author_display !== "Čuvari nasljeđa" ? article.author_display : "PatriaSoul";
       const description = String(article.source_data?.seo?.description || article.excerpt || title).slice(0, 300);
       const categoryLabels = { domovina: "Domovina", povijest: "Povijest", vjera: "Vjera", "cuvari-nasljedja": "Čuvari nasljeđa" };
       const categoryLabel = categoryLabels[cmsPathMatch[1].toLowerCase()] || "PatriaSoul";
       const imageRaw = String(article.image_url || "").trim();
-      const image = imageRaw && /^(https?:|data:|blob:|\\/\\/)/i.test(imageRaw)
+      const image = imageRaw && /^(https?:|data:|blob:|\/\/)/i.test(imageRaw)
         ? (imageRaw.startsWith("//") ? "https:" + imageRaw : imageRaw)
-        : imageRaw ? "https://ps.patriasoul.workers.dev/" + imageRaw.replace(/^\\.\\//, "").replace(/^\\//, "") : "";
+        : imageRaw ? "https://ps.patriasoul.workers.dev/" + imageRaw.replace(/^\.\//, "").replace(/^\\//, "") : "";
       const date = article.published_at ? new Intl.DateTimeFormat("hr-HR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Zagreb" }).format(new Date(article.published_at)) : "";
       const sources = Array.isArray(article.source_data?.sources)
         ? article.source_data.sources.filter(value => typeof value === "string" && /^https?:\\/\\//i.test(value))
@@ -226,7 +226,7 @@ export default {
         '<p class="editorial-note"><strong>PatriaSoul — Čuvari nasljeđa</strong><br>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></main>',
         '<footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div></footer>',
         '<script src="/assets/js/portal.js"></script></body></html>'
-      ].join("\\n");
+      ].join("\n");
       return new Response(request.method === "HEAD" ? null : html, {
         status: 200,
         headers: {
