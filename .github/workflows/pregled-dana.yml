@@ -1,0 +1,58 @@
+name: PatriaSoul · Pregled dana
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions cron koristi UTC. Oba termina pokrivaju 05:00 u Hrvatskoj
+    # tijekom zimskog i ljetnog računanja vremena; skripta preskače drugi termin.
+    - cron: "0 3 * * *"
+    - cron: "0 4 * * *"
+  push:
+    paths:
+      - "scripts/build/update-vazne-obavijesti.js"
+      - ".github/workflows/pregled-dana.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: patriasoul-pregled-dana
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Preuzmi najnoviji portal
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Postavi Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Provjeri sintaksu skripte
+        run: node --check scripts/build/update-vazne-obavijesti.js
+
+      - name: Prikupi izvore i izradi PatriaSoul pregled dana
+        run: node scripts/build/update-vazne-obavijesti.js
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+
+      - name: Spremi dnevni pregled u repozitorij
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "PatriaSoul Bot"
+          git config user.email "patriasoul@protonmail.com"
+          git add data/vazne-obavijesti.json
+          if git diff --cached --quiet -- data/vazne-obavijesti.json; then
+            echo "Dnevni pregled nije promijenjen."
+            exit 0
+          fi
+          git commit -m "PatriaSoul pregled dana: osvježi dnevne obavijesti [skip ci]"
+          git push origin HEAD:main
