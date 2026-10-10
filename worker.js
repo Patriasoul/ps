@@ -153,6 +153,91 @@ export default {
       }
     }
 
-    return env.ASSETS.fetch(request);
+    // CMS članak može biti objavljen u Supabaseu prije nego što ga sljedeći
+    // statički build upiše u _site. Ako statička datoteka nedostaje, posluži
+    // objavljeni CMS zapis odmah; tako gumb „Otvori članak” nikad ne ovisi o
+    // desetominutnom rasporedu izgradnje.
+    const assetResponse = await env.ASSETS.fetch(request);
+    const cmsPathMatch = url.pathname.match(/^\\/clanci\\/(domovina|povijest|vjera|cuvari-nasljedja)\\/(clanak-[a-z0-9-]+\\.html)$/i);
+    if (assetResponse.status !== 404 || !cmsPathMatch || !["GET", "HEAD"].includes(request.method)) {
+      return assetResponse;
+    }
+
+    try {
+      const cmsUrl = "https://ijimozjfdffejbczwyzb.supabase.co/rest/v1/portal_articles";
+      const cmsKey = "sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr";
+      const publicPath = url.pathname.replace(/^\\//, "");
+      const query = new URL(cmsUrl);
+      query.searchParams.set("select", "path,title,kicker,category,subcategory,excerpt,body_html,image_url,image_alt,author_display,published_at,source_data,status");
+      query.searchParams.set("path", "eq." + publicPath);
+      query.searchParams.set("status", "eq.published");
+      query.searchParams.set("limit", "1");
+      const cmsResponse = await fetch(query.toString(), {
+        headers: { apikey: cmsKey, Authorization: "Bearer " + cmsKey, Accept: "application/json" },
+        signal: AbortSignal.timeout(8000),
+        cache: "no-store"
+      });
+      if (!cmsResponse.ok) return assetResponse;
+      const cmsRows = await cmsResponse.json();
+      const article = Array.isArray(cmsRows) ? cmsRows[0] : null;
+      if (!article || article.status !== "published" || article.path !== publicPath) return assetResponse;
+
+      const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[ch]));
+      const safeBody = String(article.body_html || "")
+        .replace(/<\\s*(script|iframe|object|embed|form)\\b[^>]*>[\\s\\S]*?<\\/\\s*\\1\\s*>/gi, "")
+        .replace(/<\\s*(script|iframe|object|embed|form)\\b[^>]*\\/?>/gi, "")
+        .replace(/\\s+on[a-z]+\\s*=\\s*("[^"]*"|'[^']*'|[^\\s>]+)/gi, "")
+        .replace(/\\s+(href|src)\\s*=\\s*(["'])\\s*javascript:[\\s\\S]*?\\2/gi, "");
+      const title = String(article.title || "PatriaSoul članak");
+      const author = article.author_display && article.author_display !== "Čuvari nasljeđa" ? article.author_display : "PatriaSoul";
+      const description = String(article.source_data?.seo?.description || article.excerpt || title).slice(0, 300);
+      const categoryLabels = { domovina: "Domovina", povijest: "Povijest", vjera: "Vjera", "cuvari-nasljedja": "Čuvari nasljeđa" };
+      const categoryLabel = categoryLabels[cmsPathMatch[1].toLowerCase()] || "PatriaSoul";
+      const imageRaw = String(article.image_url || "").trim();
+      const image = imageRaw && /^(https?:|data:|blob:|\\/\\/)/i.test(imageRaw)
+        ? (imageRaw.startsWith("//") ? "https:" + imageRaw : imageRaw)
+        : imageRaw ? "https://ps.patriasoul.workers.dev/" + imageRaw.replace(/^\\.\\//, "").replace(/^\\//, "") : "";
+      const date = article.published_at ? new Intl.DateTimeFormat("hr-HR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Zagreb" }).format(new Date(article.published_at)) : "";
+      const sources = Array.isArray(article.source_data?.sources)
+        ? article.source_data.sources.filter(value => typeof value === "string" && /^https?:\\/\\//i.test(value))
+        : [];
+      const sourcesHtml = sources.length
+        ? '<section class="article-sources"><h2>Izvori</h2><ul>' + sources.map(source => '<li><a href="' + escapeHtml(source) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(source.replace(/^https?:\\/\\//i, "").slice(0, 140)) + '</a></li>').join("") + '</ul></section>'
+        : "";
+      const canonical = "https://ps.patriasoul.workers.dev/" + publicPath;
+      const html = [
+        '<!doctype html><html lang="hr" data-patriasoul-cms="true"><head>',
+        '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',
+        '<title>' + escapeHtml(article.source_data?.seo?.title || title) + ' · PatriaSoul</title>',
+        '<meta name="description" content="' + escapeHtml(description) + '"><meta name="author" content="' + escapeHtml(author) + '">',
+        '<link rel="canonical" href="' + escapeHtml(canonical) + '">',
+        '<meta property="og:type" content="article"><meta property="og:site_name" content="PatriaSoul"><meta property="og:locale" content="hr_HR">',
+        '<meta property="og:title" content="' + escapeHtml(title) + '"><meta property="og:description" content="' + escapeHtml(description) + '"><meta property="og:url" content="' + escapeHtml(canonical) + '">',
+        image ? '<meta property="og:image" content="' + escapeHtml(image) + '">' : "",
+        '<link rel="stylesheet" href="/assets/css/modern-articles.css"></head><body>',
+        '<main class="container article-page" data-modern-article="true"><span class="kicker">' + escapeHtml(categoryLabel.toLocaleUpperCase("hr-HR")) + (article.subcategory ? " · " + escapeHtml(article.subcategory) : "") + '</span>',
+        '<h1>' + escapeHtml(title) + '</h1>',
+        article.excerpt ? '<p class="article-deck">' + escapeHtml(article.excerpt) + '</p>' : "",
+        '<div class="article-meta">Autor: ' + escapeHtml(author) + (date ? " · " + escapeHtml(date) : "") + '</div>',
+        image ? '<figure class="article-figure"><img class="article-hero" src="' + escapeHtml(image) + '" alt="' + escapeHtml(article.image_alt || title) + '" loading="eager" decoding="async"><figcaption>' + escapeHtml(article.image_alt || title) + '</figcaption></figure>' : "",
+        '<article class="article-body">' + safeBody + '</article>', sourcesHtml,
+        '<p class="editorial-note"><strong>PatriaSoul — Čuvari nasljeđa</strong><br>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></main>',
+        '<footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div></footer>',
+        '<script src="/assets/js/portal.js"></script></body></html>'
+      ].join("\\n");
+      return new Response(request.method === "HEAD" ? null : html, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=60, stale-while-revalidate=300",
+          "X-Content-Type-Options": "nosniff"
+        }
+      });
+    } catch (error) {
+      console.error("CMS article fallback failed", error);
+      return assetResponse;
+    }
   },
 };
