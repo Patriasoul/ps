@@ -91,7 +91,7 @@ function calendarItems(today) {
     ["12-26", "Sveti Stjepan", "Blagdan", "Blagdan svetog Stjepana prvomučenika."],
   ];
   const entries = fixed.filter(([md]) => md === String(p.month).padStart(2, "0") + "-" + String(p.day).padStart(2, "0"))
-    .map(([md, title, category, summary]) => ({ id: "calendar-" + y + "-" + md, category, title, summary, source: "Kalendar blagdana i spomendana PatriaSoul", sourceUrl: "https://gov.hr/", eventDate: dateKey(today), priority: 4 }));
+    .map(([md, title, category, summary]) => ({ id: "calendar-" + y + "-" + md, category, title, summary, source: "Kalendar blagdana i spomendana PatriaSoul", sourceUrl: "https://gov.hr/", eventDate: dateKey(today), publishedAt: dateKey(today) + "T00:00:00.000Z", priority: 0 }));
   const movable = [
     [easter, "Uskrs", "Blagdan", "Kršćani slave uskrsnuće Isusa Krista."],
     [addDays(easter, 1), "Uskrsni ponedjeljak", "Blagdan", "Dan nakon Uskrsa."],
