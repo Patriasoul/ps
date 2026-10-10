@@ -63,7 +63,7 @@ async function main() {
     const description = String(article.source_data?.seo?.description || article.excerpt || title).slice(0,300);
     const rawImageUrl = String(article.image_url || "").trim();
     // A PDF/document URL is not a usable <img> source. Never publish it as a hero image.
-    const image = /\\.pdf(?:[?#]|$)/i.test(rawImageUrl) ? "" : normalizeImageUrl(rawImageUrl);
+    const image = /\.pdf(?:[?#]|$)/i.test(rawImageUrl) ? "" : normalizeImageUrl(rawImageUrl);
     const imageCredit = article.source_data?.image_credit && article.source_data?.image_source
       ? '<small class="article-image-credit">Kredit: <a href="'+esc(article.source_data.image_source)+'" target="_blank" rel="noopener noreferrer">'+esc(article.source_data.image_credit)+'</a> · licenca <a href="https://creativecommons.org/licenses/by-sa/3.0/hr/deed.hr" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0 HR</a></small>'
       : "";
