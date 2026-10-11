@@ -104,6 +104,45 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+  deploy-preview-worker:
+    if: github.ref == 'refs/heads/feature/cuvari-nasljeda-social-wall-v1'
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Preuzmi postavke Workera
+        uses: actions/checkout@v6
+
+      - name: Postavi Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Provjeri jesu li dostupni Cloudflare podaci
+        run: |
+          test -n "$CF_API_TOKEN" || (echo "::error::Nedostaje CLOUDFLARE_API_TOKEN"; exit 1)
+          test -n "$CF_ACCOUNT_ID" || (echo "::error::Nedostaje CLOUDFLARE_ACCOUNT_ID"; exit 1)
+
+      - name: Preuzmi provjereni portal
+        uses: actions/download-artifact@v4
+        with:
+          name: cloudflare-worker-assets
+          path: _site
+
+      - name: Objavi odvojeni pregledni portal
+        run: npx --yes wrangler@4 deploy --name ps-preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Provjeri ključne stranice pregleda
+        run: |
+          for path in / /stranice/profil.html /stranice/domoljubni-forum.html /stranice/grupe-dogadjaji.html /stranice/poruke-obavijesti.html; do
+            curl --fail --silent --show-error "https://ps-preview.patriasoul.workers.dev$path" -o /dev/null
+          done
+
   deploy-cloudflare-worker:
     if: github.ref == 'refs/heads/main'
     needs: build
