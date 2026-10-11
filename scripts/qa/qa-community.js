@@ -30,7 +30,7 @@ const contentByFile = Object.fromEntries(files.map(file => [file, fs.readFileSyn
 const stalePatterns = [
   ["index.html", /(?:clanci\/|kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
   ["assets/js/portal.js", /(?:kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
-  ["stranice/administracija.html", /(?:data-admin-tab="content"|data-admin-tab="editorial"|data-admin-tab="ai"|data-admin-tab="archive"|assets\/js\/ai-article\.js|assets\/js\/article-editor\.js)/],
+  ["stranice/administracija.html", /(?:data-admin-tab="content"|data-admin-tab="editorial"|data-admin-tab="ai"|data-admin-tab="archive"|assets\/js\/ai-article\.js|assets\/js\/article-editor\.js|id="articles-manage"|id="published-articles-manage"|id="article-editor"|rss_editorial_drafts|portal_articles|Najnoviji članci)/],
   ["worker.js", /(?:portal_articles|\/api\/rss|kategorije\/)/]
 ];
 const staleFound = stalePatterns.filter(([file, pattern]) => pattern.test(contentByFile[file])).map(([file]) => file);
