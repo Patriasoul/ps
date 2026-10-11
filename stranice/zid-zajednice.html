@@ -57,7 +57,7 @@
       <form id="ps-wall-post-form">
         <label class="ps-wall-sr-only" for="ps-wall-post-content">Tekst objave</label>
         <textarea id="ps-wall-post-content" maxlength="5000" placeholder="Podijeli priču, fotografiju ili misao sa zajednicom…" rows="4"></textarea>
-        <div class="ps-wall-link-fields"><label for="ps-wall-link-title">Naslov poveznice <span>(neobavezno)</span><input id="ps-wall-link-title" type="text" maxlength="180" placeholder="Npr. Tema na forumu ili rezultat kviza"></label><label for="ps-wall-link-url">Poveznica na forum ili kviz<input id="ps-wall-link-url" type="url" maxlength="1000" placeholder="https://ps.patriasoul.workers.dev/…" inputmode="url"></label><label for="ps-wall-link-type">Vrsta poveznice<select id="ps-wall-link-type"><option value="link">Poveznica</option><option value="forum">Forum</option><option value="quiz">Kviz</option></select></label></div>
+        <div class="ps-wall-link-fields"><label for="ps-wall-link-title">Naslov poveznice <span>(neobavezno)</span><input id="ps-wall-link-title" type="text" maxlength="180" placeholder="Npr. Tema na forumu ili rezultat kviza"></label><label for="ps-wall-link-url">Poveznica na sadržaj <span>(YouTube, članak ili druga HTTPS adresa)</span><input id="ps-wall-link-url" type="url" maxlength="1000" placeholder="https://…" inputmode="url"></label></div>
         <div class="ps-wall-composer-bottom">
           <label class="ps-wall-upload" for="ps-wall-post-image">＋ Dodaj fotografiju<input id="ps-wall-post-image" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
           <span id="ps-wall-image-name">Bez fotografije</span>
@@ -72,9 +72,7 @@
   <aside class="ps-wall-right">
     <section class="ps-wall-panel">
       <p class="ps-wall-kicker">POVEŽIMO SE</p><h2>Mjesto za zajedništvo</h2>
-      <p>Podijeli kviz, pokreni razgovor na forumu ili se poveži s ljudima koji žele čuvati hrvatsko nasljeđe.</p>
-      <a class="ps-wall-side-cta" href="domoljubni-forum.html">Otvori forum</a>
-      <a class="ps-wall-side-cta ps-wall-side-cta-alt" href="../kviz/">Zaigraj kviz</a>
+      <p>Podijeli video, članak, fotografiju ili priču koja čuva hrvatsko nasljeđe. Sadržaj iz foruma i rezultat kviza moći će se podijeliti izravno na zid.</p>
     </section>
     <section class="ps-wall-panel">
       <h2>Sigurnost članova</h2><p class="ps-wall-small">Možeš prijaviti objavu ili blokirati člana. Prijave se pregledavaju kroz administratorske alate.</p>
@@ -85,6 +83,7 @@
 </main>
 <script src="../assets/js/portal.js"></script>
 <script src="../assets/js/auth.js?v=20261011-wall-v1"></script>
-<script src="../assets/js/social-wall.js?v=20261011-wall-v1"></script>
+<script src="../assets/js/social-wall.js?v=20261011-share-any-link-v2"></script>
+<script src="../assets/js/community-indicators.js?v=20261011-indicators-v1"></script>
 </body>
 </html>
