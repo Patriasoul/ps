@@ -81,7 +81,7 @@ for (const [file, token] of [
 const wallJs = fs.readFileSync(path.join(root, "assets/js/social-wall.js"), "utf8");
 if (!wallJs.includes("cleanReason.length<3")) throw new Error("Prijava sadržaja mora provjeriti minimalnu duljinu razloga.");
 const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110001_social_wall.sql"), "utf8");
-for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check", "community_groups", "community_group_members", "community_events", "community_event_attendees", "cover_image_path", "profile_cover.cover_image_path = name", "grant update (cover_image_path) on public.profiles to authenticated;", "revoke update (cover_image_path) on public.profiles from anon;"]) {
+for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check", "community_groups", "community_group_members", "community_events", "community_event_attendees", "cover_image_path", "profile_cover.cover_image_path = name", "grant update (cover_image_path) on public.profiles to authenticated;", "revoke update (cover_image_path) on public.profiles from anon;", "community_add_group_owner()", "community_group_add_owner"]) {
   if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
 }
 if (!migration.includes("with check(owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid() and gm.role='moderator')")) throw new Error("RLS pravilo ne dopušta moderatoru sigurno uređivanje njegove grupe.");
@@ -94,4 +94,6 @@ for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "com
   if (!hub.includes(token)) throw new Error("Stranici grupa i događaja nedostaje element: " + token);
 }
 if (!contentByFile["assets/js/portal.js"].includes("stranice/grupe-dogadjaji.html")) throw new Error("Grupe i događaji nisu povezani u zajedničkoj navigaciji.");
+const hubJs = fs.readFileSync(path.join(root, "assets/js/community-hub.js"), "utf8");
+if (hubJs.includes('from("community_group_members").insert({group_id:data.id,user_id:user.id,role:"owner"})')) throw new Error("Vlasničko članstvo mora se stvoriti atomski kroz bazni trigger.");
 console.log("ZAJEDNICA QA OK — postojeće funkcije su sačuvane; zid i migracija društvenih funkcija postoje.");
