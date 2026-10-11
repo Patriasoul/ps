@@ -1,4 +1,4 @@
-(()=>{"use strict";const auth=window.PatriaSoulAuth,$=s=>document.querySelector(s),set=(id,v)=>{const e=$("#"+id);if(e)e.textContent=v},fmt=v=>v?new Intl.DateTimeFormat("hr-HR",{dateStyle:"medium",timeStyle:"short"}).format(new Date(v)):"—";const OWNER="patriasoul@protonmail.com";const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));const roleLabel=r=>({player:"Korisnik",editor:"Urednik",admin:"Admin"}[r]||"Korisnik");const statusLabel=s=>({draft:"Nacrt",review:"Urednička provjera",approved:"Odobreno",scheduled:"Zakazano",published:"Objavljeno",archived:"Arhivirano"}[s]||s||"—");const storyLabel=s=>({novo:"Novo",u_provjeri:"U provjeri",prihvaceno:"Prihvaćeno",odbijeno:"Odbijeno",objavljeno:"Objavljeno"}[s]||s||"—");const commentText=v=>String(v??"").trim();async function count(c,t){const r=await c.from(t).select("*",{count:"exact",head:true});if(r.error){console.error("PatriaSoul admin count error",t,r.error);return null}return r.count||0}
+(()=>{"use strict";const auth=window.PatriaSoulAuth,$=s=>document.querySelector(s),set=(id,v)=>{const e=$("#"+id);if(e)e.textContent=v},fmt=v=>v?new Intl.DateTimeFormat("hr-HR",{dateStyle:"medium",timeStyle:"short"}).format(new Date(v)):"—";const OWNER="patriasoul@protonmail.com";const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));const roleLabel=r=>({player:"Korisnik",editor:"Urednik",admin:"Admin"}[r]||"Korisnik");const statusLabel=s=>({draft:"Nacrt",review:"Urednička provjera",approved:"Odobreno",scheduled:"Zakazano",published:"Objavljeno",archived:"Arhivirano"}[s]||s||"—");const storyLabel=s=>({novo:"Novo",u_provjeri:"U provjeri",prihvaceno:"Prihvaćeno",odbijeno:"Odbijeno",objavljeno:"Objavljeno"}[s]||s||"—");async function count(c,t){const r=await c.from(t).select("*",{count:"exact",head:true});if(r.error){console.error("PatriaSoul admin count error",t,r.error);return null}return r.count||0}
 const GH_API="https://api.github.com/repos/cn-dom/ps/actions/workflows/";
 async function githubWorkflowRuns(file){try{const r=await fetch(GH_API+encodeURIComponent(file)+"/runs?per_page=5",{cache:"no-store",headers:{Accept:"application/vnd.github+json"}});if(!r.ok)throw new Error("GitHub Actions HTTP "+r.status);const j=await r.json();return (j.workflow_runs||[]).sort((a,b)=>Date.parse(b.run_started_at||b.created_at||b.updated_at||0)-Date.parse(a.run_started_at||a.created_at||a.updated_at||0))}catch(e){console.error("PatriaSoul GitHub Actions status error",file,e);return null}}
 async function latestGithubBackup(){const lists=await Promise.all([githubWorkflowRuns("backup.yml"),githubWorkflowRuns("storage-backup.yml")]);if(lists.some(x=>x===null))return {data:[],error:{message:"GitHub Actions status unavailable"}};const runs=lists.flat().sort((a,b)=>Date.parse(b.run_started_at||b.created_at||b.updated_at||0)-Date.parse(a.run_started_at||a.created_at||a.updated_at||0));return {data:runs.slice(0,1),error:null}}
@@ -27,8 +27,6 @@ async function manageForum(c,canManage,currentId){
  reportsBox?.querySelectorAll("[data-forum-report-status]").forEach(el=>el.addEventListener("change",async()=>{const old="open";el.disabled=true;try{const r=await c.from("forum_reports").update({status:el.value,reviewed_by:currentId,reviewed_at:new Date().toISOString()}).eq("id",el.dataset.forumReportStatus);if(r.error)throw r.error;await manageForum(c,canManage,currentId)}catch(e){alert("Prijava nije ažurirana: "+(e?.message||"greška"));el.value=old}finally{el.disabled=!canManage}}));
 }
 async function manageStories(c){const r=await c.from("heritage_submissions").select("id,title,name,category,status,created_at,location").order("created_at",{ascending:false}).limit(30);const b=$("#stories-manage");if(r.error){console.error("PatriaSoul admin stories error",r.error);b.innerHTML="<p>Prijavljene priče trenutačno nisu dostupne. Provjeri dozvole Supabase tablice.</p>";return}b.innerHTML=(r.data||[]).map(x=>'<div class="ps-admin-item ps-admin-manage-item"><div><strong>'+esc(x.title||"Bez naslova")+'</strong><small>'+esc(x.name||"")+(x.location?" · "+esc(x.location):"")+" · "+fmt(x.created_at)+'</small></div><div class="ps-admin-actions"><select data-story-status="'+esc(x.id)+'"><option value="novo" '+(x.status==="novo"?"selected":"")+'>Novo</option><option value="u_provjeri" '+(x.status==="u_provjeri"?"selected":"")+'>U provjeri</option><option value="prihvaceno" '+(x.status==="prihvaceno"?"selected":"")+'>Prihvaćeno</option><option value="odbijeno" '+(x.status==="odbijeno"?"selected":"")+'>Odbijeno</option><option value="objavljeno" '+(x.status==="objavljeno"?"selected":"")+'>Objavljeno</option></select></div></div>').join("")||"<p>Nema prijavljenih priča.</p>";b.querySelectorAll("[data-story-status]").forEach(s=>{s.dataset.old=s.value;s.addEventListener("change",async()=>{const old=s.dataset.old;s.disabled=true;try{const r=await c.from("heritage_submissions").update({status:s.value}).eq("id",s.dataset.storyStatus);if(r.error)throw r.error;s.dataset.old=s.value}catch(e){alert("Status priče nije promijenjen: "+(e?.message||"nepoznata greška"));s.value=old}finally{s.disabled=false}})})}
-async function manageComments(c){const r=await c.from("article_comments").select("id,article_path,author_name,body,created_at").order("created_at",{ascending:false}).limit(30);if(r.error)throw r.error;const b=$("#comments-manage");b.innerHTML=(r.data||[]).map(x=>'<div class="ps-admin-comment"><div class="ps-admin-comment-head"><strong>'+esc(x.author_name||"Korisnik")+'</strong><small>'+fmt(x.created_at)+'</small></div><small>'+esc(x.article_path||"")+'</small><p>'+esc(commentText(x.body))+'</p><button type="button" class="ps-admin-danger" data-delete-comment="'+esc(x.id)+'">Obriši komentar</button></div>').join("")||"<p>Nema komentara.</p>";b.querySelectorAll("[data-delete-comment]").forEach(btn=>btn.addEventListener("click",async()=>{if(!confirm("Obrisati ovaj komentar?"))return;btn.disabled=true;try{const r=await c.from("article_comments").delete().eq("id",btn.dataset.deleteComment);if(r.error)throw r.error;await manageComments(c);set("stat-comments",await count(c,"article_comments"))}catch(e){alert("Komentar nije obrisan: "+(e?.message||"nepoznata greška"));btn.disabled=false}}))}
-
 async function load(){
  const status=$("#admin-status"),denied=$("#admin-denied"),dash=$("#admin-dashboard");
  try{
@@ -47,15 +45,14 @@ async function load(){
   $("#roles-panel").hidden=!owner;
   const note=$("#admin-access-note");
   if(note)note.textContent=owner?"Puni pristup, uključujući upravljanje ulogama.":ops?"Moderacija zajednice i foruma.":"Upravljanje prijavljenim pričama i komentarima.";
-  const [stories,comments,usersCount,forumTopics,forumPosts,backs,deps,events]=await Promise.all([
-   count(c,"heritage_submissions"),count(c,"article_comments"),count(c,"profiles"),
+  const [stories,usersCount,forumTopics,forumPosts,backs,deps,events]=await Promise.all([
+   count(c,"heritage_submissions"),count(c,"profiles"),
    count(c,"forum_topics"),count(c,"forum_posts"),
    ops?latestGithubBackup():Promise.resolve({data:[],error:null}),
    ops?githubWorkflowRuns("pages.yml").then(r=>r===null?{data:[],error:{message:"GitHub Actions status unavailable"}}:{data:r.slice(0,1),error:null}):Promise.resolve({data:[],error:null}),
    ops?c.from("portal_system_events").select("level,event_type,message,created_at").order("created_at",{ascending:false}).limit(10):Promise.resolve({data:[],error:null})
   ]);
   set("stat-stories",stories===null?"—":stories);
-  set("stat-comments",comments===null?"—":comments);
   set("stat-users",usersCount===null?"—":usersCount);
   set("stat-forum-topics",forumTopics===null?"—":forumTopics);
   set("stat-forum-posts",forumPosts===null?"—":forumPosts);
@@ -74,13 +71,12 @@ async function load(){
    ["Pristup",true,owner?"Vlasnik potvrđen":ops?"Administratorski pristup potvrđen":"Urednički pristup potvrđen"],
    ["Forum",forumTopics!==null&&forumPosts!==null,(forumTopics??"—")+" tema · "+(forumPosts??"—")+" objava"],
    ["Prijavljene priče",stories!==null,stories===null?"Podaci nisu dostupni":stories+" zapisa"],
-   ["Komentari",comments!==null,comments===null?"Podaci nisu dostupni":comments+" zapisa"],
    ["Korisnici",usersCount!==null,usersCount===null?"Podaci nisu dostupni":usersCount+" profila"],
    ["Sigurnosna kopija",ops?(backup?.status==="completed"&&backup?.conclusion==="success"):"—",ops?(backup?workflowStatus(backup):"Nema zapisa"):"Dostupno administratoru"],
    ["Objava portala",ops?(deploy?.status==="completed"&&deploy?.conclusion==="success"):"—",ops?(deploy?workflowStatus(deploy):"Nema zapisa"):"Dostupno administratoru"],
    ["Sustavne greške",ops?errorEvents.length===0:"—",ops?(errorEvents.length?errorEvents.length+" grešaka":"Nema evidentiranih grešaka"):"Dostupno administratoru"]
   ].map(x=>'<li><span>'+esc(x[0])+'</span><strong class="'+(x[1]===true?"ps-check-ok":x[1]===false?"ps-check-bad":"")+'">'+(x[1]===true?"✓ ":x[1]===false?"! ":"")+esc(x[2])+"</strong></li>").join("");
-  const tasks=[manageStories(c),manageComments(c)];
+  const tasks=[manageStories(c)];
   if(ops)tasks.push(manageForum(c,true,u.id));else tasks.push(manageForum(c,false,u.id));
   if(owner)tasks.push(users(c,u.id));
   const results=await Promise.allSettled(tasks);
