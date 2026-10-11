@@ -99,7 +99,7 @@ async function load(){
   const ops=role==="admin"||owner;
   status.textContent=(owner?"Vlasnik PatriaSoul · ":role==="admin"?"Administrator · ":"Urednik · ")+(profile.data?.display_name||u.email||"");
   dash.hidden=false;
-  const rolesPanel=$("#roles-panel");if(rolesPanel)rolesPanel.hidden=!owner;const requestsPanel=$("#account-requests-panel");if(requestsPanel)requestsPanel.hidden=!ops;
+  const rolesPanel=$("#roles-panel");if(rolesPanel){rolesPanel.dataset.accessDenied=String(!owner);rolesPanel.hidden=!owner}const requestsPanel=$("#account-requests-panel");if(requestsPanel){requestsPanel.dataset.accessDenied=String(!ops);requestsPanel.hidden=!ops}
   const note=$("#admin-access-note");
   if(note)note.textContent=owner?"Puni pristup, uključujući upravljanje ulogama.":ops?"Moderacija zajednice i foruma.":"Upravljanje prijavljenim pričama i komentarima.";
   const [stories,usersCount,forumTopics,forumPosts,backs,deps,events]=await Promise.all([
