@@ -17,7 +17,10 @@ const required = [
   "assets/js/portal.js",
   "assets/js/auth.js",
   "assets/js/admin.js",
-  "data/navigation.json"
+  "data/navigation.json",
+  "data/search-index.json",
+  "assets/js/search.js",
+  "scripts/build/generate-discovery.js"
 ];
 const missing = required.filter(file => !fs.existsSync(path.join(root, file)));
 if (missing.length) {
@@ -31,7 +34,8 @@ const stalePatterns = [
   ["index.html", /(?:clanci\/|kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
   ["assets/js/portal.js", /(?:kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
   ["stranice/administracija.html", /(?:data-admin-tab="content"|data-admin-tab="editorial"|data-admin-tab="ai"|data-admin-tab="archive"|assets\/js\/ai-article\.js|assets\/js\/article-editor\.js|id="articles-manage"|id="published-articles-manage"|id="article-editor"|rss_editorial_drafts|portal_articles|Najnoviji članci)/],
-  ["worker.js", /(?:portal_articles|\/api\/rss|kategorije\/)/]
+  ["worker.js", /(?:portal_articles|\/api\/rss|kategorije\/)/],
+  ["assets/js/search.js", /data\/articles\.json/]
 ];
 const staleFound = stalePatterns.filter(([file, pattern]) => pattern.test(contentByFile[file])).map(([file]) => file);
 if (staleFound.length) {
