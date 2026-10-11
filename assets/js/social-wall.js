@@ -49,7 +49,7 @@ async function init(){
 imageInput.addEventListener("change",()=>{$("ps-wall-image-name").textContent=imageInput.files?.[0]?.name||"Bez fotografije"});
 form.addEventListener("submit",async e=>{
  e.preventDefault();if(!user)return;
- const content=$("ps-wall-post-content").value.trim(),file=imageInput.files?.[0],rawLink=$("ps-wall-link-url").value.trim(),linkTitle=$("ps-wall-link-title").value.trim(),linkType=$("ps-wall-link-type").value;
+ const content=$("ps-wall-post-content").value.trim(),file=imageInput.files?.[0],rawLink=$("ps-wall-link-url").value.trim(),linkTitle=$("ps-wall-link-title").value.trim();
  let link_url=null;
  if(rawLink){try{const parsed=new URL(rawLink);
   if(parsed.protocol!=="https:"){say("Radi sigurnosti dopuštene su samo HTTPS poveznice.",true);return}
