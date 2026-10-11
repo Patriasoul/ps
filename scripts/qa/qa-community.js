@@ -27,6 +27,7 @@ const required = [
   "supabase/migrations/202610110005_group_owner_delete.sql",
   "supabase/migrations/202610110006_friendships_profile_privacy.sql",
   "supabase/migrations/202610110007_photo_visibility_storage.sql",
+  "supabase/migrations/202610110008_friendship_notifications.sql",
   "stranice/administracija.html",
   "stranice/pretraga.html",
   "kviz/index.html",
@@ -157,6 +158,10 @@ for (const token of ["profile-friend-action", "profile-message-action", "profile
 const profileLogic = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
 for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "ps-profile-suggestion-grid", "profile-friend-action", "profile-message-action"]) {
   if (!profileLogic.includes(token)) throw new Error("Logici profila nedostaje prijateljstvo ili privatnost: " + token);
+}
+const friendshipNotifications = fs.readFileSync(path.join(root, "supabase/migrations/202610110008_friendship_notifications.sql"), "utf8");
+for (const token of ["user_notifications", "community_friendship_notify_insert", "community_friendship_notify_update", "friend_request", "friend_accepted", "friend_declined", "security definer", "NEW.recipient_id", "NEW.sender_id"]) {
+  if (!friendshipNotifications.includes(token)) throw new Error("Migraciji obavijesti o prijateljstvu nedostaje događaj ili zaštita: " + token);
 }
 const photoPrivacyMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110007_photo_visibility_storage.sql"), "utf8");
 for (const token of ["members read attached community images", "photos_visibility = 'public'", "photos_visibility = 'friends'", "posts_visibility = 'public'", "community_friendships", "community_user_blocks", "bucket_id = 'community-media'"]) {
