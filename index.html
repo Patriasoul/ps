@@ -1,75 +1,85 @@
 <!doctype html>
 <html lang="hr">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" type="image/jpeg" href="/assets/images/patriasoul-logo.jpg">
-<link rel="apple-touch-icon" href="/assets/images/patriasoul-logo.jpg">
-<meta name="description" content="PatriaSoul — Hrvatska, povijest, znanje i identitet.">
-<title>PatriaSoul — Hrvatska. Povijest. Znanje. Identitet.</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="PatriaSoul — hrvatska zajednica za znanje, baštinu, razgovor i povezivanje.">
+<meta name="theme-color" content="#172c46">
+<title>PatriaSoul — Zajednica čuvara nasljeđa</title>
+<link rel="icon" type="image/jpeg" href="assets/images/patriasoul-logo.jpg">
+<link rel="apple-touch-icon" href="assets/images/patriasoul-logo.jpg">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/header.css">
-<link rel="stylesheet" href="assets/css/navigation.css">
-<link rel="stylesheet" href="assets/css/homepage.css?v=20261009-v3">
-<link rel="stylesheet" href="assets/css/categories.css">
-<link rel="stylesheet" href="assets/css/category-content.css">
-<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="assets/css/homepage.css">
+<link rel="stylesheet" href="assets/css/pages.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
-<link rel="alternate" type="application/rss+xml" title="PatriaSoul — Najnovije" href="rss.xml"></head>
+<style>
+.ps-community-home{max-width:1180px;margin:0 auto;padding:30px 18px 64px;color:#20252b}
+.ps-community-hero{position:relative;overflow:hidden;padding:clamp(30px,6vw,72px);border-radius:20px;background:linear-gradient(115deg,rgba(11,31,53,.96),rgba(20,58,87,.88)),url('assets/images/hrvatska-hero.svg') center/cover;color:#fff}
+.ps-community-hero .ps-kicker{color:#f0c7cb;letter-spacing:.12em;font-weight:800}
+.ps-community-hero h1{font:800 clamp(2.5rem,6vw,5rem)/1.02 Georgia,serif;max-width:850px;margin:12px 0 18px;letter-spacing:-.04em}
+.ps-community-hero p:not(.ps-kicker){max-width:720px;color:#e4ebf2;font-size:1.1rem;line-height:1.7}
+.ps-community-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.ps-community-actions a{display:inline-block;padding:12px 17px;border-radius:8px;background:#b51224;color:white;text-decoration:none;font-weight:800}
+.ps-community-actions a.secondary{background:transparent;border:1px solid #b8c9d8}
+.ps-community-section{margin-top:42px}.ps-community-section h2{font:800 clamp(1.7rem,3vw,2.5rem)/1.15 Georgia,serif;color:#173752;margin:0 0 9px}
+.ps-community-intro{color:#5d6874;line-height:1.65;max-width:760px}
+.ps-community-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.ps-community-card{display:block;padding:22px;border:1px solid #dfe5eb;border-radius:14px;background:#fff;text-decoration:none;color:#20252b;box-shadow:0 4px 18px rgba(16,35,55,.045);transition:transform .15s,border-color .15s}
+.ps-community-card:hover{transform:translateY(-2px);border-color:#b51224}.ps-community-card .symbol{font-size:1.7rem}.ps-community-card h3{margin:12px 0 8px;color:#173752;font-size:1.18rem}.ps-community-card p{margin:0;color:#5d6874;line-height:1.55}
+.ps-community-pill{display:inline-block;margin-top:14px;color:#b51224;font-weight:800}
+.ps-community-notice{padding:20px 22px;border-left:4px solid #b51224;background:#f4f6f8;border-radius:8px;line-height:1.65}
+.ps-community-footer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}.ps-community-footer-grid a{padding:22px;border:1px solid #dfe5eb;border-radius:12px;text-decoration:none;color:#173752;background:#fff}.ps-community-footer-grid strong{display:block;font-size:1.1rem;margin-bottom:7px}.ps-community-footer-grid span{color:#5d6874;line-height:1.5}
+@media(max-width:760px){.ps-community-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ps-community-footer-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.ps-community-grid{grid-template-columns:1fr}.ps-community-hero{border-radius:13px}}
+</style>
+</head>
 <body>
-<main class="ps-home">
-<section class="ps-hero-home"><div class="ps-container">
-<p class="ps-kicker">PATRIASOUL · ČUVAJ NASLJEĐE</p>
-<h1>Hrvatska.<br>Povijest. Znanje. Identitet.</h1>
-<p>Digitalni prostor u kojem se hrvatska povijest, domovina, vjera, baština, obitelji i znanje povezuju u jednu priču.</p>
-<div class="ps-hero-actions"><a href="stranice/najnovije.html">Najnovije priče</a><a href="/kviz/">Igraj Hrvatski kviz</a></div>
-</div></section>
+<main class="ps-community-home">
+<section class="ps-community-hero">
+<p class="ps-kicker">PATRIASOUL · ČUVARI NASLJEĐA</p>
+<h1>Hrvatska. Znanje. Zajedništvo.</h1>
+<p>Mjesto za ljude koji žele učiti, razgovarati, čuvati hrvatsku baštinu i povezivati se kroz znanje, vjeru, obitelj i domovinu.</p>
+<div class="ps-community-actions">
+<a href="stranice/domoljubni-forum.html">Uđi na forum</a>
+<a class="secondary" href="kviz/">Igraj Hrvatski kviz</a>
+<a class="secondary" href="stranice/registracija.html">Pridruži se zajednici</a>
+</div>
+</section>
 
-<section class="ps-breaking" aria-label="Najnovije vijesti"><div class="ps-breaking-label">NAJNOVIJE VIJESTI</div><div class="ps-breaking-window"><div class="ps-breaking-track">
-<a href="clanci/domovina/clanak-hbor-izvoz-2026.html">HBOR u prvih devet mjeseci podržao gospodarstvo s 1,65 milijardi eura</a><span>•</span>
-<a href="clanci/domovina/clanak-med9-hrvatska-predsjedanje-2026.html">MED9: Trogir uoči splitskog summita</a><span>•</span>
-<a href="clanci/domovina/clanak-gorivo-cijene-listopad-2026.html">Nove cijene goriva i što znače za građane</a><span>•</span>
-<a href="clanci/domovina/clanak-sisak-opasni-otpad-toplice-2026.html">Sisak: opasni otpad i pitanje sigurnosti prostora</a><span>•</span>
-<a href="clanci/domovina/clanak-turizam-rujan-2026.html">Turizam: rezultati rujna i pogled prema završetku godine</a><span>•</span>
-<a href="clanci/domovina/clanak-zadar-obrana-35-godina-2026.html">Zadar: 35 godina sjećanja na obranu grada</a><span>•</span>
-</div></div></section>
+<section class="ps-community-section">
+<h2>Što možeš raditi na PatriaSoulu?</h2>
+<p class="ps-community-intro">Počinjemo od postojećih i sačuvanih dijelova portala. Svaka poveznica vodi na stranicu koja postoji u repozitoriju.</p>
+<div class="ps-community-grid">
+<a class="ps-community-card" href="stranice/domoljubni-forum.html"><span class="symbol" aria-hidden="true">💬</span><h3>Domoljubni forum</h3><p>Otvori teme, sudjeluj u razgovorima i razmijeni mišljenja s članovima zajednice.</p><span class="ps-community-pill">Otvori forum →</span></a>
+<a class="ps-community-card" href="kviz/"><span class="symbol" aria-hidden="true">🧠</span><h3>Hrvatski kviz</h3><p>Provjeri svoje znanje, zaigraj i nastavi učiti o Hrvatskoj.</p><span class="ps-community-pill">Pokreni kviz →</span></a>
+<a class="ps-community-card" href="stranice/poruke-obavijesti.html"><span class="symbol" aria-hidden="true">✉️</span><h3>Poruke i obavijesti</h3><p>Pristupi svojim porukama i obavijestima nakon prijave.</p><span class="ps-community-pill">Otvori poruke →</span></a>
+<a class="ps-community-card" href="stranice/vrijeme.html"><span class="symbol" aria-hidden="true">🌦️</span><h3>Vrijeme u Hrvatskoj</h3><p>Pregledaj vremenske podatke, kartu i prognozu po gradovima.</p><span class="ps-community-pill">Provjeri vrijeme →</span></a>
+<a class="ps-community-card" href="stranice/na-danasnji-dan.html"><span class="symbol" aria-hidden="true">📅</span><h3>Na današnji dan</h3><p>Istraži povijesne događaje i osobe povezane s današnjim datumom.</p><span class="ps-community-pill">Otkrij povijest →</span></a>
+<a class="ps-community-card" href="stranice/pretraga.html"><span class="symbol" aria-hidden="true">🔎</span><h3>Pretraživanje</h3><p>Potraži sadržaj i pronađi ono što te zanima na portalu.</p><span class="ps-community-pill">Pretraži portal →</span></a>
+</div>
+</section>
 
+<section class="ps-community-section">
+<h2>Članstvo i sigurnost</h2>
+<p class="ps-community-intro">Prijava, korisnički račun i pravila ostaju dio portala. Administracija je namijenjena isključivo ovlaštenim korisnicima.</p>
+<div class="ps-community-grid">
+<a class="ps-community-card" href="stranice/prijava.html"><span class="symbol" aria-hidden="true">🔐</span><h3>Prijava</h3><p>Prijavi se postojećim računom.</p><span class="ps-community-pill">Prijava →</span></a>
+<a class="ps-community-card" href="stranice/registracija.html"><span class="symbol" aria-hidden="true">👤</span><h3>Registracija</h3><p>Izradi korisnički račun i pridruži se zajednici.</p><span class="ps-community-pill">Registracija →</span></a>
+<a class="ps-community-card" href="stranice/racun.html"><span class="symbol" aria-hidden="true">⚙️</span><h3>Moj račun</h3><p>Upravljaj svojim korisničkim računom.</p><span class="ps-community-pill">Moj račun →</span></a>
+</div>
+<div class="ps-community-notice" style="margin-top:20px">Forum, kviz, korisnički računi, poruke i obavijesti, vremenska stranica te rubrika „Na današnji dan” ostaju sačuvani. U ovoj fazi čistimo poveznice i automatizaciju kako bi odgovarale stvarnom sadržaju, bez dodavanja novih funkcija.</div>
+</section>
 
-
-<section class="ps-home-section ps-home-editorial"><div class="ps-container"><div class="ps-home-sections" data-home-sections></div></div></section></div>
-</div></section>
-
-<section class="ps-home-section ps-home-special"><div class="ps-container">
-<div class="ps-section-head"><div><p class="ps-kicker">ISTAKNUTO</p><h2>Priče koje posebno izdvajamo</h2></div><a href="stranice/najnovije.html">Sve najnovije</a></div>
-<p class="ps-home-intro">Odabrane priče koje donose važnu temu, zanimljiv povijesni trag, snažno svjedočanstvo ili sadržaj vrijedan posebne pažnje.</p>
-<div class="ps-domovina-grid" data-home-featured><article class="ps-latest-card"><div class="ps-latest-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kardinal%20Alojzije%20Stepinac.jpg" alt="Alojzije Stepinac: život, služenje i povijesni kontekst" loading="lazy" decoding="async"></div><div class="ps-latest-card-body"><p class="ps-kicker">VJERA</p><h3><a href="clanci/vjera/clanak-ljudi-alojzije-stepinac.html">Alojzije Stepinac: život, služenje i povijesni kontekst</a></h3><p>Život blaženoga Alojzija Stepinca kroz crkvene izvore, povijesni kontekst i dokumente vremena.</p><div class="ps-latest-card-meta"><span>7. listopada 2026.</span><a href="clanci/vjera/clanak-ljudi-alojzije-stepinac.html">Pročitaj →</a></div></div></article>
-<article class="ps-latest-card"><div class="ps-latest-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blago%20Zadro%20Memorial%2C%20Vukovar%2C%20Croatia.JPG" alt="204. vukovarska brigada: od obrane grada do trajnog zapisa u povijesti" loading="lazy" decoding="async"></div><div class="ps-latest-card-body"><p class="ps-kicker">DOMOVINA</p><h3><a href="clanci/domovina/clanak-204-vukovarska-brigada.html">204. vukovarska brigada: od obrane grada do trajnog zapisa u povijesti</a></h3><p>Priča o ustrojavanju brigade, ljudima koji su je činili i dokumentima koji čuvaju sjećanje.</p><div class="ps-latest-card-meta"><span>6. listopada 2026.</span><a href="clanci/domovina/clanak-204-vukovarska-brigada.html">Pročitaj →</a></div></div></article>
-<article class="ps-latest-card"><div class="ps-latest-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bascanska%20ploca.jpg" alt="Bašćanska ploča: kamen, jezik i trag hrvatske pismenosti" loading="lazy" decoding="async"></div><div class="ps-latest-card-body"><p class="ps-kicker">POVIJEST</p><h3><a href="clanci/povijest/clanak-bascanska-ploca.html">Bašćanska ploča: kamen, jezik i trag hrvatske pismenosti</a></h3><p>Jedan od najpoznatijih spomenika hrvatske pismenosti i njegov jezični, povijesni i kulturni značaj.</p><div class="ps-latest-card-meta"><span>2. listopada 2026.</span><a href="clanci/povijest/clanak-bascanska-ploca.html">Pročitaj →</a></div></div></article></div>
-</div></section>
-
-<section class="ps-home-section ps-home-special ps-home-missed"><div class="ps-container">
-<div class="ps-section-head"><div><p class="ps-kicker">MOŽDA STE PROPUSTILI</p><h2>Vrijedi se vratiti</h2></div><a href="stranice/najnovije.html">Pogledaj najnovije</a></div>
-<p class="ps-home-intro">Neke priče ne postaju manje važne samo zato što su objavljene ranije. Ovdje ponovno izdvajamo sadržaje koje vrijedi otvoriti.</p>
-<div class="ps-domovina-grid" data-home-missed><article class="ps-latest-card"><div class="ps-latest-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Andrija%20Mohorovicic%20%2819125124313%29.jpg" alt="Andrija Mohorovičić: hrvatski znanstvenik" loading="lazy" decoding="async"></div><div class="ps-latest-card-body"><p class="ps-kicker">ZNANOST</p><h3><a href="clanci/domovina/clanak-andrija-mohorovicic.html">Andrija Mohorovičić: hrvatski znanstvenik</a></h3><p>Znanstvenik čije ime nosi granica između Zemljine kore i plašta.</p><div class="ps-latest-card-meta"><span>2. listopada 2026.</span><a href="clanci/domovina/clanak-andrija-mohorovicic.html">Pročitaj →</a></div></div></article>
-<article class="ps-latest-card"><div class="ps-latest-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ante%20Star%C4%8Devi%C4%87%20portrait.jpg" alt="Ante Starčević: politički pisac 19. stoljeća" loading="lazy" decoding="async"></div><div class="ps-latest-card-body"><p class="ps-kicker">POVIJEST</p><h3><a href="clanci/povijest/clanak-ante-starcevic.html">Ante Starčević: politički pisac 19. stoljeća</a></h3><p>Pogled na život i ideje jedne od važnih figura hrvatskoga političkog života.</p><div class="ps-latest-card-meta"><span>2. listopada 2026.</span><a href="clanci/povijest/clanak-ante-starcevic.html">Pročitaj →</a></div></div></article>
-<article class="ps-latest-card"><div class="ps-latest-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Croatia-00647%20-%20Young%20Families%20Home%20%289374106733%29.jpg" alt="Bake i djedovi kao živi arhiv obiteljske povijesti" loading="lazy" decoding="async"></div><div class="ps-latest-card-body"><p class="ps-kicker">OBITELJ</p><h3><a href="clanci/domovina/clanak-obitelj-bake-djedovi.html">Bake i djedovi kao živi arhiv obiteljske povijesti</a></h3><p>Sjećanja starijih članova obitelji čuvaju tragove ljudi, mjesta i događaja.</p><div class="ps-latest-card-meta"><span>3. listopada 2026.</span><a href="clanci/domovina/clanak-obitelj-bake-djedovi.html">Pročitaj →</a></div></div></article></div>
-</div></section>
-
-<section class="ps-home-section ps-section-dark"><div class="ps-container">
-<div class="ps-section-head"><div><p class="ps-kicker">DOMOVINA</p><h2>Hrvatska danas</h2></div><a href="kategorije/domovina/">Otvori Domovinu</a></div>
-<div class="ps-feature-grid">
-<div class="ps-feature-copy"><h3>Što se događa u Hrvatskoj?</h3><p>Vijesti, gospodarstvo, znanost, sigurnost, kultura i ljudi koji svojim radom stvaraju svakodnevicu.</p><a class="ps-outline-button" href="kategorije/domovina/hrvatska-danas.html">Hrvatska danas</a></div>
-<a class="ps-weather-card" href="stranice/vrijeme.html" aria-label="Otvori Vrijeme u Hrvatskoj"><p class="ps-kicker">VRIJEME · ZAGREB</p><strong data-ps-weather-temp>--°C</strong><span data-ps-weather-text>Učitavanje vremena…</span><small>Podaci se dohvaćaju automatski. Otvori vrijeme →</small></a>
-</div></div></section>
-
-<section class="ps-home-section ps-next-pages"><div class="ps-container"><div class="ps-next-grid">
-<a href="stranice/o-patriasoul.html"><p class="ps-kicker">O NAMA</p><h2>Zašto postoji PatriaSoul?</h2><span>Upoznaj naš pristup, vrijednosti i urednički standard.</span></a>
-<a href="stranice/kontakt.html"><p class="ps-kicker">RAZGOVARAJMO</p><h2>Razgovarajmo.</h2><span>Imaš pitanje, prijedlog, ispravak, priču ili ideju za PatriaSoul? Javi nam se. Svaka poruka koja može pomoći da sačuvamo, provjerimo i prenesemo priču vrijedi biti saslušana.</span></a>
-</div></div></section>
-
-<section class="ps-daily-quote"><div class="ps-container"><p class="ps-kicker">PATRIASOUL · RIJEČ DANA</p><blockquote data-ps-bible-quote>Učitavanje…</blockquote><small data-ps-bible-ref></small></div></section>
+<section class="ps-community-section">
+<h2>O PatriaSoulu</h2>
+<div class="ps-community-footer-grid">
+<a href="stranice/o-patriasoul.html"><strong>O PatriaSoul</strong><span>Upoznaj ideju i vrijednosti portala.</span></a>
+<a href="stranice/kontakt.html"><strong>Kontakt</strong><span>Pošalji pitanje, prijedlog ili prijavu problema.</span></a>
+<a href="stranice/pravila-koristenja-i-sigurnosti.html"><strong>Pravila korištenja i sigurnosti</strong><span>Pročitaj pravila ponašanja i sigurnog korištenja.</span></a>
+<a href="stranice/privatnost.html"><strong>Privatnost</strong><span>Informacije o privatnosti i obradi podataka.</span></a>
+</div>
+</section>
 </main>
-<script src="assets/js/homepage.js?v=20261009-v3"></script>
-<script src="assets/js/daily.js"></script>
-<script src="assets/js/portal.js?v=20261009-mobile-menu"></script>
+<script src="assets/js/portal.js?v=20261011-community-clean"></script>
 </body>
 </html>
