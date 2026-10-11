@@ -208,7 +208,7 @@ alter table public.community_groups enable row level security;
 alter table public.community_group_members enable row level security;
 drop policy if exists "members read accessible groups" on public.community_groups;
 create policy "members read accessible groups" on public.community_groups for select to authenticated
-using (visibility='public' or owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid()));
+using (visibility='public' or owner_id=auth.uid());
 drop policy if exists "members create groups" on public.community_groups;
 create policy "members create groups" on public.community_groups for insert to authenticated
 with check(owner_id=auth.uid());
@@ -218,10 +218,10 @@ using(owner_id=auth.uid() or exists(select 1 from public.community_group_members
 with check(owner_id=auth.uid() or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')));
 drop policy if exists "members read group membership" on public.community_group_members;
 create policy "members read group membership" on public.community_group_members for select to authenticated
-using(exists(select 1 from public.community_groups g where g.id=group_id and (g.visibility='public' or g.owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=g.id and gm.user_id=auth.uid()))));
+using(user_id=auth.uid() or exists(select 1 from public.community_groups g where g.id=group_id and (g.visibility='public' or g.owner_id=auth.uid())));
 drop policy if exists "members join public groups" on public.community_group_members;
 create policy "members join public groups" on public.community_group_members for insert to authenticated
-with check(user_id=auth.uid() and role='member' and exists(select 1 from public.community_groups g where g.id=group_id and g.visibility='public' and g.owner_id<>auth.uid()));
+with check(user_id=auth.uid() and ((role='member' and exists(select 1 from public.community_groups g where g.id=group_id and g.visibility='public' and g.owner_id<>auth.uid())) or (role='owner' and exists(select 1 from public.community_groups g where g.id=group_id and g.owner_id=auth.uid())));
 drop policy if exists "members leave groups" on public.community_group_members;
 create policy "members leave groups" on public.community_group_members for delete to authenticated
 using(user_id=auth.uid() and role='member');
