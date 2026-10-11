@@ -27,6 +27,47 @@ async function manageForum(c,canManage,currentId){
  reportsBox?.querySelectorAll("[data-forum-report-status]").forEach(el=>el.addEventListener("change",async()=>{const old="open";el.disabled=true;try{const r=await c.from("forum_reports").update({status:el.value,reviewed_by:currentId,reviewed_at:new Date().toISOString()}).eq("id",el.dataset.forumReportStatus);if(r.error)throw r.error;await manageForum(c,canManage,currentId)}catch(e){alert("Prijava nije ažurirana: "+(e?.message||"greška"));el.value=old}finally{el.disabled=!canManage}}));
 }
 async function manageStories(c){const r=await c.from("heritage_submissions").select("id,title,name,category,status,created_at,location").order("created_at",{ascending:false}).limit(30);const b=$("#stories-manage");if(r.error){console.error("PatriaSoul admin stories error",r.error);b.innerHTML="<p>Prijavljene priče trenutačno nisu dostupne. Provjeri dozvole Supabase tablice.</p>";return}b.innerHTML=(r.data||[]).map(x=>'<div class="ps-admin-item ps-admin-manage-item"><div><strong>'+esc(x.title||"Bez naslova")+'</strong><small>'+esc(x.name||"")+(x.location?" · "+esc(x.location):"")+" · "+fmt(x.created_at)+'</small></div><div class="ps-admin-actions"><select data-story-status="'+esc(x.id)+'"><option value="novo" '+(x.status==="novo"?"selected":"")+'>Novo</option><option value="u_provjeri" '+(x.status==="u_provjeri"?"selected":"")+'>U provjeri</option><option value="prihvaceno" '+(x.status==="prihvaceno"?"selected":"")+'>Prihvaćeno</option><option value="odbijeno" '+(x.status==="odbijeno"?"selected":"")+'>Odbijeno</option><option value="objavljeno" '+(x.status==="objavljeno"?"selected":"")+'>Objavljeno</option></select></div></div>').join("")||"<p>Nema prijavljenih priča.</p>";b.querySelectorAll("[data-story-status]").forEach(s=>{s.dataset.old=s.value;s.addEventListener("change",async()=>{const old=s.dataset.old;s.disabled=true;try{const r=await c.from("heritage_submissions").update({status:s.value}).eq("id",s.dataset.storyStatus);if(r.error)throw r.error;s.dataset.old=s.value}catch(e){alert("Status priče nije promijenjen: "+(e?.message||"nepoznata greška"));s.value=old}finally{s.disabled=false}})})}
+
+async function manageSocialWall(c,canManage,currentId){
+ const reportsBox=$("#wall-reports-manage"),postsBox=$("#wall-posts-manage");
+ const [reports,posts]=await Promise.all([
+  c.from("community_post_reports").select("id,post_id,reporter_id,reason,status,created_at").order("created_at",{ascending:false}).limit(30),
+  c.from("community_posts").select("id,content,status,created_at,author_id,profiles!community_posts_author_id_fkey(display_name)").order("created_at",{ascending:false}).limit(25)
+ ]);
+ if(reports.error||posts.error){
+  const msg="Moderacija zida još nije dostupna. Provjeri je li migracija društvenog zida primijenjena na Supabase.";
+  if(reportsBox)reportsBox.innerHTML='<p class="ps-admin-empty">'+esc(msg)+'</p>';
+  if(postsBox)postsBox.innerHTML='<p class="ps-admin-empty">'+esc(msg)+'</p>';
+  set("wall-report-total","—");return;
+ }
+ const postMap=new Map((posts.data||[]).map(p=>[p.id,p]));
+ const pending=(reports.data||[]).filter(r=>r.status==="pending").length;
+ set("wall-report-total",pending);
+ if(reportsBox)reportsBox.innerHTML=(reports.data||[]).map(r=>{
+  const p=postMap.get(r.post_id),content=p?.content||"[Objava bez teksta ili više nije dostupna]";
+  return '<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(r.reason||"Prijava")+'</strong><small>'+fmt(r.created_at)+' · '+esc(content.slice(0,240))+'</small><small>Prijavitelj: '+esc(r.reporter_id.slice(0,8))+' · Objavljivač: '+esc(p?.profiles?.display_name||p?.author_id?.slice(0,8)||"nepoznat")+'</small></div><div class="ps-admin-actions"><select data-wall-report-status="'+esc(r.id)+'" data-old="'+esc(r.status)+'" '+(!canManage?'disabled':'')+' aria-label="Status prijave na zidu"><option value="pending" '+(r.status==="pending"?"selected":"")+'>Na čekanju</option><option value="reviewed" '+(r.status==="reviewed"?"selected":"")+'>Pregledana</option><option value="dismissed" '+(r.status==="dismissed"?"selected":"")+'>Odbačena</option><option value="action_taken" '+(r.status==="action_taken"?"selected":"")+'>Sadržaj uklonjen</option></select></div></article>';
+ }).join("")||'<p class="ps-admin-empty">Nema prijava za objave na zidu.</p>';
+ if(postsBox)postsBox.innerHTML=(posts.data||[]).map(p=>'<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(p.profiles?.display_name||"Član zajednice")+'</strong><small>'+fmt(p.created_at)+' · '+esc((p.content||"[Fotografija]").slice(0,260))+'</small></div><div class="ps-admin-actions"><select data-wall-post-status="'+esc(p.id)+'" data-old="'+esc(p.status)+'" '+(!canManage?'disabled':'')+' aria-label="Status objave"><option value="published" '+(p.status==="published"?"selected":"")+'>Objavljena</option><option value="hidden" '+(p.status==="hidden"?"selected":"")+'>Skrivena</option><option value="removed" '+(p.status==="removed"?"selected":"")+'>Uklonjena</option></select></div></article>').join("")||'<p class="ps-admin-empty">Još nema objava na zidu.</p>';
+ reportsBox?.querySelectorAll("[data-wall-report-status]").forEach(el=>el.addEventListener("change",async()=>{
+  const old=el.dataset.old;el.disabled=true;
+  try{
+   if(el.value==="action_taken"){
+    const p=postMap.get((reports.data||[]).find(r=>r.id===el.dataset.wallReportStatus)?.post_id);
+    if(p&&p.status==="published"){const hide=await c.from("community_posts").update({status:"hidden",updated_at:new Date().toISOString()}).eq("id",p.id);if(hide.error)throw hide.error}
+   }
+   const r=await c.from("community_post_reports").update({status:el.value,reviewed_by:currentId,reviewed_at:new Date().toISOString()}).eq("id",el.dataset.wallReportStatus);if(r.error)throw r.error;
+   await manageSocialWall(c,canManage,currentId);
+  }catch(e){alert("Prijava zida nije ažurirana: "+(e?.message||"nepoznata greška"));el.value=old}
+  finally{el.disabled=!canManage}
+ }));
+ postsBox?.querySelectorAll("[data-wall-post-status]").forEach(el=>el.addEventListener("change",async()=>{
+  const old=el.dataset.old;el.disabled=true;
+  try{const r=await c.from("community_posts").update({status:el.value,updated_at:new Date().toISOString()}).eq("id",el.dataset.wallPostStatus);if(r.error)throw r.error;await manageSocialWall(c,canManage,currentId)}
+  catch(e){alert("Status objave nije promijenjen: "+(e?.message||"nepoznata greška"));el.value=old}
+  finally{el.disabled=!canManage}
+ }));
+}
+
 async function load(){
  const status=$("#admin-status"),denied=$("#admin-denied"),dash=$("#admin-dashboard");
  try{
@@ -76,7 +117,7 @@ async function load(){
    ["Objava portala",ops?(deploy?.status==="completed"&&deploy?.conclusion==="success"):"—",ops?(deploy?workflowStatus(deploy):"Nema zapisa"):"Dostupno administratoru"],
    ["Sustavne greške",ops?errorEvents.length===0:"—",ops?(errorEvents.length?errorEvents.length+" grešaka":"Nema evidentiranih grešaka"):"Dostupno administratoru"]
   ].map(x=>'<li><span>'+esc(x[0])+'</span><strong class="'+(x[1]===true?"ps-check-ok":x[1]===false?"ps-check-bad":"")+'">'+(x[1]===true?"✓ ":x[1]===false?"! ":"")+esc(x[2])+"</strong></li>").join("");
-  const tasks=[manageStories(c)];
+  const tasks=[manageStories(c),manageSocialWall(c,canEdit,u.id)];
   if(ops)tasks.push(manageForum(c,true,u.id));else tasks.push(manageForum(c,false,u.id));
   if(owner)tasks.push(users(c,u.id));
   const results=await Promise.allSettled(tasks);
