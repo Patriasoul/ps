@@ -1,5 +1,6 @@
 (()=>{"use strict";const root=document.getElementById("ps-public-profile");if(!root||root.dataset.ready)return;root.dataset.ready="1";const $=id=>document.getElementById(id),status=$("profile-status"),esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));const fmt=v=>{try{return new Intl.DateTimeFormat("hr-HR",{dateStyle:"medium"}).format(new Date(v))}catch{return ""}};let client=null,user=null,profile=null;const db=async()=>client||(client=await PatriaSoulAuth.client());async function signedImage(path){if(!path)return "";try{const {data,error}=await(await db()).storage.from("community-media").createSignedUrl(path,3600);return error?"":data?.signedUrl||""}catch{return ""}}async function loadRank(c){const target=$("profile-rank-status");if(!target)return;try{const {data,error}=await c.rpc("get_my_leaderboard_position",{p_quiz_type:null});if(error)throw error;const row=Array.isArray(data)?data[0]:data;if(row){target.innerHTML='Trenutačno mjesto: <strong>#'+Number(row.position)+'</strong><br>Najbolji rezultat: <strong>'+Number(row.best_percentage||0).toFixed(0)+'%</strong><br>Prosjek: <strong>'+Number(row.average_percentage||0).toFixed(1)+'%</strong><br>Odigrano kvizova: <strong>'+Number(row.quizzes_played||0)+'</strong>';}else{target.textContent="Još nema spremljenog rezultata na rang-listi.";}}catch(e){console.warn("Rang-lista profila nije dostupna",e);target.textContent="Rang-lista trenutačno nije dostupna. Provjeri je li migracija rang-liste primijenjena.";}}function showCover(url){const img=$("profile-cover-image"),placeholder=$("profile-cover-placeholder");if(url){img.src=url;img.hidden=false;placeholder.hidden=true}else{img.removeAttribute("src");img.hidden=true;placeholder.hidden=false}}async function setupSocial(c,id){
  const panel=$("profile-social-actions"),friendBtn=$("profile-friend-action"),msg=$("profile-message-action"),toggle=$("profile-friends-toggle"),list=$("profile-friends-list"),requests=$("profile-friend-requests"),privacy=$("profile-privacy-panel");
+ const suggestToggle=$("profile-suggestions-toggle"),suggestions=$("profile-suggestions");
  panel.hidden=false;
  const own=user.id===id;
  friendBtn.hidden=own;msg.hidden=own;
@@ -30,6 +31,23 @@
   if(profiles.error){list.textContent="Popis prijatelja trenutačno nije dostupan.";return}
   list.innerHTML=(profiles.data||[]).map(p=>'<a class="ps-profile-friend" href="profil.html?id='+encodeURIComponent(p.id)+'">'+(p.avatar_url?'<img src="'+esc(p.avatar_url)+'" alt="">':'<span class="ps-profile-friend-avatar">'+esc((p.display_name||"Č").slice(0,1).toUpperCase())+'</span>')+'<strong>'+esc(p.display_name||"Čuvar nasljeđa")+'</strong></a>').join("");
  }
+ async function loadSuggestions(){
+  suggestions.hidden=false;suggestions.innerHTML='<p class="ps-hub-meta">Sustav traži članove koje bi mogao upoznati…</p>';
+  try{
+   const [relations,candidates]=await Promise.all([
+    c.from("community_friendships").select("sender_id,recipient_id,status").or("sender_id.eq."+user.id+",recipient_id.eq."+user.id),
+    c.from("profiles").select("id,display_name,avatar_url,created_at").neq("id",user.id).order("created_at",{ascending:false}).limit(30)
+   ]);
+   if(relations.error)throw relations.error;if(candidates.error)throw candidates.error;
+   const related=new Map();
+   (relations.data||[]).forEach(r=>{const other=r.sender_id===user.id?r.recipient_id:r.sender_id;if(r.status!=="declined")related.set(other,r.status)});
+   const picks=(candidates.data||[]).filter(p=>!related.has(p.id)).slice(0,12);
+   if(!picks.length){suggestions.innerHTML='<p class="ps-hub-meta">Trenutačno nema novih prijedloga. Provjeri ponovno kasnije.</p>';return}
+   suggestions.innerHTML='<h3>Čuvari nasljeđa koje bi mogao upoznati</h3><p class="ps-hub-meta">Prijedlozi se automatski sastavljaju od članova zajednice s kojima još nemaš uspostavljeno prijateljstvo.</p><div class="ps-profile-suggestion-grid">'+picks.map(p=>'<article class="ps-profile-suggestion"><a class="ps-profile-suggestion-person" href="profil.html?id='+encodeURIComponent(p.id)+'">'+(p.avatar_url?'<img src="'+esc(p.avatar_url)+'" alt="">':'<span class="ps-profile-friend-avatar">'+esc((p.display_name||"Č").slice(0,1).toUpperCase())+'</span>')+'<strong>'+esc(p.display_name||"Čuvar nasljeđa")+'</strong></a><button type="button" class="ps-profile-suggestion-add" data-add-guardian="'+esc(p.id)+'" aria-label="Dodaj '+esc(p.display_name||"Čuvara nasljeđa")+'" title="Dodaj Čuvara nasljeđa">＋</button></article>').join("")+'</div>';
+   suggestions.querySelectorAll("[data-add-guardian]").forEach(btn=>btn.addEventListener("click",async()=>{btn.disabled=true;btn.textContent="…";try{const {error}=await c.from("community_friendships").insert({sender_id:user.id,recipient_id:btn.dataset.addGuardian,status:"pending"});if(error)throw error;btn.textContent="✓";btn.title="Zahtjev je poslan";btn.setAttribute("aria-label","Zahtjev za prijateljstvo poslan");}catch(err){btn.disabled=false;btn.textContent="＋";status.textContent=err?.message||"Zahtjev nije moguće poslati."}}));
+  }catch(err){suggestions.innerHTML='<p class="ps-hub-meta">Prijedloge trenutačno nije moguće učitati. Provjeri je li migracija prijateljstava primijenjena.</p>';console.warn("Prijedlozi Čuvara nasljeđa nisu dostupni",err)}
+ }
+ suggestToggle.addEventListener("click",()=>{if(suggestions.hidden)loadSuggestions();else suggestions.hidden=true});
  toggle.addEventListener("click",()=>{if(list.hidden)loadFriends();else list.hidden=true});
  if(own){
   const incoming=await c.from("community_friendships").select("id,sender_id,profiles!community_friendships_sender_id_fkey(display_name,avatar_url)").eq("recipient_id",user.id).eq("status","pending").order("created_at",{ascending:false});
