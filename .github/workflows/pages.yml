@@ -2,7 +2,7 @@ name: PatriaSoul · Provjera i objava zajednice
 
 on:
   push:
-    branches: [main]
+    branches: [main, cleanup-current-community-2026-10]
   workflow_dispatch:
 
 permissions:
@@ -94,6 +94,7 @@ jobs:
           retention-days: 1
 
   deploy-cloudflare-worker:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:
