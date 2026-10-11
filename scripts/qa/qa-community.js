@@ -12,6 +12,9 @@ const required = [
   "stranice/registracija.html",
   "stranice/racun.html",
   "stranice/zid-zajednice.html",
+  "stranice/grupe-dogadjaji.html",
+  "assets/css/community-hub.css",
+  "assets/js/community-hub.js",
   "assets/css/social-wall.css",
   "assets/js/social-wall.js",
   "supabase/migrations/202610110001_social_wall.sql",
@@ -32,7 +35,7 @@ if (missing.length) {
   process.exit(1);
 }
 
-const files = ["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html", "stranice/domoljubni-forum.html", "kviz/src/App.jsx", "worker.js"];
+const files = ["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html", "stranice/domoljubni-forum.html", "stranice/grupe-dogadjaji.html", "kviz/src/App.jsx", "worker.js"];
 const contentByFile = Object.fromEntries(files.map(file => [file, fs.readFileSync(path.join(root, file), "utf8")]));
 const stalePatterns = [
   ["index.html", /(?:clanci\/|kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
@@ -73,7 +76,12 @@ for (const [file, token] of [
   if (!contentByFile[file].includes(token)) throw new Error("Nedostaje dijeljenje izvornog sadržaja na zidu: " + file + " · " + token);
 }
 const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110001_social_wall.sql"), "utf8");
-for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check"]) {
+for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check", "community_groups", "community_group_members", "community_events", "community_event_attendees"]) {
   if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
 }
+const hub = fs.readFileSync(path.join(root, "stranice/grupe-dogadjaji.html"), "utf8");
+for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "community-hub.js"]) {
+  if (!hub.includes(token)) throw new Error("Stranici grupa i događaja nedostaje element: " + token);
+}
+if (!contentByFile["assets/js/portal.js"].includes("stranice/grupe-dogadjaji.html")) throw new Error("Grupe i događaji nisu povezani u zajedničkoj navigaciji.");
 console.log("ZAJEDNICA QA OK — postojeće funkcije su sačuvane; zid i migracija društvenih funkcija postoje.");
