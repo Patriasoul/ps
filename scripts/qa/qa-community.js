@@ -78,10 +78,13 @@ for (const [file, token] of [
 ]) {
   if (!contentByFile[file].includes(token)) throw new Error("Nedostaje dijeljenje izvornog sadržaja na zidu: " + file + " · " + token);
 }
+const wallJs = fs.readFileSync(path.join(root, "assets/js/social-wall.js"), "utf8");
+if (!wallJs.includes("cleanReason.length<3")) throw new Error("Prijava sadržaja mora provjeriti minimalnu duljinu razloga.");
 const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110001_social_wall.sql"), "utf8");
 for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check", "community_groups", "community_group_members", "community_events", "community_event_attendees"]) {
   if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
 }
+if (!migration.includes("with check(owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid() and gm.role='moderator')")) throw new Error("RLS pravilo ne dopušta moderatoru sigurno uređivanje njegove grupe.");
 const profilePage = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
 for (const token of ["profile-card", "profile-posts", "public-profile.js", "public-profile.css"]) { if (!profilePage.includes(token)) throw new Error("Javnom profilu nedostaje element: " + token); }
 const hub = fs.readFileSync(path.join(root, "stranice/grupe-dogadjaji.html"), "utf8");
