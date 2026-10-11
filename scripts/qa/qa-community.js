@@ -90,7 +90,7 @@ if (!migration.includes("revoke update on public.community_groups from authentic
 const profilePage = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
 for (const token of ["profile-card", "profile-posts", "profile-cover", "profile-cover-input", "public-profile.js", "public-profile.css"]) { if (!profilePage.includes(token)) throw new Error("Javnom profilu nedostaje element: " + token); }
 const profileJs = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
-for (const token of ["ps-profile-sidebar", "racun.html", "pravila-koristenja-i-sigurnosti.html", "domoljubni-forum.html", "get_leaderboard", "profile-rank-status"]) {
+for (const token of ["ps-profile-sidebar", "racun.html", "pravila-koristenja-i-sigurnosti.html", "domoljubni-forum.html", "get_leaderboard", "profile-rank-status", "requestedId||user.id"]) {
   if (!profilePage.includes(token) && !profileJs.includes(token)) throw new Error("Profilu nedostaje bočna navigacija ili rang-lista: " + token);
 }
 const accountPage = fs.readFileSync(path.join(root, "stranice/racun.html"), "utf8");
