@@ -1,13 +1,7 @@
-name: PatriaSoul · Sinkronizacija baze znanja
+name: PatriaSoul · Baza znanja (ručna sinkronizacija)
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/sync-knowledge.yml"
-      - ".github/sync-trigger.txt"
-  schedule:
-    - cron: "*/30 * * * *"
 
 jobs:
   sync:
