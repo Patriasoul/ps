@@ -151,6 +151,9 @@ grant select, insert, delete on public.community_user_blocks to authenticated;
 
 -- Profilna naslovna fotografija pohranjuje se kao putanja u postojećem profilu.
 alter table public.profiles add column if not exists cover_image_path text;
+-- Let signed-in members update only their own cover path (RLS still enforces row ownership).
+grant update (cover_image_path) on public.profiles to authenticated;
+revoke update (cover_image_path) on public.profiles from anon;
 
 -- Private image bucket. Images are visible only when attached to a published post,
 -- referenced as a member's cover image, or owned by the current member.
