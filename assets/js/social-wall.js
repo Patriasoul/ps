@@ -2,6 +2,7 @@
 const root=document.getElementById("ps-wall");if(!root||root.dataset.ready)return;root.dataset.ready="1";
 const $=id=>document.getElementById(id),status=$("ps-wall-status"),feed=$("ps-wall-feed"),composer=$("ps-wall-composer"),form=$("ps-wall-post-form"),submit=$("ps-wall-post-submit"),imageInput=$("ps-wall-post-image");
 let client=null,user=null,profile=null,blocks=new Set(),posts=[];
+const linkMetaCache=new Map();
 const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initials=name=>String(name||"PS").trim().split(/\s+/).slice(0,2).map(s=>s[0]||"").join("").toUpperCase();
 const say=(message,error=false)=>{status.textContent=message||"";status.classList.toggle("is-error",!!error);status.hidden=!message};
@@ -10,6 +11,39 @@ const isAdmin=()=>["admin","editor"].includes(profile?.role);
 const formatDate=value=>{try{return new Intl.DateTimeFormat("hr-HR",{dateStyle:"medium",timeStyle:"short"}).format(new Date(value))}catch{return ""}};
 function avatar(name,url){return url?'<div class="ps-wall-avatar"><img alt="" src="'+esc(url)+'"></div>':'<div class="ps-wall-avatar" aria-hidden="true">'+esc(initials(name))+'</div>'}
 async function signedImage(path){if(!path)return "";try{const {data,error}=await (await db()).storage.from("community-media").createSignedUrl(path,1800);return error?"":data?.signedUrl||""}catch{return ""}}
+function hostOf(url){try{return new URL(url).hostname.replace(/^www\./,"")}catch{return ""}}
+async function fetchLinkMeta(url,manualTitle=""){
+ if(!url)return null;
+ if(linkMetaCache.has(url))return linkMetaCache.get(url);
+ const task=(async()=>{
+  const host=hostOf(url);
+  try{
+   const parsed=new URL(url);
+   if(/(^|\.)wikipedia\.org$/i.test(parsed.hostname)&&parsed.pathname.startsWith("/wiki/")){
+    const page=decodeURIComponent(parsed.pathname.slice(6)).replace(/_/g," ");
+    const response=await fetch("https://"+parsed.hostname+"/api/rest_v1/page/summary/"+encodeURIComponent(page),{headers:{Accept:"application/json"}});
+    if(response.ok){const data=await response.json();return {title:manualTitle||data.title||page,description:data.extract||"",image:data.thumbnail?.source||data.originalimage?.source||"",site:host}}
+   }
+   const response=await fetch("https://api.microlink.io/?url="+encodeURIComponent(url)+"&meta=true&screenshot=false",{headers:{Accept:"application/json"}});
+   if(response.ok){const payload=await response.json(),data=payload?.data||{};if(payload.status==="success"||data.title||data.description||data.image?.url)return {title:manualTitle||data.title||host,description:data.description||"",image:data.image?.url||"",site:data.publisher||host}}
+  }catch(err){console.debug("Link preview unavailable",host,err)}
+  return {title:manualTitle||host||url,description:"",image:"",site:host};
+ })();
+ linkMetaCache.set(url,task);return task;
+}
+function linkCard(url,manualTitle,meta){
+ const title=manualTitle||meta?.title||hostOf(url)||url;
+ const image=meta?.image?'<img class="ps-wall-link-image" src="'+esc(meta.image)+'" alt="" loading="lazy" referrerpolicy="no-referrer">':"";
+ const description=meta?.description?'<p class="ps-wall-link-description">'+esc(meta.description.slice(0,360))+'</p>':"";
+ return '<a class="ps-wall-link-card" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+image+'<span>'+esc(meta?.site||hostOf(url)||"POVEZNICA")+'</span><strong>'+esc(title)+'</strong>'+description+'<small>Otvori izvor ↗</small></a>';
+}
+function updateComposerPreview(){
+ const urlInput=$("ps-wall-link-url"),titleInput=$("ps-wall-link-title"),preview=$("ps-wall-link-preview");if(!urlInput||!preview)return;
+ const url=urlInput.value.trim();if(!url){preview.hidden=true;preview.innerHTML="";return}
+ let parsed;try{parsed=new URL(url);if(parsed.protocol!=="https:")throw Error("https")}catch{preview.hidden=true;preview.innerHTML="";return}
+ preview.hidden=false;preview.innerHTML='<div class="ps-wall-link-preview-loading">Dohvaćam naslov, sliku i opis poveznice…</div>';
+ fetchLinkMeta(parsed.href,titleInput?.value.trim()||"").then(meta=>{if(urlInput.value.trim()!==url)return;preview.innerHTML=linkCard(parsed.href,titleInput?.value.trim(),meta)}).catch(()=>{preview.innerHTML=linkCard(parsed.href,titleInput?.value.trim(),null)});
+}
 async function loadBlocks(){const {data,error}=await (await db()).from("community_user_blocks").select("blocked_id").eq("blocker_id",user.id);if(error)throw error;blocks=new Set((data||[]).map(x=>x.blocked_id))}
 async function loadPosts(){
  feed.innerHTML='<div class="ps-wall-empty">Učitavam objave…</div>';
@@ -18,11 +52,11 @@ async function loadPosts(){
  if(error)throw error;
  posts=(data||[]).filter(p=>!blocks.has(p.author_id));
  if(!posts.length){feed.innerHTML='<div class="ps-wall-empty">Još nema objava. Budi među prvima koji će podijeliti priču sa zajednicom.</div>';return}
- const enriched=await Promise.all(posts.map(async p=>({p,image:await signedImage(p.image_path)})));
- feed.innerHTML=enriched.map(({p,image})=>{
+ const enriched=await Promise.all(posts.map(async p=>({p,image:await signedImage(p.image_path),linkMeta:p.link_url?await fetchLinkMeta(p.link_url,p.link_title||""):null})));
+ feed.innerHTML=enriched.map(({p,image,linkMeta})=>{
   const name=p.profiles?.display_name||"Član zajednice",mine=p.author_id===user.id,rx=p.community_post_reactions||[],comments=(p.community_post_comments||[]).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   const count=rx.length,active=rx.some(r=>r.user_id===user.id);
-  return '<article class="ps-wall-post" data-post-id="'+esc(p.id)+'"><header class="ps-wall-post-head">'+avatar(name,p.profiles?.avatar_url)+'<div class="ps-wall-post-author"><a class="ps-wall-profile-link" href="profil.html?id='+encodeURIComponent(p.author_id)+'"><strong>'+esc(name)+'</strong></a><time datetime="'+esc(p.created_at)+'">'+esc(formatDate(p.created_at))+'</time></div><div class="ps-wall-post-menu">'+(mine?'<button type="button" data-action="delete-post">Izbriši</button>':'<button type="button" data-action="report-post">Prijavi</button><button type="button" data-action="block-user">Blokiraj</button>')+'</div></header>'+(p.content?'<div class="ps-wall-post-content">'+esc(p.content)+'</div>':'')+(image?'<img class="ps-wall-post-image" src="'+esc(image)+'" alt="Fotografija u objavi" loading="lazy">':'')+(p.link_url?'<a class="ps-wall-link-card" href="'+esc(p.link_url)+'" target="_blank" rel="noopener noreferrer"><span>'+esc(({forum:"DOMOLJUBNI FORUM",quiz:"HRVATSKI KVIZ",event:"DOGAĐAJ",link:"POVEZNICA"}[p.link_type]||"POVEZNICA"))+'</span><strong>'+esc(p.link_title||p.link_url)+'</strong><small>Otvori izvor ↗</small></a>':'')+'<div class="ps-wall-post-actions"><button type="button" data-action="react" class="'+(active?'is-active':'')+'">♥ Podržavam · '+count+'</button><button type="button" data-action="focus-comment">💬 Komentiraj · '+comments.length+'</button></div><section class="ps-wall-comments" aria-label="Komentari">'+comments.map(cm=>'<div class="ps-wall-comment" data-comment-id="'+esc(cm.id)+'">'+avatar(cm.profiles?.display_name,cm.profiles?.avatar_url)+'<div class="ps-wall-comment-body"><a class="ps-wall-profile-link" href="profil.html?id='+encodeURIComponent(cm.author_id)+'"><strong>'+esc(cm.profiles?.display_name||"Član")+'</strong></a><p>'+esc(cm.content)+'</p><time>'+esc(formatDate(cm.created_at))+'</time>'+(cm.author_id===user.id?'<button type="button" class="ps-wall-comment-delete" data-action="delete-comment">Izbriši komentar</button>':"")+"</div></div>").join("")+'<form class="ps-wall-comment-form"><label class="ps-wall-sr-only">Napiši komentar</label><input name="comment" maxlength="1000" required placeholder="Napiši komentar…"><button type="submit">Pošalji</button></form></section></article>'
+  return '<article class="ps-wall-post" data-post-id="'+esc(p.id)+'"><header class="ps-wall-post-head">'+avatar(name,p.profiles?.avatar_url)+'<div class="ps-wall-post-author"><a class="ps-wall-profile-link" href="profil.html?id='+encodeURIComponent(p.author_id)+'"><strong>'+esc(name)+'</strong></a><time datetime="'+esc(p.created_at)+'">'+esc(formatDate(p.created_at))+'</time></div><div class="ps-wall-post-menu">'+(mine?'<button type="button" data-action="delete-post">Izbriši</button>':'<button type="button" data-action="report-post">Prijavi</button><button type="button" data-action="block-user">Blokiraj</button>')+'</div></header>'+(p.content?'<div class="ps-wall-post-content">'+esc(p.content)+'</div>':'')+(image?'<img class="ps-wall-post-image" src="'+esc(image)+'" alt="Fotografija u objavi" loading="lazy">':'')+(p.link_url?linkCard(p.link_url,p.link_title,linkMeta):"")+'<div class="ps-wall-post-actions"><button type="button" data-action="react" class="'+(active?'is-active':'')+'">♥ Podržavam · '+count+'</button><button type="button" data-action="focus-comment">💬 Komentiraj · '+comments.length+'</button></div><section class="ps-wall-comments" aria-label="Komentari">'+comments.map(cm=>'<div class="ps-wall-comment" data-comment-id="'+esc(cm.id)+'">'+avatar(cm.profiles?.display_name,cm.profiles?.avatar_url)+'<div class="ps-wall-comment-body"><a class="ps-wall-profile-link" href="profil.html?id='+encodeURIComponent(cm.author_id)+'"><strong>'+esc(cm.profiles?.display_name||"Član")+'</strong></a><p>'+esc(cm.content)+'</p><time>'+esc(formatDate(cm.created_at))+'</time>'+(cm.author_id===user.id?'<button type="button" class="ps-wall-comment-delete" data-action="delete-comment">Izbriši komentar</button>':"")+"</div></div>").join("")+'<form class="ps-wall-comment-form"><label class="ps-wall-sr-only">Napiši komentar</label><input name="comment" maxlength="1000" required placeholder="Napiši komentar…"><button type="submit">Pošalji</button></form></section></article>'
  }).join("");
 }
 async function refresh(){try{await loadBlocks();await loadPosts();say("")}catch(e){console.error(e);say("Objave se trenutačno ne mogu učitati. Ako je ovo prva instalacija, potrebno je prvo primijeniti migraciju baze podataka iz supabase/migrations.",true)}}
@@ -43,6 +77,10 @@ async function init(){
    
    $("ps-wall-post-content").value=shareParams.get("shareText")||"";
   }
+  $("ps-wall-link-url").addEventListener("change",updateComposerPreview);
+  $("ps-wall-link-title").addEventListener("change",updateComposerPreview);
+  $("ps-wall-link-url").addEventListener("paste",()=>setTimeout(updateComposerPreview,0));
+  if(shareUrl)updateComposerPreview();
   await refresh();
  }catch(e){console.error(e);say(e.message||"Zid se nije mogao pokrenuti.",true);feed.innerHTML='<div class="ps-wall-empty">Provjeri vezu i pokušaj ponovno.</div>'}
 }
@@ -62,7 +100,7 @@ form.addEventListener("submit",async e=>{
   const c=await db();let image_path=null;
   if(file){const ext=({ "image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/gif":"gif"})[file.type];image_path=user.id+"/posts/"+crypto.randomUUID()+"."+ext;const {error}=await c.storage.from("community-media").upload(image_path,file,{contentType:file.type,upsert:false});if(error)throw error}
   const {error}=await c.from("community_posts").insert({author_id:user.id,content,image_path,link_url,link_title:linkTitle||null,link_type:"link",status:"published"});if(error)throw error;
-  form.reset();$("ps-wall-image-name").textContent="Bez fotografije";say("Objava je dodana.");await refresh();
+  form.reset();$("ps-wall-image-name").textContent="Bez fotografije";updateComposerPreview();say("Objava je dodana.");await refresh();
  }catch(err){console.error(err);say(err.message||"Objava nije spremljena. Provjeri je li migracija baze primijenjena.",true)}finally{submit.disabled=false}
 });
 $("ps-wall-refresh").addEventListener("click",refresh);
