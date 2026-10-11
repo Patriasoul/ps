@@ -49,4 +49,33 @@ grant update (posts_visibility,photos_visibility,friends_visibility,profile_info
 revoke update (posts_visibility,photos_visibility,friends_visibility,profile_info_visibility)
   on public.profiles from anon;
 
+-- Vidljivost objava provjerava se u bazi, ne samo u sučelju.
+drop policy if exists "wall posts read by members" on public.community_posts;
+create policy "wall posts read by members" on public.community_posts for select to authenticated
+using (
+  (author_id=auth.uid()
+   or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor'))
+   or (
+     status='published'
+     and not exists (
+       select 1 from public.community_user_blocks b
+       where (b.blocker_id=auth.uid() and b.blocked_id=author_id)
+          or (b.blocker_id=author_id and b.blocked_id=auth.uid())
+     )
+     and exists (
+       select 1 from public.profiles owner_profile
+       where owner_profile.id=author_id
+         and (
+           coalesce(owner_profile.posts_visibility,'public')='public'
+           or (coalesce(owner_profile.posts_visibility,'public')='friends' and exists (
+             select 1 from public.community_friendships f
+             where f.status='accepted'
+               and ((f.sender_id=auth.uid() and f.recipient_id=author_id)
+                 or (f.sender_id=author_id and f.recipient_id=auth.uid()))
+           ))
+         )
+     )
+   ))
+);
+
 commit;
