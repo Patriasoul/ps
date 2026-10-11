@@ -105,3 +105,20 @@
 .ps-wall-link-preview[hidden]{display:none}
 .ps-wall-link-preview-loading{padding:12px;border:1px solid rgba(241,208,120,.22);border-radius:10px;color:rgba(243,245,247,.7);font-size:.86rem}
 @media(max-width:700px){.ps-wall-link-image{max-height:240px}.ps-wall-link-description{font-size:.86rem}}
+
+/* PatriaSoul comments: compact controls and media tools */
+.ps-wall-comment-delete{display:inline-flex!important;align-items:center;padding:2px 5px!important;margin-top:3px;border:0!important;background:transparent!important;color:rgba(243,245,247,.52)!important;font-size:.67rem!important;line-height:1.2}
+.ps-wall-comment-delete:hover{color:#ffb5b5!important;text-decoration:underline}
+.ps-wall-comment-body{padding:7px 9px}
+.ps-wall-comment-body p{margin:3px 0;font-size:.88rem;line-height:1.45}
+.ps-wall-comment-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:5px}
+.ps-wall-comment-actions button{border:0;background:transparent;color:rgba(243,245,247,.66);font-size:.75rem;padding:3px 5px;border-radius:5px;cursor:pointer}
+.ps-wall-comment-actions button:hover,.ps-wall-comment-actions button.is-active{color:var(--ps-theme-gold,#f1d078);background:rgba(241,208,120,.08)}
+.ps-wall-comment-reply{margin-left:36px}
+.ps-wall-comment-image{display:block;max-width:min(260px,100%);max-height:180px;object-fit:cover;border-radius:7px;margin-top:7px}
+.ps-wall-comment-form textarea{width:100%;min-width:0;resize:vertical;padding:9px 11px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(5,9,18,.68);color:#f3f5f7;font:inherit;font-size:.88rem}
+.ps-wall-comment-tools{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.ps-wall-comment-upload{display:inline-flex;align-items:center;gap:4px;padding:4px 7px;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:rgba(243,245,247,.8);font-size:.75rem;cursor:pointer}
+.ps-wall-comment-upload input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.ps-wall-comment-file-name{flex:1;min-width:70px;color:rgba(243,245,247,.45);font-size:.68rem;overflow-wrap:anywhere}
+@media(max-width:480px){.ps-wall-comment-reply{margin-left:18px}.ps-wall-comment-tools{gap:3px}.ps-wall-comment-file-name{flex-basis:100%}}
