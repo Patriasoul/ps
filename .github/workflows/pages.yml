@@ -29,6 +29,7 @@ jobs:
           node --check worker.js
           node --check assets/js/portal.js
           node --check assets/js/auth.js
+          node --check assets/js/admin.js
 
       - name: Provjeri strukturu i sačuvane funkcije
         run: node scripts/qa/qa-structure.js
@@ -70,6 +71,9 @@ jobs:
 
       - name: Postavi službeni favicon
         run: node scripts/build/ensure-favicon.js _site
+
+      - name: Provjeri interne poveznice
+        run: node scripts/qa/qa-links.js _site
 
       - name: Provjeri izlazne datoteke
         run: |
