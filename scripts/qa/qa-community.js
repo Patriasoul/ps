@@ -57,7 +57,7 @@ for (const label of ["admin-dashboard", "admin-denied", 'data-admin-tab="communi
   if (!admin.includes(label)) throw new Error("Administracija nema potrebnu kontrolu: " + label);
 }
 const adminJs = fs.readFileSync(path.join(root, "assets/js/admin.js"), "utf8");
-for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "manageStories(c)"]) {
+for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "manageStories(c)", "manageSocialWall(c", "wall-reports-manage", "wall-posts-manage"]) {
   if (!adminJs.includes(label)) throw new Error("Nedostaje administratorska funkcija zajednice: " + label);
 }
 const wall = fs.readFileSync(path.join(root, "stranice/zid-zajednice.html"), "utf8");
