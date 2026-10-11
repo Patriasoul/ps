@@ -3,12 +3,12 @@ const root=document.getElementById("ps-wall");if(!root||root.dataset.ready)retur
 const $=id=>document.getElementById(id),status=$("ps-wall-status"),feed=$("ps-wall-feed"),composer=$("ps-wall-composer"),form=$("ps-wall-post-form"),submit=$("ps-wall-post-submit"),imageInput=$("ps-wall-post-image");
 let client=null,user=null,profile=null,blocks=new Set(),posts=[];
 const linkMetaCache=new Map();
-let emojiPickerModule=null,emojiDataModule=null;
+let emojiElementModule=null,emojiDataModule=null;
 async function loadEmojiPicker(){
- if(!emojiPickerModule)emojiPickerModule=import("https://esm.sh/emoji-mart@5.6.0?bundle");
+ if(!emojiElementModule)emojiElementModule=import("https://esm.sh/emoji-mart@5.6.0/element?bundle");
  if(!emojiDataModule)emojiDataModule=import("https://esm.sh/@emoji-mart/data@1.2.1?bundle");
- const [pickerModule,dataModule]=await Promise.all([emojiPickerModule,emojiDataModule]);
- return {Picker:pickerModule.Picker,data:dataModule.default||dataModule};
+ const [,dataModule]=await Promise.all([emojiElementModule,emojiDataModule]);
+ return dataModule.default||dataModule;
 }
 function insertAtCursor(input,value){
  const start=input.selectionStart??input.value.length,end=input.selectionEnd??input.value.length;
@@ -23,9 +23,15 @@ async function toggleEmojiPicker(button,input){
  button.parentElement.classList.add("ps-wall-emoji-anchor");button.parentElement.append(popover);button.setAttribute("aria-expanded","true");
  popover.textContent="Učitavam emoji…";
  try{
-  const {Picker,data}=await loadEmojiPicker();
+  const data=await loadEmojiPicker();
   if(!popover.isConnected)return;
-  const picker=new Picker({data,onEmojiSelect:emoji=>{insertAtCursor(input,emoji.native);popover.remove();button.setAttribute("aria-expanded","false")},locale:"en",theme:"dark",previewPosition:"none",skinTonePosition:"none"});
+  const picker=document.createElement("em-emoji-picker");
+  picker.setAttribute("locale","en");picker.setAttribute("theme","dark");picker.setAttribute("preview-position","none");picker.setAttribute("skin-tone-position","none");
+  picker.data=data;
+  picker.addEventListener("emoji-click",event=>{
+   const emoji=event.detail?.unicode||event.detail?.emoji?.unicode||event.detail?.emoji?.native;
+   if(emoji){insertAtCursor(input,emoji);popover.remove();button.setAttribute("aria-expanded","false")}
+  });
   popover.replaceChildren(picker);
  }catch(error){console.error("Emoji Mart se nije mogao učitati:",error);popover.textContent="Emoji se trenutačno ne mogu učitati. Pokušaj ponovno."}
 }
@@ -147,7 +153,6 @@ feed.addEventListener("click",async e=>{
    else if(action==="like-comment"){const cmEl=button.closest("[data-comment-id]"),cmId=cmEl?.dataset.commentId,cm=(p.community_post_comments||[]).find(x=>x.id===cmId),existing=(cm?.community_comment_reactions||[]).find(r=>r.user_id===user.id);if(!cm)throw Error("Komentar nije pronađen.");if(existing){const {error}=await c.from("community_comment_reactions").delete().eq("id",existing.id);if(error)throw error}else{const {error}=await c.from("community_comment_reactions").insert({comment_id:cmId,user_id:user.id,reaction:"heart"});if(error)throw error}await refresh();
    }else if(action==="reply-comment"){const cmEl=button.closest("[data-comment-id]"),f=article.querySelector(".ps-wall-comment-form");f.elements.parent_comment_id.value=cmEl?.dataset.commentId||"";f.querySelector(".ps-wall-replying").hidden=false;f.querySelector("textarea[name=comment]").placeholder="Napiši odgovor…";f.querySelector("textarea[name=comment]").focus();
    }else if(action==="cancel-reply"){const f=button.closest(".ps-wall-comment-form");f.elements.parent_comment_id.value="";f.querySelector(".ps-wall-replying").hidden=true;f.querySelector("textarea[name=comment]").placeholder="Napiši komentar…";
-   }else if(action==="comment-emoji"){const f=button.closest(".ps-wall-comment-form"),input=f.querySelector("textarea[name=comment]");insertAtCursor(input,button.dataset.emoji);
    }else if(action==="comment-emoji-picker"){const f=button.closest(".ps-wall-comment-form"),input=f.querySelector("textarea[name=comment]");await toggleEmojiPicker(button,input);
    }else if(action==="comment-mention"){const f=button.closest(".ps-wall-comment-form"),input=f.querySelector("textarea[name=comment]");input.setRangeText("@",input.selectionStart,input.selectionEnd,"end");input.focus()}
   else if(action==="report-post"){
