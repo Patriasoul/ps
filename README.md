@@ -1,41 +1,44 @@
 # PatriaSoul
 
-**Hrvatska. Povijest. Znanje. Identitet.**
+**Hrvatska. Znanje. Zajedništvo.**
 
-Novi, čisto organizirani PatriaSoul portal. Stari repozitorij `Patriasoul/Patriasoul-portal` ostaje netaknut kao izvor i sigurnosna kopija.
+Ovaj repozitorij trenutačno sadrži PatriaSoul zajednicu i postojeće aktivne funkcije. Stari sustav članaka i kategorija više nije dio aktualne strukture portala.
 
-## Organizacija
+## Što ostaje
 
-- `index.html` — jedina naslovnica
-- `stranice/` — stalne stranice: O PatriaSoul, Kontakt, Najnovije, Pretraga, prijava i registracija
-- `kategorije/` — kategorije i njihove podstranice
-- `clanci/` — svih 75 članaka, razvrstanih po tematskim cjelinama
-- `cuvari-nasljedja/` — posebni dio Čuvari nasljeđa
-- `kviz/` — Hrvatski kviz, sada dio istog repozitorija
+- `index.html` — naslovnica zajednice
+- `stranice/domoljubni-forum.html` — forum i moderacija rasprava
+- `stranice/poruke-obavijesti.html` — privatne poruke i obavijesti
+- `stranice/vrijeme.html` — vremenski podaci i prognoza za Hrvatsku
+- `stranice/na-danasnji-dan.html` — povijesni događaji i datumi
+- `stranice/prijava.html`, `stranice/registracija.html`, `stranice/racun.html` — korisnički računi
+- `stranice/administracija.html` — moderacija foruma, prijavljenih priča, ankete i upravljanje ovlastima
+- `stranice/pretraga.html` — pretraživanje postojećih javnih stranica
+- `kviz/` — React/Vite aplikacija Hrvatskog kviza sa Supabase integracijom
 - `assets/` — zajednički CSS, JavaScript i vizualni materijali
-- `data/` — strukturirani podaci portala
-- `scripts/qa/` — automatske provjere strukture, članaka, slika i linkova
-- `.github/workflows/pages.yml` — GitHub Pages objava
+- `data/` — podaci za kviz, vrijeme, rubriku „Na današnji dan” i indeks pretraživanja
+- `scripts/qa/` — automatske provjere strukture, zajednice i internih poveznica
+- `.github/workflows/pages.yml` — provjera, izgradnja i objava portala
 
-## Pravilo organizacije
+## Što je uklonjeno iz aktivnog sustava
 
-Ako nešto ne radi, tražimo problem u njegovom dijelu projekta:
+- stare mape članaka i kategorija
+- indeks poveznica na obrisane članke
+- automatsko generiranje statičkih CMS članaka
+- CMS/RSS uredničke kartice i skripte iz administratorskog sučelja
+- Workerov povratni prikaz CMS članaka i stari RSS proxy
 
-- sadržaj članka → `clanci/`
-- kategorija → `kategorije/`
-- stalna stranica → `stranice/`
-- kviz → `kviz/`
-- dizajn → `assets/css/`
-- ponašanje → `assets/js/`
-- podaci → `data/`
-- QA → `scripts/qa/`
+Stari RSS nacrti i sinkronizacija baze znanja više se ne pokreću automatski. Njihovi se tijekovi rada mogu pokrenuti samo ručno ako se kasnije odluči da su ponovno potrebni.
+
+## Pravilo održavanja
+
+- Forum, kviz, korisnički računi, poruke i obavijesti, vrijeme i „Na današnji dan” čuvamo.
+- Ne vraćamo poveznice na stranice koje ne postoje.
+- Ne dodajemo nove funkcije dok se postojeća struktura ne provjeri.
+- Promjene se najprije provjeravaju na radnoj grani; produkcijska objava dopuštena je samo s grane `main`.
 
 ## Uredničko načelo
 
 > PatriaSoul ne nabraja Hrvatsku. PatriaSoul istražuje, provjerava i pripovijeda njezine priče.
 
 Činjenica prije senzacije. Izvor prije tvrdnje. Sjećanje ima svoje mjesto, ali jasno razlikujemo činjenicu, tumačenje, svjedočanstvo i predaju.
-
-## Hrvatski kviz
-
-Kviz je dio istog projekta. Zadržava React/Vite aplikaciju i Supabase integraciju iz izvornog `Patriasoul/kviz` projekta, ali se objavljuje unutar `/kviz/` novog portala.
