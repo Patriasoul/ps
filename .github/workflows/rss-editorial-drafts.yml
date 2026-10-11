@@ -1,8 +1,6 @@
-name: PatriaSoul · RSS urednički nacrti
+name: PatriaSoul · Stari RSS nacrti (ručno)
 
 on:
-  schedule:
-    - cron: "17,47 * * * *"
   workflow_dispatch:
 
 permissions:
