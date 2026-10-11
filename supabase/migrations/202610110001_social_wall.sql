@@ -153,7 +153,11 @@ grant select, insert, delete on public.community_user_blocks to authenticated;
 -- or to the member who uploaded them.
 insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
 values ('community-media','community-media',false,8388608,array['image/jpeg','image/png','image/webp','image/gif'])
-on conflict (id) do nothing;
+on conflict (id) do update set
+  name = excluded.name,
+  public = false,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
 
 drop policy if exists "members upload own community images" on storage.objects;
 create policy "members upload own community images" on storage.objects for insert to authenticated
@@ -164,7 +168,15 @@ using (
   bucket_id = 'community-media'
   and (
     (storage.foldername(name))[1] = auth.uid()::text
-    or exists (select 1 from public.community_posts p where p.image_path = name and p.status = 'published')
+    or exists (
+      select 1 from public.community_posts p
+      where p.image_path = name and p.status = 'published'
+        and not exists (
+          select 1 from public.community_user_blocks b
+          where (b.blocker_id = auth.uid() and b.blocked_id = p.author_id)
+             or (b.blocker_id = p.author_id and b.blocked_id = auth.uid())
+        )
+    )
   )
 );
 drop policy if exists "members delete own community images" on storage.objects;
