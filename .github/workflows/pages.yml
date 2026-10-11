@@ -139,7 +139,7 @@ jobs:
 
       - name: Provjeri ključne stranice pregleda
         run: |
-          for path in / /stranice/profil.html /stranice/domoljubni-forum.html /stranice/grupe-dogadjaji.html /stranice/poruke-obavijesti.html; do
+          for path in /index.html /stranice/profil.html /stranice/domoljubni-forum.html /stranice/grupe-dogadjaji.html /stranice/poruke-obavijesti.html; do
             curl --fail --silent --show-error "https://ps-preview.patriasoul.workers.dev$path" -o /dev/null
           done
 
