@@ -183,4 +183,95 @@ drop policy if exists "members delete own community images" on storage.objects;
 create policy "members delete own community images" on storage.objects for delete to authenticated
 using (bucket_id = 'community-media' and (storage.foldername(name))[1] = auth.uid()::text);
 
+
+-- Grupe zajednice
+create table if not exists public.community_groups (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null references public.profiles(id) on delete cascade,
+  name text not null check (char_length(btrim(name)) between 3 and 80),
+  description text not null default '' check (char_length(description) <= 1000),
+  visibility text not null default 'public' check (visibility in ('public','private')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists community_groups_created_idx on public.community_groups(created_at desc);
+create table if not exists public.community_group_members (
+  group_id uuid not null references public.community_groups(id) on delete cascade,
+  user_id uuid not null references public.profiles(id) on delete cascade,
+  role text not null default 'member' check (role in ('owner','moderator','member')),
+  joined_at timestamptz not null default now(),
+  primary key(group_id,user_id)
+);
+create index if not exists community_group_members_user_idx on public.community_group_members(user_id,joined_at desc);
+
+alter table public.community_groups enable row level security;
+alter table public.community_group_members enable row level security;
+drop policy if exists "members read accessible groups" on public.community_groups;
+create policy "members read accessible groups" on public.community_groups for select to authenticated
+using (visibility='public' or owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid()));
+drop policy if exists "members create groups" on public.community_groups;
+create policy "members create groups" on public.community_groups for insert to authenticated
+with check(owner_id=auth.uid());
+drop policy if exists "owners and moderators update groups" on public.community_groups;
+create policy "owners and moderators update groups" on public.community_groups for update to authenticated
+using(owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid() and gm.role='moderator') or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')))
+with check(owner_id=auth.uid() or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')));
+drop policy if exists "members read group membership" on public.community_group_members;
+create policy "members read group membership" on public.community_group_members for select to authenticated
+using(exists(select 1 from public.community_groups g where g.id=group_id and (g.visibility='public' or g.owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=g.id and gm.user_id=auth.uid()))));
+drop policy if exists "members join public groups" on public.community_group_members;
+create policy "members join public groups" on public.community_group_members for insert to authenticated
+with check(user_id=auth.uid() and role='member' and exists(select 1 from public.community_groups g where g.id=group_id and g.visibility='public' and g.owner_id<>auth.uid()));
+drop policy if exists "members leave groups" on public.community_group_members;
+create policy "members leave groups" on public.community_group_members for delete to authenticated
+using(user_id=auth.uid() and role='member');
+
+-- Događaji i odaziv
+create table if not exists public.community_events (
+  id uuid primary key default gen_random_uuid(),
+  host_id uuid not null references public.profiles(id) on delete cascade,
+  group_id uuid references public.community_groups(id) on delete set null,
+  title text not null check (char_length(btrim(title)) between 3 and 120),
+  description text not null default '' check (char_length(description) <= 2000),
+  location text not null default '' check (char_length(location) <= 180),
+  starts_at timestamptz not null,
+  ends_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint community_events_time_check check (ends_at is null or ends_at >= starts_at)
+);
+create index if not exists community_events_starts_idx on public.community_events(starts_at asc);
+create table if not exists public.community_event_attendees (
+  event_id uuid not null references public.community_events(id) on delete cascade,
+  user_id uuid not null references public.profiles(id) on delete cascade,
+  response text not null default 'going' check(response in ('going','interested')),
+  created_at timestamptz not null default now(),
+  primary key(event_id,user_id)
+);
+alter table public.community_events enable row level security;
+alter table public.community_event_attendees enable row level security;
+drop policy if exists "members read community events" on public.community_events;
+create policy "members read community events" on public.community_events for select to authenticated using(true);
+drop policy if exists "members create community events" on public.community_events;
+create policy "members create community events" on public.community_events for insert to authenticated with check(host_id=auth.uid());
+drop policy if exists "hosts and moderators update events" on public.community_events;
+create policy "hosts and moderators update events" on public.community_events for update to authenticated
+using(host_id=auth.uid() or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')))
+with check(host_id=auth.uid() or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')));
+drop policy if exists "members read event attendance" on public.community_event_attendees;
+create policy "members read event attendance" on public.community_event_attendees for select to authenticated using(true);
+drop policy if exists "members respond to events" on public.community_event_attendees;
+create policy "members respond to events" on public.community_event_attendees for insert to authenticated
+with check(user_id=auth.uid() and exists(select 1 from public.community_events e where e.id=event_id));
+drop policy if exists "members change or remove their response" on public.community_event_attendees;
+create policy "members change or remove their response" on public.community_event_attendees for update to authenticated using(user_id=auth.uid()) with check(user_id=auth.uid());
+drop policy if exists "members cancel their response" on public.community_event_attendees;
+create policy "members cancel their response" on public.community_event_attendees for delete to authenticated using(user_id=auth.uid());
+
+revoke all on public.community_groups,public.community_group_members,public.community_events,public.community_event_attendees from anon;
+grant select,insert,update on public.community_groups to authenticated;
+grant select,insert,delete on public.community_group_members to authenticated;
+grant select,insert,update on public.community_events to authenticated;
+grant select,insert,update,delete on public.community_event_attendees to authenticated;
+
 commit;
