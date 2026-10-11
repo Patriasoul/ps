@@ -84,6 +84,9 @@ for (const [file, token] of [
 }
 const wallJs = fs.readFileSync(path.join(root, "assets/js/social-wall.js"), "utf8");
 if (!wallJs.includes("cleanReason.length<3")) throw new Error("Prijava sadržaja mora provjeriti minimalnu duljinu razloga.");
+for (const token of ['data-action="delete-post"', 'data-action="delete-comment"', 'p.author_id!==user.id', 'comment.author_id!==user.id', 'eq("author_id",user.id)', 'storage.from("community-media").remove([p.image_path])', "Objava i pripadajući komentari su izbrisani."]) {
+  if (!wallJs.includes(token)) throw new Error("Član mora moći sigurno ukloniti samo vlastiti sadržaj i pripadajuću fotografiju: " + token);
+}
 const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110001_social_wall.sql"), "utf8");
 for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check", "community_groups", "community_group_members", "community_events", "community_event_attendees", "cover_image_path", "profile_cover.cover_image_path = name", "grant update (cover_image_path) on public.profiles to authenticated;", "revoke update (cover_image_path) on public.profiles from anon;", "community_add_group_owner()", "community_group_add_owner"]) {
   if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
