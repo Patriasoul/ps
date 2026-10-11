@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
-
+Disallow: /stranice/administracija.html
+Disallow: /stranice/racun.html
+Disallow: /stranice/prijava.html
+Disallow: /stranice/registracija.html
 Sitemap: https://ps.patriasoul.workers.dev/sitemap.xml
