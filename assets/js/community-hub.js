@@ -31,7 +31,7 @@ async function loadEvents(){
   db.from("community_event_attendees").select("event_id,response").eq("user_id",user.id)
  ]);
  if(e.error)throw e.error;if(a.error)throw a.error;events=e.data||[];attending=new Map((a.data||[]).map(x=>[x.event_id,x.response]));
- $("hub-events").innerHTML=events.length?events.map(e=>'<article class="ps-hub-item"><h3>'+esc(e.title)+'</h3><div class="ps-hub-meta">◷ '+esc(fmt(e.starts_at))+(e.location?' · '+esc(e.location):'')+'</div><p>'+esc(e.description||"Detalji događaja bit će objavljeni naknadno.")+'</p><small>'+(e.host_id===user.id?"Organiziraš ti":attending.has(e.id)?"Tvoj odaziv: "+(attending.get(e.id)==="going"?"Dolazim":"Zainteresiran/a"):"Događaj zajednice")+'</small><div><button type="button" data-event-action="going" data-id="'+esc(e.id)+'">'+(attending.get(e.id)==="going"?"Odaziv: dolazim ✓":"Dolazim")+'</button><button type="button" class="secondary" data-event-action="interested" data-id="'+esc(e.id)+'">'+(attending.get(e.id)==="interested"?"Zainteresiran/a ✓":"Zanima me")+'</button>'+(attending.has(e.id)?'<button type="button" class="secondary" data-event-action="cancel" data-id="'+esc(e.id)+'">Poništi odaziv</button>':'')+'</div></article>').join(""):'<p class="ps-wall-empty">Nema najavljenih događaja. Objavi prvi susret ili aktivnost.</p>';
+ $("hub-events").innerHTML=events.length?events.map(e=>'<article class="ps-hub-item"><h3>'+esc(e.title)+'</h3><div class="ps-hub-meta">◷ '+esc(fmt(e.starts_at))+(e.location?' · '+esc(e.location):'')+'</div><p>'+esc(e.description||"Detalji događaja bit će objavljeni naknadno.")+'</p><small>'+(e.host_id===user.id?"Organiziraš ti":attending.has(e.id)?"Tvoj odaziv: "+(attending.get(e.id)==="going"?"Dolazim":"Zainteresiran/a"):"Događaj zajednice")+'</small><div><button type="button" data-event-action="going" data-id="'+esc(e.id)+'">'+(attending.get(e.id)==="going"?"Odaziv: dolazim ✓":"Dolazim")+'</button><button type="button" class="secondary" data-event-action="interested" data-id="'+esc(e.id)+'">'+(attending.get(e.id)==="interested"?"Zainteresiran/a ✓":"Zanima me")+'</button>'+(attending.has(e.id)?'<button type="button" class="secondary" data-event-action="cancel" data-id="'+esc(e.id)+'">Poništi odaziv</button>':'')+(e.host_id===user.id?'<button type="button" class="secondary" data-event-action="delete" data-id="'+esc(e.id)+'">Izbriši događaj</button>':'')+'</div></article>').join(""):'<p class="ps-wall-empty">Nema najavljenih događaja. Objavi prvi susret ili aktivnost.</p>';
 }
 $("hub-group-form").addEventListener("submit",async e=>{e.preventDefault();const name=$("hub-group-name").value.trim(),description=$("hub-group-desc").value.trim();if(!name)return;
  const b=e.submitter;b.disabled=true;try{const {error}=await db.from("community_groups").insert({owner_id:user.id,name,description,visibility:"public"});if(error)throw error;
@@ -49,9 +49,13 @@ $("hub-event-form").addEventListener("submit",async e=>{e.preventDefault();const
  }catch(x){say(errText(x),true)}finally{b.disabled=false}
 });
 $("hub-events").addEventListener("click",async e=>{const b=e.target.closest("button[data-event-action]");if(!b)return;b.disabled=true;try{const id=b.dataset.id,action=b.dataset.eventAction;
- let r;if(action==="cancel")r=await db.from("community_event_attendees").delete().eq("event_id",id).eq("user_id",user.id);
+ let r;if(action==="delete"){
+  const event=events.find(x=>x.id===id);if(!event||event.host_id!==user.id)throw Error("Možeš izbrisati samo vlastiti događaj.");
+  if(!confirm("Izbrisati ovaj događaj? Radnja se ne može poništiti."))return;
+  r=await db.from("community_events").delete().eq("id",id).eq("host_id",user.id);
+ }else if(action==="cancel")r=await db.from("community_event_attendees").delete().eq("event_id",id).eq("user_id",user.id);
  else r=await db.from("community_event_attendees").upsert({event_id:id,user_id:user.id,response:action},{onConflict:"event_id,user_id"});
- if(r.error)throw r.error;say(action==="cancel"?"Odaziv je poništen.":"Hvala, tvoj odaziv je spremljen.");await loadEvents()
+ if(r.error)throw r.error;say(action==="delete"?"Događaj je izbrisan.":action==="cancel"?"Odaziv je poništen.":"Hvala, tvoj odaziv je spremljen.");await loadEvents()
  }catch(x){say(errText(x),true)}finally{b.disabled=false}
 });
 $("hub-refresh-groups").addEventListener("click",()=>loadGroups().catch(e=>say(errText(e),true)));
