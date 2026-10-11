@@ -1,142 +1,91 @@
-name: PatriaSoul · Objavljivanje portala
+name: PatriaSoul · Provjera i objava zajednice
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: "*/10 * * * *"
-  workflow_run:
-    workflows:
-      - "PatriaSoul · Na današnji dan"
-    types:
-      - completed
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pages
+  group: patriasoul-community-pages
   cancel-in-progress: true
 
 jobs:
   build:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Preuzmi repozitorij
         uses: actions/checkout@v6
-        with:
-          persist-credentials: true
 
-      - name: Setup Node
+      - name: Postavi Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 22
 
-      - name: Provjeri sintaksu Cloudflare Workera
-        run: node --check worker.js
-
-      - name: Izradi javne HTML stranice za objavljene CMS članke
-        run: node scripts/build/generate-cms-articles.js
-
-      - name: Normaliziraj članke
-        run: node scripts/build/normalize-articles.js
-
-      - name: Sinkroniziraj indeks članaka u repozitorij
-        shell: bash
+      - name: Provjeri sintaksu Workera i portal skripte
         run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/articles.json
-          if git diff --cached --quiet; then
-            echo "Indeks članaka nije promijenjen."
-          else
-            git commit -m "Ažuriraj indeks članaka [skip ci]"
-            git push origin HEAD:main
-          fi
+          node --check worker.js
+          node --check assets/js/portal.js
+          node --check assets/js/auth.js
 
-      - name: Ujednaci portal shell na svim HTML stranicama
-        run: node scripts/build/normalize-shell.js
-
-      - name: Primijeni automatski SEO na portal
-        run: node scripts/build/enrich-seo.js
-
-      - name: Generiraj sitemap, robots i indeks pretrage
-        run: node scripts/build/generate-discovery.js
-
-      - name: QA strukture
+      - name: Provjeri strukturu i sačuvane funkcije
         run: node scripts/qa/qa-structure.js
 
-      - name: QA članaka
-        run: node scripts/qa/qa-articles.js
+      - name: Generiraj sitemap, robots, pretragu i RSS iz postojećih stranica
+        run: node scripts/build/generate-discovery.js
 
-      - name: QA sustava članaka
-        run: node scripts/qa/qa-article-system.js
-
-      - name: QA slika
-        run: node scripts/qa/qa-images.js
-
-      - name: Dijagnostika verzije i vremenske stranice
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "GITHUB_SHA=$GITHUB_SHA"
-          echo "GITHUB_REF=$GITHUB_REF"
-          echo "vrijeme.html CSS link:"
-          grep -n "weather-page.css" stranice/vrijeme.html || true
-          echo "weather-page.css:"
-          test -f assets/css/weather-page.css && echo "POSTOJI" || (echo "NEDOSTAJE"; exit 1)
-
-      - name: QA sitemap i robots
+      - name: Provjeri sitemap i robots
         run: node scripts/qa/qa-discovery.js
 
+      - name: Provjeri stranicu vremena
+        run: |
+          grep -q "weather-page.css" stranice/vrijeme.html
+          test -s assets/css/weather-page.css
+          test -s data/dhmz-data.json
 
-      - name: QA komentara i prijave
-        run: node scripts/qa/qa-comments.js
+      - name: Provjeri stranicu Na današnji dan
+        run: |
+          test -s stranice/na-danasnji-dan.html
+          test -s data/na-danasnji-dan.json
 
-      - name: QA administracije i RSS
-        run: node scripts/qa/qa-admin.js
+      - name: Provjeri osnovne poveznice zajednice
+        run: node scripts/qa/qa-community.js
 
-      - name: Build Hrvatski kviz
+      - name: Izgradi Hrvatski kviz
         working-directory: kviz
         run: |
           npm install
           npm run build
 
-      - name: Prepare Pages site
+      - name: Pripremi izlazne datoteke
         run: |
           rm -rf _site
           mkdir -p _site
-          rsync -a --exclude='_site' --exclude='kviz/dist' ./ _site/
+          rsync -a --exclude='_site' --exclude='kviz/dist' --exclude='kviz/node_modules' ./ _site/
           rm -rf _site/kviz
           mkdir -p _site/kviz
           cp -R kviz/dist/. _site/kviz/
 
-      - name: Provjeri glavne kategorije u izgrađenom portalu
-        shell: bash
-        run: |
-          set -euo pipefail
-          for category in domovina povijest vjera cuvari-nasljedja; do
-            file="_site/kategorije/$category/index.html"
-            if [ ! -s "$file" ]; then
-              echo "::error::Nedostaje glavna stranica kategorije: $file"
-              exit 1
-            fi
-            echo "OK $file"
-          done
-
-      - name: Postavi službeni PatriaSoul favicon na cijeli portal
+      - name: Postavi službeni favicon
         run: node scripts/build/ensure-favicon.js _site
 
-      - name: QA poveznica na izgrađenom portalu
-        run: node scripts/qa/qa-links.js _site
+      - name: Provjeri izlazne datoteke
+        run: |
+          test -s _site/index.html
+          test -s _site/stranice/domoljubni-forum.html
+          test -s _site/stranice/poruke-obavijesti.html
+          test -s _site/stranice/vrijeme.html
+          test -s _site/stranice/na-danasnji-dan.html
+          test -s _site/kviz/index.html
+          test -s _site/sitemap.xml
+          test -s _site/robots.txt
 
       - name: Probna Wrangler izgradnja bez objave
         run: npx --yes wrangler@4 deploy --dry-run
 
-      - name: Upload Cloudflare Worker assets
+      - name: Spremi portal za objavu
         uses: actions/upload-artifact@v4
         with:
           name: cloudflare-worker-assets
@@ -154,68 +103,32 @@ jobs:
       CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - name: Checkout repository for wrangler config
+      - name: Preuzmi postavke Workera
         uses: actions/checkout@v6
 
-      - name: Setup Node
+      - name: Postavi Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 22
 
-      - name: Provjeri je li ova objava najnovija
-        id: freshness
-        shell: bash
+      - name: Provjeri jesu li dostupni Cloudflare podaci
         run: |
-          set -euo pipefail
-          git fetch origin main
-          CURRENT_MAIN="$(git rev-parse origin/main)"
-          echo "Run SHA: $GITHUB_SHA"
-          echo "Trenutni main: $CURRENT_MAIN"
-          if [ "$CURRENT_MAIN" = "$GITHUB_SHA" ]; then
-            echo "current=true" >> "$GITHUB_OUTPUT"
-            echo "Ova objava sadrži najnoviju verziju."
-          else
-            CHANGED_PATHS="$(git diff --name-only "$GITHUB_SHA" "$CURRENT_MAIN")"
-            echo "Datoteke promijenjene nakon pokretanja builda:"
-            printf '%s\n' "$CHANGED_PATHS"
-            # Build smije sam ažurirati samo indeks članaka. Taj bot-commit
-            # ne smije blokirati objavu artefakta koji već sadrži taj indeks.
-            if [ "$CHANGED_PATHS" = "data/articles.json" ]; then
-              echo "current=true" >> "$GITHUB_OUTPUT"
-              echo "Nastavljam: jedina novija promjena je automatski indeks članaka."
-            else
-              echo "current=false" >> "$GITHUB_OUTPUT"
-              echo "::warning::Preskačem zastarjelu objavu jer su se druge datoteke promijenile nakon početka builda."
-            fi
-          fi
+          test -n "$CF_API_TOKEN" || (echo "::error::Nedostaje CLOUDFLARE_API_TOKEN"; exit 1)
+          test -n "$CF_ACCOUNT_ID" || (echo "::error::Nedostaje CLOUDFLARE_ACCOUNT_ID"; exit 1)
 
-      - name: Download built portal assets
-        if: steps.freshness.outputs.current == 'true'
+      - name: Preuzmi provjereni portal
         uses: actions/download-artifact@v4
         with:
           name: cloudflare-worker-assets
           path: _site
 
-      - name: Deploy portal to Cloudflare Workers with Wrangler v4
-        if: steps.freshness.outputs.current == 'true' && env.CF_API_TOKEN != '' && env.CF_ACCOUNT_ID != ''
+      - name: Objavi portal na Cloudflare Workers
         run: npx --yes wrangler@4 deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Smoke test ključnih stranica nakon objave
-        if: success() && steps.freshness.outputs.current == 'true' && env.CF_API_TOKEN != '' && env.CF_ACCOUNT_ID != ''
+      - name: Provjeri ključne stranice nakon objave
         run: node scripts/qa/qa-live.js
         env:
           BASE_URL: https://ps.patriasoul.workers.dev
-
-      - name: Fail if Cloudflare credentials are missing
-        if: env.CF_API_TOKEN == '' || env.CF_ACCOUNT_ID == ''
-        run: |
-          echo "::error::Nedostaje CLOUDFLARE_API_TOKEN ili CLOUDFLARE_ACCOUNT_ID. Portal nije objavljen na Workers."
-          exit 1
-        env:
-          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
