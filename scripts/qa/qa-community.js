@@ -117,6 +117,7 @@ for (const token of ['id="sigurnost"', 'id="deaktivacija"', 'updateUser({email})
   if (!accountPage.includes(token)) throw new Error("Postavkama računa nedostaje funkcija: " + token);
 }
 if (!accountPage.includes("ne briše račun automatski")) throw new Error("Zahtjev za brisanje mora jasno objasniti da je potrebna administratorska obrada.");
+if (accountPage.includes('select("id,request_type,status,created_at,processed_at,admin_note")') || accountPage.includes('item.admin_note?" · Napomena: "')) throw new Error("Interna administratorska napomena ne smije se prikazivati korisniku u povijesti zahtjeva.");
 const hub = fs.readFileSync(path.join(root, "stranice/grupe-dogadjaji.html"), "utf8");
 for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "community-hub.js"]) {
   if (!hub.includes(token)) throw new Error("Stranici grupa i događaja nedostaje element: " + token);
