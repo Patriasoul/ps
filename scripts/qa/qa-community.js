@@ -155,7 +155,7 @@ for (const token of ["profile-friend-action", "profile-message-action", "profile
   if (!profileUi.includes(token)) throw new Error("Profilu nedostaje prijateljstvo ili privatnost: " + token);
 }
 const profileLogic = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
-for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "ps-profile-suggestion-grid"]) {
+for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "ps-profile-suggestion-grid", "profile-friend-action", "profile-message-action"]) {
   if (!profileLogic.includes(token)) throw new Error("Logici profila nedostaje prijateljstvo ili privatnost: " + token);
 }
 const photoPrivacyMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110007_photo_visibility_storage.sql"), "utf8");
@@ -164,6 +164,9 @@ for (const token of ["members read attached community images", "photos_visibilit
 }
 if (!photoPrivacyMigration.includes("drop policy if exists \"members read attached community images\"")) throw new Error("Migracija mora sigurno zamijeniti postojeće pravilo čitanja fotografija.");
 
+for (const token of ['friendBtn.dataset.remove', 'friendBtn.dataset.cancel', 'from("community_friendships").delete()', "Ukloni iz prijatelja", "Otkaži zahtjev"]) {
+  if (!profileLogic.includes(token)) throw new Error("Član ne može upravljati postojećim prijateljstvom ili zahtjevom: " + token);
+}
 const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
 if (!lifecycleMigration.includes(lifecycleIndex) || !lifecycleMigration.includes("where status in ('pending','in_review')")) {
   throw new Error("Zahtjevi računa moraju imati jedinstvenu zaštitu od dvostrukih otvorenih zahtjeva.");
