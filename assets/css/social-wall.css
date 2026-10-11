@@ -1,0 +1,81 @@
+/* PatriaSoul — zid zajednice. Namjerno ograničeno na .ps-wall kako se ne bi mijenjao kviz ili forum. */
+.ps-wall{width:min(1460px,calc(100% - 32px));margin:28px auto 64px;color:var(--ps-theme-text,#F3F5F7)}
+.ps-wall *{box-sizing:border-box}
+.ps-wall a{color:var(--ps-theme-gold,#F1D078);text-decoration:none}
+.ps-wall a:hover{color:#fff}
+.ps-wall-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;padding:clamp(24px,4vw,48px);border:1px solid rgba(213,168,67,.22);border-radius:18px;background:linear-gradient(120deg,rgba(7,20,38,.97),rgba(20,45,72,.92)),url("../images/hrvatska-hero.svg") center/cover;box-shadow:0 18px 45px rgba(0,0,0,.24)}
+.ps-wall-kicker{margin:0 0 8px;color:var(--ps-theme-gold,#F1D078);font-size:.72rem;font-weight:850;letter-spacing:.15em;text-transform:uppercase}
+.ps-wall-hero h1{margin:0 0 12px;color:#fff;font-size:clamp(2rem,4.5vw,3.7rem);line-height:1.08}
+.ps-wall-hero>div>p:last-child{max-width:700px;margin:0;color:rgba(255,255,255,.82)}
+.ps-wall-hero-actions{display:flex;flex-wrap:wrap;gap:8px}
+.ps-wall-hero-actions a,.ps-wall-feed-heading button{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(7,13,25,.55);color:#f3f5f7;font-size:.88rem;font-weight:750}
+.ps-wall-hero-actions a:hover,.ps-wall-feed-heading button:hover{border-color:var(--ps-theme-gold);color:var(--ps-theme-gold)}
+.ps-wall-layout{display:grid;grid-template-columns:minmax(190px,245px) minmax(0,1fr) minmax(190px,245px);align-items:start;gap:18px;margin-top:20px}
+.ps-wall-sidebar,.ps-wall-main,.ps-wall-right{min-width:0}
+.ps-wall-sidebar,.ps-wall-right{display:grid;gap:14px}
+.ps-wall-panel{padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));box-shadow:0 14px 35px rgba(0,0,0,.16)}
+.ps-wall-panel h2,.ps-wall-section-heading h2,.ps-wall-feed-heading h2{margin:0;color:#f3f5f7;font-size:1.25rem}
+.ps-wall-profile{display:grid;grid-template-columns:46px minmax(0,1fr);gap:12px;align-items:center}
+.ps-wall-avatar{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid rgba(241,208,120,.45);background:linear-gradient(135deg,#193452,#0a0d19);color:var(--ps-theme-gold);font-weight:900;overflow:hidden}
+.ps-wall-avatar img{width:100%;height:100%;object-fit:cover}
+.ps-wall-profile strong{overflow-wrap:anywhere;color:#fff}
+.ps-wall-profile p,.ps-wall-profile>a{margin:2px 0 0;font-size:.8rem;color:rgba(243,245,247,.68);overflow-wrap:anywhere}
+.ps-wall-profile>a{grid-column:1/-1;margin-top:4px;color:var(--ps-theme-gold)}
+.ps-wall-links{display:grid;gap:4px}
+.ps-wall-links h2{margin-bottom:8px}
+.ps-wall-links a{padding:9px 10px;border-radius:7px;color:rgba(243,245,247,.82);font-size:.92rem}
+.ps-wall-links a:hover,.ps-wall-links a.is-current{background:rgba(241,208,120,.09);color:var(--ps-theme-gold)}
+.ps-wall-community-note>strong{display:block;margin:4px 0;color:#fff}
+.ps-wall-community-note>p:not(.ps-wall-kicker),.ps-wall-right p{color:rgba(243,245,247,.7);font-size:.9rem;line-height:1.65}
+.ps-wall-main{display:grid;gap:16px}
+.ps-wall-status{padding:12px 15px;border:1px solid rgba(241,208,120,.2);border-radius:9px;background:rgba(241,208,120,.06);color:rgba(243,245,247,.85)}
+.ps-wall-status:empty{display:none}
+.ps-wall-status.is-error{border-color:rgba(181,31,53,.55);background:rgba(181,31,53,.12)}
+.ps-wall-composer{padding:20px}
+.ps-wall-section-heading,.ps-wall-feed-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.ps-wall-lock,.ps-wall-hint,.ps-wall-small{color:rgba(243,245,247,.62);font-size:.8rem}
+.ps-wall-composer textarea{display:block;width:100%;min-height:100px;resize:vertical;padding:13px 14px;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(5,9,18,.68);color:#f3f5f7;font:inherit;line-height:1.55}
+.ps-wall-composer textarea:focus,.ps-wall input:focus{outline:2px solid rgba(241,208,120,.5);outline-offset:1px}
+.ps-wall-composer textarea::placeholder{color:rgba(243,245,247,.48)}
+.ps-wall-composer-bottom{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px}
+.ps-wall-upload{display:inline-flex;align-items:center;padding:9px 12px;border:1px solid rgba(241,208,120,.28);border-radius:8px;color:var(--ps-theme-gold);font-size:.86rem;font-weight:750;cursor:pointer}
+.ps-wall-upload input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+#ps-wall-image-name{flex:1;min-width:100px;color:rgba(243,245,247,.6);font-size:.8rem;overflow-wrap:anywhere}
+.ps-wall button,.ps-wall button[type=submit]{cursor:pointer;font:inherit;font-weight:750}
+.ps-wall button[type=submit],.ps-wall .ps-wall-side-cta{display:inline-flex;align-items:center;justify-content:center;padding:10px 15px;border:1px solid #b51f35;border-radius:8px;background:#b51f35;color:#fff;text-decoration:none}
+.ps-wall button[type=submit]:hover,.ps-wall .ps-wall-side-cta:hover{background:#d02740;color:#fff}
+.ps-wall button:disabled{opacity:.55;cursor:wait}
+.ps-wall-hint{margin:10px 0 0}
+.ps-wall-feed-heading{margin:4px 0 0}
+.ps-wall-feed{display:grid;gap:14px}
+.ps-wall-post{min-width:0;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));box-shadow:0 14px 35px rgba(0,0,0,.16)}
+.ps-wall-post-head{display:flex;align-items:center;gap:10px}
+.ps-wall-post-author{min-width:0;flex:1}
+.ps-wall-post-author strong{display:block;color:#fff;overflow-wrap:anywhere}
+.ps-wall-post-author time{display:block;color:rgba(243,245,247,.55);font-size:.78rem}
+.ps-wall-post-menu{display:flex;gap:6px;flex-wrap:wrap}
+.ps-wall-post-menu button,.ps-wall-post-actions button,.ps-wall-comment-form button{padding:7px 10px;border:1px solid rgba(255,255,255,.14);border-radius:7px;background:rgba(7,13,25,.45);color:rgba(243,245,247,.82);font-size:.82rem}
+.ps-wall-post-menu button:hover,.ps-wall-post-actions button:hover,.ps-wall-comment-form button:hover{border-color:var(--ps-theme-gold);color:var(--ps-theme-gold)}
+.ps-wall-post-content{margin:15px 0;color:rgba(243,245,247,.92);white-space:pre-wrap;overflow-wrap:anywhere}
+.ps-wall-post-image{display:block;max-width:100%;max-height:640px;margin:12px auto 0;border-radius:9px;object-fit:contain;background:rgba(0,0,0,.16)}
+.ps-wall-post-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.09)}
+.ps-wall-post-actions button.is-active{border-color:rgba(241,208,120,.45);background:rgba(241,208,120,.1);color:var(--ps-theme-gold)}
+.ps-wall-comments{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.09)}
+.ps-wall-comment{display:flex;gap:8px;margin:10px 0}
+.ps-wall-comment .ps-wall-avatar{width:32px;height:32px;flex:0 0 32px;font-size:.75rem}
+.ps-wall-comment-body{min-width:0;flex:1;padding:9px 11px;border-radius:9px;background:rgba(0,0,0,.18)}
+.ps-wall-comment-body strong{color:#fff;font-size:.85rem}
+.ps-wall-comment-body p{margin:4px 0 0;color:rgba(243,245,247,.85);white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem}
+.ps-wall-comment-body time{color:rgba(243,245,247,.5);font-size:.72rem}
+.ps-wall-comment-form{display:flex;gap:8px;margin-top:12px}
+.ps-wall-comment-form input{flex:1;min-width:0;padding:10px 12px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(5,9,18,.68);color:#f3f5f7;font:inherit}
+.ps-wall-empty{padding:22px;text-align:center;border:1px dashed rgba(255,255,255,.18);border-radius:10px;color:rgba(243,245,247,.66)}
+.ps-wall-right .ps-wall-panel{margin-bottom:0}
+.ps-wall-side-cta{display:flex!important;margin-top:9px}
+.ps-wall .ps-wall-side-cta-alt{background:transparent;border-color:rgba(241,208,120,.35);color:var(--ps-theme-gold)}
+.ps-wall .ps-wall-side-cta-alt:hover{background:rgba(241,208,120,.08)}
+.ps-wall-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1080px){.ps-wall-layout{grid-template-columns:220px minmax(0,1fr)}.ps-wall-right{grid-column:2;grid-template-columns:repeat(2,minmax(0,1fr))}.ps-wall-hero{align-items:flex-start;flex-direction:column}}
+@media(max-width:720px){.ps-wall{width:min(100% - 20px,680px);margin-top:12px}.ps-wall-layout{grid-template-columns:1fr}.ps-wall-sidebar{grid-template-columns:1fr 1fr}.ps-wall-profile{grid-column:1/-1}.ps-wall-main{grid-row:2}.ps-wall-right{grid-column:auto;grid-template-columns:1fr 1fr}.ps-wall-hero{padding:22px 18px;border-radius:13px}.ps-wall-hero-actions{gap:6px}.ps-wall-hero-actions a{padding:8px 10px;font-size:.8rem}.ps-wall-composer,.ps-wall-post{padding:14px}}
+@media(max-width:480px){.ps-wall-sidebar,.ps-wall-right{grid-template-columns:1fr}.ps-wall-section-heading{align-items:flex-start;flex-direction:column}.ps-wall-feed-heading{align-items:flex-start}.ps-wall-post-menu{justify-content:flex-end}.ps-wall-comment-form{flex-wrap:wrap}.ps-wall-comment-form input{flex-basis:100%}.ps-wall-composer-bottom{align-items:stretch}.ps-wall-composer-bottom button{width:100%}}
+.ps-wall [hidden]{display:none!important}
