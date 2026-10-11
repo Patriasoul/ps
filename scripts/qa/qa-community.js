@@ -99,8 +99,16 @@ const rankMigration = fs.readFileSync(path.join(root, "supabase/migrations/20261
 for (const token of ["get_my_leaderboard_position", "auth.uid()", "row_number() over", "grant execute on function public.get_my_leaderboard_position(text) to authenticated"]) {
   if (!rankMigration.includes(token)) throw new Error("Migraciji osobne rang-liste nedostaje zaštita ili funkcija: " + token);
 }
+const adminPage = fs.readFileSync(path.join(root, "stranice/administracija.html"), "utf8");
+for (const token of ['id="roles-panel"', 'id="users-list"', 'id="account-requests-panel"', 'id="account-requests-manage"']) {
+  if (!adminPage.includes(token)) throw new Error("Administraciji nedostaje upravljanje računima: " + token);
+}
+const adminJs = fs.readFileSync(path.join(root, "assets/js/admin.js"), "utf8");
+for (const token of ["manageAccountRequests(c,u.id)", "account_lifecycle_requests", "data-account-request-status"]) {
+  if (!adminJs.includes(token)) throw new Error("Administraciji nedostaje obrada zahtjeva računa: " + token);
+}
 const lifecycleMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110003_account_lifecycle_requests.sql"), "utf8");
-for (const token of ["account_lifecycle_requests", "auth.uid()", "members submit own lifecycle requests", "administrators process lifecycle requests", "status in ('pending','in_review','completed','rejected')"]) {
+for (const token of ["account_lifecycle_requests", "auth.uid()", "members submit own lifecycle requests", "administrators process lifecycle requests", "patriasoul@protonmail.com", "status in ('pending','in_review','completed','rejected')"]) {
   if (!lifecycleMigration.includes(token)) throw new Error("Migraciji zahtjeva računa nedostaje sigurnosna provjera: " + token);
 }
 const accountPage = fs.readFileSync(path.join(root, "stranice/racun.html"), "utf8");
