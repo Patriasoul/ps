@@ -2,7 +2,7 @@ name: PatriaSoul · Provjera i objava zajednice
 
 on:
   push:
-    branches: [main, cleanup-current-community-2026-10]
+    branches: [main, cleanup-current-community-2026-10, feature/cuvari-nasljeda-social-wall-v1]
   workflow_dispatch:
 
 permissions:
@@ -29,6 +29,7 @@ jobs:
           node --check worker.js
           node --check assets/js/portal.js
           node --check assets/js/auth.js
+          node --check assets/js/social-wall.js
           node --check assets/js/admin.js
           node --check assets/js/search.js
           node --check scripts/build/generate-discovery.js
