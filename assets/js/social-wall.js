@@ -30,12 +30,19 @@ async function init(){
  try{
   if(!window.PatriaSoulAuth)throw new Error("Modul za korisnički račun nije učitan.");
   user=await PatriaSoulAuth.getUser();
-  if(!user){say("Za pristup zidu zajednice moraš se prijaviti.");feed.innerHTML='<div class="ps-wall-empty">Zid je dostupan samo prijavljenim članovima.<br><br><a href="prijava.html?next='+encodeURIComponent("zid-zajednice.html")+'">Prijavi se</a> ili <a href="registracija.html">izradi račun</a>.</div>';return}
+  if(!user){say("Za pristup zidu zajednice moraš se prijaviti.");feed.innerHTML='<div class="ps-wall-empty">Zid je dostupan samo prijavljenim članovima.<br><br><a href="prijava.html?next='+encodeURIComponent("zid-zajednice.html"+location.search)+'">Prijavi se</a> ili <a href="registracija.html">izradi račun</a>.</div>';return}
   const c=await db(),{data,error}=await c.from("profiles").select("id,display_name,role,avatar_url").eq("id",user.id).maybeSingle();if(error)throw error;profile=data||{};
   const name=profile.display_name||user.user_metadata?.display_name||user.email?.split("@")[0]||"Član";
   $("ps-wall-my-name").textContent=name;$("ps-wall-my-email").textContent=user.email||"";$("ps-wall-my-avatar").textContent=initials(name);
   if(profile.avatar_url)$("ps-wall-my-avatar").innerHTML='<img alt="" src="'+esc(profile.avatar_url)+'">';
   composer.hidden=false;
+  const shareParams=new URLSearchParams(location.search),shareUrl=shareParams.get("shareUrl");
+  if(shareUrl){
+   $("ps-wall-link-url").value=shareUrl;
+   $("ps-wall-link-title").value=shareParams.get("shareTitle")||"";
+   const kind=shareParams.get("shareType");$("ps-wall-link-type").value=["forum","quiz","event"].includes(kind)?kind:"link";
+   $("ps-wall-post-content").value=shareParams.get("shareText")||"";
+  }
   await refresh();
  }catch(e){console.error(e);say(e.message||"Zid se nije mogao pokrenuti.",true);feed.innerHTML='<div class="ps-wall-empty">Provjeri vezu i pokušaj ponovno.</div>'}
 }
