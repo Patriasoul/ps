@@ -1,74 +1,41 @@
 <!doctype html>
-<html lang="hr">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Moj račun — PatriaSoul</title>
-<link rel="stylesheet" href="../assets/css/base.css">
-</head>
-<body>
-<main class="ps-auth-page">
-<section class="ps-auth-card" id="account-card">
-<p class="ps-kicker">PATRIASOUL · KORISNIČKI RAČUN</p>
-<h1>Moj račun</h1>
-<p id="account-status">Provjeravam prijavu...</p>
+<html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Moj račun — PatriaSoul</title><link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/header.css"><link rel="stylesheet" href="../assets/css/navigation.css"><link rel="stylesheet" href="../assets/css/footer.css"><link rel="stylesheet" href="../assets/css/responsive.css">
+<style>
+.ps-account-wrap{max-width:900px;margin:34px auto;padding:0 18px}.ps-account-card{background:#fff;border:1px solid #dfe4ea;border-radius:14px;padding:clamp(20px,4vw,34px);box-shadow:0 12px 32px #10263d0d}.ps-account-card h1{margin:.2em 0}.ps-account-section{padding:22px 0;border-top:1px solid #e2e7ec;margin-top:20px}.ps-account-section h2{font-size:1.25rem}.ps-account-form{display:grid;gap:12px;max-width:580px}.ps-account-form label{display:grid;gap:6px;font-weight:700}.ps-account-form input{width:100%;padding:11px 12px;border:1px solid #c8d0d9;border-radius:8px;font:inherit}.ps-account-form button,.ps-account-actions a,.ps-account-actions button{display:inline-flex;align-items:center;justify-content:center;border:1px solid #183653;border-radius:8px;padding:10px 14px;background:#183653;color:#fff;text-decoration:none;font:inherit;font-weight:750;cursor:pointer}.ps-account-form button:disabled{opacity:.6}.ps-account-message{min-height:1.4em;color:#1c5636;font-size:.9rem}.ps-account-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.ps-account-danger{border-color:#b51f35!important;background:#fff5f5!important;color:#9e1b2d!important}.ps-account-muted{color:#566474;line-height:1.6}.ps-account-danger-panel{border:1px solid #efc2c8;background:#fff8f8;padding:16px;border-radius:10px}@media(max-width:600px){.ps-account-wrap{margin:18px auto}.ps-account-actions>*{width:100%}}
+</style></head><body>
+<main class="ps-account-wrap"><section class="ps-account-card" id="account-card">
+<p class="ps-kicker">PATRIASOUL · KORISNIČKI RAČUN</p><h1>Moj račun</h1><p id="account-status">Provjeravam prijavu...</p>
 <div id="account-content" hidden>
-<div class="ps-account-avatar" aria-hidden="true">PS</div>
-<p><strong id="account-name">Čitatelj</strong></p>
-<p id="account-email"></p>
-<p id="account-role"></p>
-<form id="account-form" class="ps-auth-form">
-<label>Ime za prikaz<input id="display-name" required minlength="2" maxlength="80" autocomplete="nickname"></label>
-<button type="submit">Spremi promjene</button>
-<p id="account-msg" class="ps-auth-message" role="status" aria-live="polite"></p>
-</form>
-<div class="ps-account-actions">
-<a href="../index.html">Naslovnica</a>
-<a href="../index.html">Najnovije</a>
-<a href="../stranice/prijava.html" id="logout-link">Odjavi se</a>
-</div>
-</div>
-<div id="account-login" hidden>
-<p>Za pregled računa morate biti prijavljeni.</p>
-<a href="prijava.html">Prijavi se</a>
-</div>
-</section>
-</main>
-<script src="../assets/js/portal.js"></script>
-<script src="../assets/js/auth.js"></script>
+<p><strong id="account-name">Član PatriaSoul</strong></p><p id="account-email"></p><p id="account-role"></p>
+<section class="ps-account-section"><h2>Osnovni podaci</h2><form id="account-form" class="ps-account-form"><label for="display-name">Ime za prikaz<input id="display-name" required minlength="2" maxlength="80" autocomplete="nickname"></label><button type="submit">Spremi ime za prikaz</button><p id="account-msg" class="ps-account-message" role="status" aria-live="polite"></p></form></section>
+<section class="ps-account-section" id="sigurnost"><h2>E-mail i sigurnost</h2><p class="ps-account-muted">Promjena e-mail adrese može zahtijevati potvrdu putem e-pošte. Koristi lozinku koju ne upotrebljavaš na drugim stranicama.</p>
+<form id="email-form" class="ps-account-form"><label for="new-email">Nova e-mail adresa<input id="new-email" type="email" required autocomplete="email"></label><button type="submit">Zatraži promjenu e-maila</button><p id="email-msg" class="ps-account-message" role="status" aria-live="polite"></p></form>
+<form id="password-form" class="ps-account-form" style="margin-top:22px"><label for="new-password">Nova lozinka<input id="new-password" type="password" minlength="8" required autocomplete="new-password"></label><label for="confirm-password">Ponovi novu lozinku<input id="confirm-password" type="password" minlength="8" required autocomplete="new-password"></label><button type="submit">Promijeni lozinku</button><p id="password-msg" class="ps-account-message" role="status" aria-live="polite"></p></form></section>
+<section class="ps-account-section" id="deaktivacija"><h2>Deaktivacija ili brisanje računa</h2><div class="ps-account-danger-panel"><p class="ps-account-muted">Ako želiš prestati koristiti PatriaSoul ili zatražiti brisanje računa i povezanih osobnih podataka, pošalji zahtjev s adrese povezane s računom. Radi zaštite računa, deaktivaciju i trajno brisanje mora potvrditi administrator; ova stranica ne briše račun automatski.</p><div class="ps-account-actions"><button type="button" class="ps-account-danger" id="deactivate-request">Zatraži deaktivaciju</button><button type="button" class="ps-account-danger" id="delete-request">Zatraži brisanje računa</button></div><p id="lifecycle-msg" class="ps-account-message" role="status" aria-live="polite"></p><div id="lifecycle-history" class="ps-account-muted" aria-live="polite">Učitavam prethodne zahtjeve…</div></div></section>
+<div class="ps-account-actions"><a href="profil.html">Moj profil</a><a href="pravila-koristenja-i-sigurnosti.html">Pravila i sigurnost</a><a href="../kviz/">Hrvatski kviz</a><a href="domoljubni-forum.html">Domoljubni forum</a><a href="../index.html">Naslovnica</a><a href="../stranice/prijava.html" id="logout-link">Odjavi se</a></div>
+</div><div id="account-login" hidden><p>Za pregled računa morate biti prijavljeni.</p><a href="prijava.html">Prijavi se</a></div></section></main>
+<script src="../assets/js/portal.js"></script><script src="../assets/js/auth.js?v=20261011-account-settings-v2"></script>
 <script>
 (async()=>{
- const status=document.getElementById("account-status"),content=document.getElementById("account-content"),login=document.getElementById("account-login");
+ const $=id=>document.getElementById(id),status=$("account-status"),content=$("account-content"),login=$("account-login");
  try{
   const user=await PatriaSoulAuth.getUser();
   if(!user){status.hidden=true;login.hidden=false;return}
   const client=await PatriaSoulAuth.client();
-  const {data:profile}=await client.from("profiles").select("display_name,role,avatar_url,created_at").eq("id",user.id).maybeSingle();
-  const name=profile?.display_name||user.user_metadata?.display_name||user.email?.split("@")[0]||"Čitatelj";
-  document.getElementById("account-name").textContent=name;
-  document.getElementById("account-email").textContent=user.email||"";
-  document.getElementById("account-role").textContent=profile?.role==="admin"?"Administrator":"Član PatriaSoul zajednice";
-  document.getElementById("display-name").value=name;
+  const {data:profile,error:profileError}=await client.from("profiles").select("display_name,role,avatar_url,created_at").eq("id",user.id).maybeSingle();
+  if(profileError)throw profileError;
+  const name=profile?.display_name||user.user_metadata?.display_name||user.email?.split("@")[0]||"Član PatriaSoul";
+  $("account-name").textContent=name;$("account-email").textContent="Prijavljen e-mail: "+(user.email||"");$("account-role").textContent=profile?.role==="admin"?"Administrator":"Član PatriaSoul zajednice";$("display-name").value=name;$("new-email").value=user.email||"";
+  const mailSubject="Zahtjev za deaktivaciju ili brisanje PatriaSoul računa";
+  for(const id of ["deactivate-request","delete-request"]){const a=$(id);a.href="mailto:patriasoul@protonmail.com?subject="+encodeURIComponent(id==="deactivate-request"?"Zahtjev za deaktivaciju PatriaSoul računa":"Zahtjev za brisanje PatriaSoul računa")+"&body="+encodeURIComponent("Molim obradu zahtjeva za račun povezan s ovom adresom: "+(user.email||"")+"\n\nMolim potvrdu primitka zahtjeva.");}
+  async function loadLifecycleRequests(){const box=$("lifecycle-history");try{const {data,error}=await client.from("account_lifecycle_requests").select("id,request_type,status,created_at,processed_at").order("created_at",{ascending:false}).limit(10);if(error)throw error;if(!data?.length){box.textContent="Još nema poslanih zahtjeva.";return}const labels={deactivate:"Deaktivacija računa",delete:"Brisanje računa",pending:"Na čekanju",in_review:"U obradi",completed:"Dovršeno",rejected:"Odbijeno"};box.replaceChildren();const heading=document.createElement("h3");heading.textContent="Moji zahtjevi";box.append(heading);for(const item of data){const row=document.createElement("p");const date=new Date(item.created_at).toLocaleDateString("hr-HR");row.textContent=(labels[item.request_type]||item.request_type)+" · "+(labels[item.status]||item.status)+" · "+date;box.append(row)}}catch(err){box.textContent="Zahtjevi će se prikazati nakon što administrator primijeni migraciju računa.";console.warn("Zahtjevi računa nisu dostupni",err)}}
+  async function submitLifecycleRequest(type){const msg=$("lifecycle-msg"),button=$(type==="deactivate"?"deactivate-request":"delete-request");if(!window.confirm(type==="delete"?"Želiš li poslati zahtjev za trajno brisanje računa? Ovo još neće obrisati račun; administrator mora pregledati zahtjev.":"Želiš li poslati zahtjev za deaktivaciju računa? Račun ostaje aktivan dok administrator ne obradi zahtjev."))return;button.disabled=true;msg.textContent="Šaljem zahtjev…";try{const {data:existing,error:checkError}=await client.from("account_lifecycle_requests").select("id,status").eq("user_id",user.id).eq("request_type",type).in("status",["pending","in_review"]).limit(1);if(checkError)throw checkError;if(existing?.length)throw new Error("Već postoji zahtjev ove vrste koji čeka obradu.");const {error}=await client.from("account_lifecycle_requests").insert({user_id:user.id,request_type:type,account_email:user.email||null,message:"Zahtjev poslan iz postavki korisničkog računa."});if(error)throw error;msg.textContent="Zahtjev je zabilježen. Račun nije automatski deaktiviran ni obrisan; zahtjev čeka administratorsku obradu.";await loadLifecycleRequests()}catch(err){msg.textContent=err.message||"Zahtjev nije spremljen. Provjeri je li migracija zahtjeva računa primijenjena."}finally{button.disabled=false}}
+  $("deactivate-request").addEventListener("click",()=>submitLifecycleRequest("deactivate"));$("delete-request").addEventListener("click",()=>submitLifecycleRequest("delete"));await loadLifecycleRequests();
   status.hidden=true;content.hidden=false;
-  document.getElementById("account-form").addEventListener("submit",async e=>{
-   e.preventDefault();
-   const msg=document.getElementById("account-msg"),button=e.currentTarget.querySelector("button");
-   button.disabled=true;msg.textContent="Spremanje...";
-   try{
-    const value=document.getElementById("display-name").value.trim();
-    if(value.length<2)throw new Error("Ime za prikaz mora imati najmanje 2 znaka.");
-    const {error}=await client.from("profiles").update({display_name:value,updated_at:new Date().toISOString()}).eq("id",user.id);
-    if(error)throw error;
-    const {error:authError}=await client.auth.updateUser({data:{display_name:value}});
-    if(authError)throw authError;
-    document.getElementById("account-name").textContent=value;msg.textContent="Promjene su spremljene.";
-   }catch(err){msg.textContent=err.message||"Promjene nisu spremljene."}finally{button.disabled=false}
-  });
-  document.getElementById("logout-link").addEventListener("click",async e=>{
-   e.preventDefault();
-   await PatriaSoulAuth.signOut();
-   location.href="../stranice/prijava.html";
-  });
- }catch(err){status.textContent="Prijava se nije mogla provjeriti. Pokušajte ponovno.";console.error(err)}
+  $("account-form").addEventListener("submit",async e=>{e.preventDefault();const msg=$("account-msg"),button=e.currentTarget.querySelector("button");button.disabled=true;msg.textContent="Spremanje…";try{const value=$("display-name").value.trim();if(value.length<2)throw new Error("Ime za prikaz mora imati najmanje 2 znaka.");const {error}=await client.from("profiles").update({display_name:value,updated_at:new Date().toISOString()}).eq("id",user.id);if(error)throw error;const authResult=await client.auth.updateUser({data:{display_name:value}});if(authResult.error)throw authResult.error;$("account-name").textContent=value;msg.textContent="Promjene su spremljene."}catch(err){msg.textContent=err.message||"Promjene nisu spremljene."}finally{button.disabled=false}});
+  $("email-form").addEventListener("submit",async e=>{e.preventDefault();const msg=$("email-msg"),button=e.currentTarget.querySelector("button");button.disabled=true;msg.textContent="Šaljem zahtjev…";try{const email=$("new-email").value.trim();if(email.toLowerCase()===String(user.email||"").toLowerCase())throw new Error("Upisana je ista e-mail adresa.");const {error}=await client.auth.updateUser({email});if(error)throw error;msg.textContent="Zahtjev je poslan. Provjeri e-poštu i potvrdi promjenu ako se to zatraži."}catch(err){msg.textContent=err.message||"E-mail nije promijenjen."}finally{button.disabled=false}});
+  $("password-form").addEventListener("submit",async e=>{e.preventDefault();const msg=$("password-msg"),button=e.currentTarget.querySelector("button");button.disabled=true;msg.textContent="Mijenjam lozinku…";try{const password=$("new-password").value;if(password.length<8)throw new Error("Lozinka mora imati najmanje 8 znakova.");if(password!==$("confirm-password").value)throw new Error("Lozinke se ne podudaraju.");const {error}=await client.auth.updateUser({password});if(error)throw error;$("new-password").value="";$("confirm-password").value="";msg.textContent="Lozinka je promijenjena."}catch(err){msg.textContent=err.message||"Lozinka nije promijenjena."}finally{button.disabled=false}});
+  $("logout-link").addEventListener("click",async e=>{e.preventDefault();await PatriaSoulAuth.signOut();location.href="../stranice/prijava.html"});
+ }catch(err){status.textContent="Račun nije moguće učitati. "+(err.message||"Pokušaj ponovno.");console.error(err)}
 })();
-</script>
-</body></html>
+</script></body></html>

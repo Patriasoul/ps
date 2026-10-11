@@ -27,6 +27,76 @@ async function manageForum(c,canManage,currentId){
  reportsBox?.querySelectorAll("[data-forum-report-status]").forEach(el=>el.addEventListener("change",async()=>{const old="open";el.disabled=true;try{const r=await c.from("forum_reports").update({status:el.value,reviewed_by:currentId,reviewed_at:new Date().toISOString()}).eq("id",el.dataset.forumReportStatus);if(r.error)throw r.error;await manageForum(c,canManage,currentId)}catch(e){alert("Prijava nije ažurirana: "+(e?.message||"greška"));el.value=old}finally{el.disabled=!canManage}}));
 }
 async function manageStories(c){const r=await c.from("heritage_submissions").select("id,title,name,category,status,created_at,location").order("created_at",{ascending:false}).limit(30);const b=$("#stories-manage");if(r.error){console.error("PatriaSoul admin stories error",r.error);b.innerHTML="<p>Prijavljene priče trenutačno nisu dostupne. Provjeri dozvole Supabase tablice.</p>";return}b.innerHTML=(r.data||[]).map(x=>'<div class="ps-admin-item ps-admin-manage-item"><div><strong>'+esc(x.title||"Bez naslova")+'</strong><small>'+esc(x.name||"")+(x.location?" · "+esc(x.location):"")+" · "+fmt(x.created_at)+'</small></div><div class="ps-admin-actions"><select data-story-status="'+esc(x.id)+'"><option value="novo" '+(x.status==="novo"?"selected":"")+'>Novo</option><option value="u_provjeri" '+(x.status==="u_provjeri"?"selected":"")+'>U provjeri</option><option value="prihvaceno" '+(x.status==="prihvaceno"?"selected":"")+'>Prihvaćeno</option><option value="odbijeno" '+(x.status==="odbijeno"?"selected":"")+'>Odbijeno</option><option value="objavljeno" '+(x.status==="objavljeno"?"selected":"")+'>Objavljeno</option></select></div></div>').join("")||"<p>Nema prijavljenih priča.</p>";b.querySelectorAll("[data-story-status]").forEach(s=>{s.dataset.old=s.value;s.addEventListener("change",async()=>{const old=s.dataset.old;s.disabled=true;try{const r=await c.from("heritage_submissions").update({status:s.value}).eq("id",s.dataset.storyStatus);if(r.error)throw r.error;s.dataset.old=s.value}catch(e){alert("Status priče nije promijenjen: "+(e?.message||"nepoznata greška"));s.value=old}finally{s.disabled=false}})})}
+
+async function manageSocialWall(c,canManage,currentId){
+ const reportsBox=$("#wall-reports-manage"),postsBox=$("#wall-posts-manage");
+ const [reports,posts]=await Promise.all([
+  c.from("community_post_reports").select("id,post_id,reporter_id,reason,status,created_at").order("created_at",{ascending:false}).limit(30),
+  c.from("community_posts").select("id,content,status,created_at,author_id,profiles!community_posts_author_id_fkey(display_name)").order("created_at",{ascending:false}).limit(25)
+ ]);
+ if(reports.error||posts.error){
+  const msg="Moderacija zida još nije dostupna. Provjeri je li migracija društvenog zida primijenjena na Supabase.";
+  if(reportsBox)reportsBox.innerHTML='<p class="ps-admin-empty">'+esc(msg)+'</p>';
+  if(postsBox)postsBox.innerHTML='<p class="ps-admin-empty">'+esc(msg)+'</p>';
+  set("wall-report-total","—");return;
+ }
+ const postMap=new Map((posts.data||[]).map(p=>[p.id,p]));
+ const pending=(reports.data||[]).filter(r=>r.status==="pending").length;
+ set("wall-report-total",pending);
+ if(reportsBox)reportsBox.innerHTML=(reports.data||[]).map(r=>{
+  const p=postMap.get(r.post_id),content=p?.content||"[Objava bez teksta ili više nije dostupna]";
+  return '<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(r.reason||"Prijava")+'</strong><small>'+fmt(r.created_at)+' · '+esc(content.slice(0,240))+'</small><small>Prijavitelj: '+esc(r.reporter_id.slice(0,8))+' · Objavljivač: '+esc(p?.profiles?.display_name||p?.author_id?.slice(0,8)||"nepoznat")+'</small></div><div class="ps-admin-actions"><select data-wall-report-status="'+esc(r.id)+'" data-old="'+esc(r.status)+'" '+(!canManage?'disabled':'')+' aria-label="Status prijave na zidu"><option value="pending" '+(r.status==="pending"?"selected":"")+'>Na čekanju</option><option value="reviewed" '+(r.status==="reviewed"?"selected":"")+'>Pregledana</option><option value="dismissed" '+(r.status==="dismissed"?"selected":"")+'>Odbačena</option><option value="action_taken" '+(r.status==="action_taken"?"selected":"")+'>Sadržaj uklonjen</option></select></div></article>';
+ }).join("")||'<p class="ps-admin-empty">Nema prijava za objave na zidu.</p>';
+ if(postsBox)postsBox.innerHTML=(posts.data||[]).map(p=>'<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(p.profiles?.display_name||"Član zajednice")+'</strong><small>'+fmt(p.created_at)+' · '+esc((p.content||"[Fotografija]").slice(0,260))+'</small></div><div class="ps-admin-actions"><select data-wall-post-status="'+esc(p.id)+'" data-old="'+esc(p.status)+'" '+(!canManage?'disabled':'')+' aria-label="Status objave"><option value="published" '+(p.status==="published"?"selected":"")+'>Objavljena</option><option value="hidden" '+(p.status==="hidden"?"selected":"")+'>Skrivena</option><option value="removed" '+(p.status==="removed"?"selected":"")+'>Uklonjena</option></select></div></article>').join("")||'<p class="ps-admin-empty">Još nema objava na zidu.</p>';
+ reportsBox?.querySelectorAll("[data-wall-report-status]").forEach(el=>el.addEventListener("change",async()=>{
+  const old=el.dataset.old;el.disabled=true;
+  try{
+   if(el.value==="action_taken"){
+    const report=(reports.data||[]).find(r=>r.id===el.dataset.wallReportStatus);
+    if(report?.post_id){const hide=await c.from("community_posts").update({status:"hidden",updated_at:new Date().toISOString()}).eq("id",report.post_id);if(hide.error)throw hide.error}
+   }
+   const r=await c.from("community_post_reports").update({status:el.value,reviewed_by:currentId,reviewed_at:new Date().toISOString()}).eq("id",el.dataset.wallReportStatus);if(r.error)throw r.error;
+   await manageSocialWall(c,canManage,currentId);
+  }catch(e){alert("Prijava zida nije ažurirana: "+(e?.message||"nepoznata greška"));el.value=old}
+  finally{el.disabled=!canManage}
+ }));
+ postsBox?.querySelectorAll("[data-wall-post-status]").forEach(el=>el.addEventListener("change",async()=>{
+  const old=el.dataset.old;el.disabled=true;
+  try{const r=await c.from("community_posts").update({status:el.value,updated_at:new Date().toISOString()}).eq("id",el.dataset.wallPostStatus);if(r.error)throw r.error;await manageSocialWall(c,canManage,currentId)}
+  catch(e){alert("Status objave nije promijenjen: "+(e?.message||"nepoznata greška"));el.value=old}
+  finally{el.disabled=!canManage}
+ }));
+}
+
+async function manageAccountRequests(c,currentId){
+ const box=$("#account-requests-manage");if(!box)return;
+ const r=await c.from("account_lifecycle_requests").select("id,user_id,request_type,account_email,message,status,created_at,processed_at,admin_note").order("created_at",{ascending:false}).limit(100);
+ if(r.error){box.innerHTML='<p class="ps-admin-empty">Zahtjevi računa nisu dostupni. Provjeri je li migracija 202610110003_account_lifecycle_requests.sql primijenjena na Supabase.</p>';return}
+ const rows=r.data||[];
+ if(!rows.length){box.innerHTML='<p class="ps-admin-empty">Nema zahtjeva za obradu.</p>';return}
+ const types={deactivate:"Deaktivacija računa",delete:"Brisanje računa"},statuses={pending:"Na čekanju",in_review:"U obradi",completed:"Dovršeno",rejected:"Odbijeno"};
+ box.innerHTML=rows.map(x=>'<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(types[x.request_type]||x.request_type)+'</strong><small>'+esc(x.account_email||"E-mail nije dostupan")+' · '+fmt(x.created_at)+'</small><small>Korisnički ID: '+esc(x.user_id)+' · '+esc(x.message||"")+'</small>'+'<label class="ps-admin-note-label">Interna napomena<textarea data-account-request-note="'+esc(x.id)+'" maxlength="2000" rows="2" aria-label="Interna napomena za zahtjev">'+esc(x.admin_note||"")+'</textarea></label><button type="button" class="secondary" data-account-request-note-save="'+esc(x.id)+'">Spremi napomenu</button></div><div class="ps-admin-actions"><select data-account-request-status="'+esc(x.id)+'" data-old="'+esc(x.status)+'" aria-label="Status zahtjeva"><option value="pending" '+(x.status==="pending"?"selected":"")+'>Na čekanju</option><option value="in_review" '+(x.status==="in_review"?"selected":"")+'>U obradi</option><option value="rejected" '+(x.status==="rejected"?"selected":"")+'>Odbijen</option><option value="completed" '+(x.status==="completed"?"selected":"")+'>Dovršen</option></select></div></article>').join("");
+ box.querySelectorAll("[data-account-request-note-save]").forEach(button=>button.addEventListener("click",async()=>{
+  const id=button.dataset.accountRequestNoteSave,field=box.querySelector('[data-account-request-note="'+id+'"]');
+  if(!field)return;
+  const note=field.value.trim();
+  if(note.length>2000){alert("Napomena smije imati najviše 2000 znakova.");return}
+  button.disabled=true;
+  try{
+   const result=await c.from("account_lifecycle_requests").update({admin_note:note||null}).eq("id",id);
+   if(result.error)throw result.error;
+   await manageAccountRequests(c,currentId);
+  }catch(e){alert("Napomena nije spremljena: "+(e?.message||"nepoznata greška"))}
+  finally{button.disabled=false}
+ }));
+ box.querySelectorAll("[data-account-request-status]").forEach(el=>el.addEventListener("change",async()=>{
+  const old=el.dataset.old,next=el.value;el.disabled=true;
+  if(next==="completed"&&!window.confirm("Potvrđuješ da je zahtjev stvarno proveden izvan ove nadzorne ploče? Ova promjena samo označava zahtjev kao dovršen; ne deaktivira i ne briše račun.")){el.value=old;el.disabled=false;return}
+  try{const terminal=next==="completed"||next==="rejected";const upd={status:next,processed_at:terminal?new Date().toISOString():null,processed_by:terminal?currentId:null};const result=await c.from("account_lifecycle_requests").update(upd).eq("id",el.dataset.accountRequestStatus);if(result.error)throw result.error;await manageAccountRequests(c,currentId)}
+  catch(e){alert("Zahtjev nije ažuriran: "+(e?.message||"nepoznata greška"));el.value=old}
+  finally{el.disabled=false}
+ }));
+}
 async function load(){
  const status=$("#admin-status"),denied=$("#admin-denied"),dash=$("#admin-dashboard");
  try{
@@ -42,7 +112,7 @@ async function load(){
   const ops=role==="admin"||owner;
   status.textContent=(owner?"Vlasnik PatriaSoul · ":role==="admin"?"Administrator · ":"Urednik · ")+(profile.data?.display_name||u.email||"");
   dash.hidden=false;
-  $("#roles-panel").hidden=!owner;
+  const rolesPanel=$("#roles-panel");if(rolesPanel){rolesPanel.dataset.accessDenied=String(!owner);rolesPanel.hidden=!owner}const requestsPanel=$("#account-requests-panel");if(requestsPanel){requestsPanel.dataset.accessDenied=String(!ops);requestsPanel.hidden=!ops}const usersTab=document.querySelector('[data-admin-tab="users"]');if(usersTab){usersTab.hidden=!ops;usersTab.setAttribute("aria-hidden",String(!ops));}
   const note=$("#admin-access-note");
   if(note)note.textContent=owner?"Puni pristup, uključujući upravljanje ulogama.":ops?"Moderacija zajednice i foruma.":"Upravljanje prijavljenim pričama i komentarima.";
   const [stories,usersCount,forumTopics,forumPosts,backs,deps,events]=await Promise.all([
@@ -76,9 +146,10 @@ async function load(){
    ["Objava portala",ops?(deploy?.status==="completed"&&deploy?.conclusion==="success"):"—",ops?(deploy?workflowStatus(deploy):"Nema zapisa"):"Dostupno administratoru"],
    ["Sustavne greške",ops?errorEvents.length===0:"—",ops?(errorEvents.length?errorEvents.length+" grešaka":"Nema evidentiranih grešaka"):"Dostupno administratoru"]
   ].map(x=>'<li><span>'+esc(x[0])+'</span><strong class="'+(x[1]===true?"ps-check-ok":x[1]===false?"ps-check-bad":"")+'">'+(x[1]===true?"✓ ":x[1]===false?"! ":"")+esc(x[2])+"</strong></li>").join("");
-  const tasks=[manageStories(c)];
+  const tasks=[manageStories(c),manageSocialWall(c,canEdit,u.id)];
   if(ops)tasks.push(manageForum(c,true,u.id));else tasks.push(manageForum(c,false,u.id));
   if(owner)tasks.push(users(c,u.id));
+  if(ops)tasks.push(manageAccountRequests(c,u.id));
   const results=await Promise.allSettled(tasks);
   const failures=results.filter(r=>r.status==="rejected");
   if(failures.length){console.error("PatriaSoul admin community load errors",failures.map(r=>r.reason));set("stat-system","Dio podataka nije dostupan");set("stat-system-note","Provjeri dozvole Supabase tablica i konzolu preglednika.")}

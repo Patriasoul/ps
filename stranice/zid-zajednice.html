@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Zid zajednice Čuvari nasljeđa — objave, fotografije i razgovori članova PatriaSoula.">
+<meta name="theme-color" content="#0A0D19">
+<title>Zid zajednice — Čuvari nasljeđa · PatriaSoul</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/header.css">
+<link rel="stylesheet" href="../assets/css/navigation.css">
+<link rel="stylesheet" href="../assets/css/footer.css">
+<link rel="stylesheet" href="../assets/css/responsive.css">
+<link rel="stylesheet" href="../assets/css/social-wall.css?v=20261011-emoji-mart-v2">
+</head>
+<body>
+<main class="ps-wall" id="ps-wall">
+<header class="ps-wall-hero">
+  <div>
+    <p class="ps-wall-kicker">PATRIASOUL · ČUVARI NASLJEĐA</p>
+    <h1>Zid zajednice</h1>
+    <p>Društvena mreža hrvatskog zajedništva. Podijeli priču, fotografiju ili misao i razgovaraj s poštovanjem.</p>
+  </div>
+  <nav class="ps-wall-hero-actions" aria-label="Poveznice zajednice">
+    <a href="../index.html">Naslovnica</a>
+    <a href="domoljubni-forum.html">Forum</a>
+    <a href="../kviz/">Hrvatski kviz</a>
+    <a href="racun.html">Moj profil</a>
+  </nav>
+</header>
+<div class="ps-wall-layout">
+  <aside class="ps-wall-sidebar">
+    <section class="ps-wall-panel ps-wall-profile" id="ps-wall-profile">
+      <div class="ps-wall-avatar" id="ps-wall-my-avatar">PS</div>
+      <div><strong id="ps-wall-my-name">Provjeravam račun…</strong><p id="ps-wall-my-email"></p></div>
+      <a href="racun.html">Uredi profil →</a>
+    </section>
+    <nav class="ps-wall-panel ps-wall-links" aria-label="Zajednica">
+      <h2>Moja zajednica</h2>
+      <a class="is-current" href="zid-zajednice.html">◈ Zid zajednice</a>
+      <a href="domoljubni-forum.html">▤ Domoljubni forum</a>
+      <a href="../kviz/">✦ Hrvatski kviz</a>
+      <a href="poruke-obavijesti.html">✉ Poruke i obavijesti</a>
+      <a href="pretraga.html">⌕ Pretraživanje</a>
+    </nav>
+    <section class="ps-wall-panel ps-wall-community-note">
+      <p class="ps-wall-kicker">NAŠA NAČELA</p>
+      <strong>Znanje. Ponos. Nasljeđe.</strong>
+      <p>Čuvajmo hrvatsku baštinu razgovorom, poštovanjem i odgovornošću.</p>
+      <a href="pravila-koristenja-i-sigurnosti.html">Pravila zajednice →</a>
+    </section>
+  </aside>
+  <section class="ps-wall-main" aria-label="Objave zajednice">
+    <div class="ps-wall-status" id="ps-wall-status" role="status" aria-live="polite">Provjeravam prijavu…</div>
+    <section class="ps-wall-panel ps-wall-composer" id="ps-wall-composer" hidden>
+      <div class="ps-wall-section-heading"><div><p class="ps-wall-kicker">TVOJ GLAS</p><h2>Što želiš podijeliti?</h2></div><span class="ps-wall-lock">🔒 Za članove</span></div>
+      <form id="ps-wall-post-form">
+        <label class="ps-wall-sr-only" for="ps-wall-post-content">Tekst objave</label>
+        <textarea id="ps-wall-post-content" maxlength="5000" placeholder="Podijeli priču, fotografiju ili misao sa zajednicom…" rows="4"></textarea>
+        <div class="ps-wall-link-fields"><label for="ps-wall-link-title">Naslov poveznice <span>(neobavezno)</span><input id="ps-wall-link-title" type="text" maxlength="180" placeholder="Npr. Tema na forumu ili rezultat kviza"></label><label for="ps-wall-link-url">Poveznica na sadržaj <span>(YouTube, članak ili druga HTTPS adresa)</span><input id="ps-wall-link-url" type="url" maxlength="1000" placeholder="https://…" inputmode="url"></label></div>
+        <div id="ps-wall-link-preview" class="ps-wall-link-preview" hidden aria-live="polite"></div>
+        <div class="ps-wall-composer-bottom">
+          <button type="button" class="ps-wall-emoji-button" data-action="post-emoji-picker" aria-expanded="false" aria-label="Odaberi emoji">😀 Emoji</button>
+          <label class="ps-wall-upload" for="ps-wall-post-image">＋ Dodaj fotografiju<input id="ps-wall-post-image" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
+          <span id="ps-wall-image-name">Bez fotografije</span>
+          <button type="submit" id="ps-wall-post-submit">Objavi na zidu</button>
+        </div>
+        <p class="ps-wall-hint">Fotografije do 8 MB. Objavljuj samo sadržaj za koji imaš pravo korištenja.</p>
+      </form>
+    </section>
+    <div class="ps-wall-feed-heading"><div><p class="ps-wall-kicker">HRVATSKO ZAJEDNIŠTVO</p><h2>Objave članova</h2></div><button type="button" id="ps-wall-refresh">Osvježi ↻</button></div>
+    <div id="ps-wall-feed" class="ps-wall-feed"><div class="ps-wall-empty">Učitavam objave…</div></div>
+  </section>
+  <aside class="ps-wall-right">
+    <section class="ps-wall-panel">
+      <p class="ps-wall-kicker">POVEŽIMO SE</p><h2>Mjesto za zajedništvo</h2>
+      <p>Podijeli video, članak, fotografiju ili priču koja čuva hrvatsko nasljeđe. Sadržaj iz foruma i rezultat kviza moći će se podijeliti izravno na zid.</p>
+    </section>
+    <section class="ps-wall-panel">
+      <h2>Sigurnost članova</h2><p class="ps-wall-small">Možeš prijaviti objavu ili blokirati člana. Prijave se pregledavaju kroz administratorske alate.</p>
+      <a href="pravila-koristenja-i-sigurnosti.html">Pročitaj pravila →</a>
+    </section>
+  </aside>
+</div>
+</main>
+<script src="../assets/js/portal.js"></script>
+<script src="../assets/js/auth.js?v=20261011-wall-v1"></script>
+<script src="../assets/js/social-wall.js?v=20261011-emoji-mart-v2"></script>
+<script src="../assets/js/community-indicators.js?v=20261011-indicators-v1"></script>
+</body>
+</html>

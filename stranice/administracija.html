@@ -10,7 +10,7 @@
 <section class="ps-container" id="admin-dashboard" hidden>
 <nav class="ps-admin-nav" aria-label="Odjeljci administracije" id="admin-module-nav">
 <button type="button" class="is-active" data-admin-tab="overview"><span>01</span><strong>Pregled</strong><small>Stanje zajednice</small></button>
-<button type="button" data-admin-tab="community"><span>02</span><strong>Zajednica</strong><small>Priče i komentari</small></button>
+<button type="button" data-admin-tab="community"><span>02</span><strong>Zajednica</strong><small>Priče i zid</small></button>
 <button type="button" data-admin-tab="forum"><span>03</span><strong>Forum</strong><small>Teme i prijave</small></button>
 <button type="button" data-admin-tab="users"><span>04</span><strong>Korisnici</strong><small>Profili i ovlasti</small></button>
 </nav>
@@ -24,6 +24,7 @@
 <div class="ps-admin-grid" data-admin-group="overview">
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="community" data-admin-target="stories-manage" role="button" tabindex="0"><span>Prijavljene priče</span><strong id="stat-stories">—</strong><small>Zapisi zajednice</small></article>
 
+<article class="ps-admin-card ps-admin-card-action" data-admin-open="community" data-admin-target="wall-reports-manage" role="button" tabindex="0"><span>Prijave zida</span><strong id="wall-report-total">—</strong><small>Prijave objava članova</small></article>
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="forum" data-admin-target="forum-topics-manage" role="button" tabindex="0"><span>Forum · teme</span><strong id="stat-forum-topics">—</strong><small>Rasprave u forumu</small></article>
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="forum" data-admin-target="forum-topics-manage" role="button" tabindex="0"><span>Forum · objave</span><strong id="stat-forum-posts">—</strong><small>Odgovori u raspravama</small></article>
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="users" data-admin-target="roles-panel" role="button" tabindex="0"><span>Korisnici</span><strong id="stat-users">—</strong><small>Profili u zajednici</small></article>
@@ -36,6 +37,15 @@
 <section class="ps-admin-panel" data-admin-group="community">
 <div class="ps-admin-panel-head"><div><p class="ps-kicker">ČUVARI NASLJEĐA</p><h2>Prijavljene priče</h2></div><span class="ps-admin-muted">Zapisi zajednice</span></div>
 <div id="stories-manage" class="ps-admin-list"><p>Učitavanje priča…</p></div>
+</section>
+
+<section class="ps-admin-panel" data-admin-group="community" id="wall-moderation">
+<div class="ps-admin-panel-head"><div><p class="ps-kicker">ČUVARI NASLJEĐA</p><h2>Moderacija zida zajednice</h2></div><span class="ps-admin-muted">Prijave i objave članova</span></div>
+<p class="ps-admin-section-note">Ovdje se pregledavaju prijave, a objave koje krše pravila mogu se sakriti ili ukloniti. Uklanjanje iz zida ne briše zapis prijave.</p>
+<h3 class="ps-admin-subheading">Prijave objava</h3>
+<div id="wall-reports-manage" class="ps-admin-list"><p>Učitavanje prijava zida…</p></div>
+<h3 class="ps-admin-subheading">Nedavne objave</h3>
+<div id="wall-posts-manage" class="ps-admin-list"><p>Učitavanje objava zida…</p></div>
 </section>
 
 <section class="ps-admin-panel ps-admin-forum-panel" data-admin-group="forum">
@@ -57,11 +67,21 @@
 <div data-poll-votes class="ps-admin-list"><p>Učitavanje glasova…</p></div>
 </section>
 
+<section class="ps-admin-panel" data-admin-group="users" id="roles-panel" hidden>
+<div class="ps-admin-panel-head"><div><p class="ps-kicker">ČLANOVI ZAJEDNICE</p><h2>Korisnički računi i ovlasti</h2></div><span class="ps-admin-muted">Upravljanje ulogama</span></div>
+<p class="ps-admin-section-note">Uloge i zahtjevi za račune dostupni su samo ovlaštenim administratorima. Promjena statusa zahtjeva ne briše niti deaktivira račun automatski.</p>
+<div id="users-list" class="ps-admin-list"><p>Učitavanje korisnika…</p></div>
+</section>
+<section class="ps-admin-panel" data-admin-group="users" id="account-requests-panel" hidden>
+<div class="ps-admin-panel-head"><div><p class="ps-kicker">SIGURNOST RAČUNA</p><h2>Zahtjevi za deaktivaciju i brisanje</h2></div><span class="ps-admin-muted">Pregled administratora</span></div>
+<p class="ps-admin-section-note">Zahtjevi se ovdje mogu pregledati i označiti kao u obradi, odbijeni ili dovršeni. Prije oznake „Dovršeno” administrator mora stvarno provesti odgovarajuću radnju u sustavu.</p>
+<div id="account-requests-manage" class="ps-admin-list"><p>Učitavanje zahtjeva…</p></div>
+</section>
 <section class="ps-admin-panel ps-admin-overview-system" data-admin-group="overview"><div class="ps-admin-panel-head"><div><p class="ps-kicker">SIGURNOST</p><h2>Operativni pregled</h2></div></div><ul class="ps-admin-checks" id="system-checks"></ul></section>
 <div class="ps-admin-footer-actions ps-admin-global-actions"><a class="ps-admin-button" href="racun.html">Moj račun</a><a class="ps-admin-button ps-admin-button-light" href="../index.html">Naslovnica</a><button class="ps-admin-button ps-admin-button-light" id="refresh-admin" type="button">Osvježi podatke</button></div>
 </section></main>
 <script src="../assets/js/portal.js"></script><script src="../assets/js/auth.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/heritage-poll-admin.js?v=20261010-1"></script>
 <script>
-(()=>{const nav=document.getElementById("admin-module-nav");if(!nav)return;const names={overview:"Pregled zajednice",community:"Priče i komentari",forum:"Forum i moderacija",users:"Korisnici i ovlasti"};const desc={overview:"Stanje zajednice, sigurnosne kopije i objava portala.",community:"Pregled prijavljenih priča i komentara.",forum:"Pregled tema, odgovora i prijava na forumu.",users:"Korisnički profili i ovlasti."};const activate=tab=>{nav.querySelectorAll("[data-admin-tab]").forEach(b=>{const on=b.dataset.adminTab===tab;b.classList.toggle("is-active",on);b.setAttribute("aria-pressed",String(on))});document.querySelectorAll("[data-admin-group]").forEach(el=>{el.hidden=el.dataset.adminGroup!==tab});const label=document.getElementById("admin-view-label");if(label)label.innerHTML="<span>RADNI PROSTOR</span><strong>"+names[tab]+"</strong><small>"+desc[tab]+"</small>";try{sessionStorage.setItem("ps-admin-view",tab)}catch(e){}};nav.querySelectorAll("[data-admin-tab]").forEach(b=>b.addEventListener("click",()=>activate(b.dataset.adminTab)));const openCard=card=>{const tab=card.dataset.adminOpen;if(!names[tab])return;activate(tab);const target=card.dataset.adminTarget&&document.getElementById(card.dataset.adminTarget);if(target){target.scrollIntoView({behavior:"smooth",block:"start"});target.classList.add("ps-admin-target-focus");window.setTimeout(()=>target.classList.remove("ps-admin-target-focus"),1500)} };document.querySelectorAll("[data-admin-open]").forEach(card=>{card.addEventListener("click",e=>{if(e.target.closest("a,button,select,input,textarea"))return;openCard(card)});card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openCard(card)}})});let initial="overview";try{const saved=sessionStorage.getItem("ps-admin-view");if(saved&&names[saved])initial=saved}catch(e){}activate(initial)})();
+(()=>{const nav=document.getElementById("admin-module-nav");if(!nav)return;const names={overview:"Pregled zajednice",community:"Priče i komentari",forum:"Forum i moderacija",users:"Korisnici i ovlasti"};const desc={overview:"Stanje zajednice, sigurnosne kopije i objava portala.",community:"Pregled prijavljenih priča, prijava zida i objava članova.",forum:"Pregled tema, odgovora i prijava na forumu.",users:"Korisnički profili i ovlasti."};const activate=requestedTab=>{const tab=nav.querySelector(`[data-admin-tab="${requestedTab}"]:not([hidden])`)?requestedTab:"overview";nav.querySelectorAll("[data-admin-tab]").forEach(b=>{const on=b.dataset.adminTab===tab;b.classList.toggle("is-active",on);b.setAttribute("aria-pressed",String(on))});document.querySelectorAll("[data-admin-group]").forEach(el=>{el.hidden=el.dataset.adminGroup!==tab||el.dataset.accessDenied==="true"});const label=document.getElementById("admin-view-label");if(label)label.innerHTML="<span>RADNI PROSTOR</span><strong>"+names[tab]+"</strong><small>"+desc[tab]+"</small>";try{sessionStorage.setItem("ps-admin-view",tab)}catch(e){}};nav.querySelectorAll("[data-admin-tab]").forEach(b=>b.addEventListener("click",()=>activate(b.dataset.adminTab)));const openCard=card=>{const tab=card.dataset.adminOpen;if(!names[tab])return;activate(tab);const target=card.dataset.adminTarget&&document.getElementById(card.dataset.adminTarget);if(target){target.scrollIntoView({behavior:"smooth",block:"start"});target.classList.add("ps-admin-target-focus");window.setTimeout(()=>target.classList.remove("ps-admin-target-focus"),1500)} };document.querySelectorAll("[data-admin-open]").forEach(card=>{card.addEventListener("click",e=>{if(e.target.closest("a,button,select,input,textarea"))return;openCard(card)});card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openCard(card)}})});let initial="overview";try{const saved=sessionStorage.getItem("ps-admin-view");if(saved&&names[saved])initial=saved}catch(e){}activate(initial)})();
 </script>
 </body></html>

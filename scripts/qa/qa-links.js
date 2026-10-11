@@ -49,7 +49,7 @@ function isDynamicTemplate(url) {
 
 const broken = [];
 let checked = 0;
-const attrPattern = /\b(href|src|action|formaction|poster|data-href|data-url)\s*=\s*(["'])(.*?)\2/gi;
+const attrPattern = /(?:^|\s)(href|src|action|formaction|poster|data-href|data-url)\s*=\s*(["'])(.*?)\2/gi;
 
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file.absolute, "utf8");

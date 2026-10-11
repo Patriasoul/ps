@@ -11,6 +11,23 @@ const required = [
   "stranice/prijava.html",
   "stranice/registracija.html",
   "stranice/racun.html",
+  "stranice/zid-zajednice.html",
+  "stranice/grupe-dogadjaji.html",
+  "stranice/profil.html",
+  "assets/css/public-profile.css",
+  "assets/js/public-profile.js",
+  "assets/css/community-hub.css",
+  "assets/js/community-hub.js",
+  "assets/css/social-wall.css",
+  "assets/js/social-wall.js",
+  "supabase/migrations/202610110001_social_wall.sql",
+  "supabase/migrations/202610110002_my_leaderboard_position.sql",
+  "supabase/migrations/202610110003_account_lifecycle_requests.sql",
+  "supabase/migrations/202610110004_event_host_delete.sql",
+  "supabase/migrations/202610110005_group_owner_delete.sql",
+  "supabase/migrations/202610110006_friendships_profile_privacy.sql",
+  "supabase/migrations/202610110007_photo_visibility_storage.sql",
+  "supabase/migrations/202610110008_friendship_notifications.sql",
   "stranice/administracija.html",
   "stranice/pretraga.html",
   "kviz/index.html",
@@ -28,7 +45,7 @@ if (missing.length) {
   process.exit(1);
 }
 
-const files = ["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html", "worker.js"];
+const files = ["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html", "stranice/domoljubni-forum.html", "stranice/grupe-dogadjaji.html", "kviz/src/App.jsx", "worker.js"];
 const contentByFile = Object.fromEntries(files.map(file => [file, fs.readFileSync(path.join(root, file), "utf8")]));
 const stalePatterns = [
   ["index.html", /(?:clanci\/|kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
@@ -53,7 +70,110 @@ for (const label of ["admin-dashboard", "admin-denied", 'data-admin-tab="communi
   if (!admin.includes(label)) throw new Error("Administracija nema potrebnu kontrolu: " + label);
 }
 const adminJs = fs.readFileSync(path.join(root, "assets/js/admin.js"), "utf8");
-for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "manageStories(c)"]) {
+for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "manageStories(c)", "manageSocialWall(c", "wall-reports-manage", "wall-posts-manage"]) {
   if (!adminJs.includes(label)) throw new Error("Nedostaje administratorska funkcija zajednice: " + label);
 }
-console.log("ZAJEDNICA QA OK — ključne stranice i administratorske funkcije postoje; stare CMS kartice nisu u navigaciji.");
+const wall = fs.readFileSync(path.join(root, "stranice/zid-zajednice.html"), "utf8");
+for (const token of ["ps-wall-post-form", "ps-wall-feed", "ps-wall-link-url", "ps-wall-link-title", "social-wall.css", "social-wall.js"]) {
+  if (!wall.includes(token)) throw new Error("Zidu zajednice nedostaje element: " + token);
+}
+for (const [file, token] of [
+  ["stranice/domoljubni-forum.html", "data-share-topic"],
+  ["stranice/domoljubni-forum.html", "shareType"],
+  ["kviz/src/App.jsx", "Podijeli rezultat na zidu"],
+  ["kviz/src/App.jsx", "shareType"]
+]) {
+  if (!contentByFile[file].includes(token)) throw new Error("Nedostaje dijeljenje izvornog sadržaja na zidu: " + file + " · " + token);
+}
+const wallJs = fs.readFileSync(path.join(root, "assets/js/social-wall.js"), "utf8");
+if (!wallJs.includes("cleanReason.length<3")) throw new Error("Prijava sadržaja mora provjeriti minimalnu duljinu razloga.");
+for (const token of ['data-action="delete-post"', 'data-action="delete-comment"', 'p.author_id!==user.id', 'comment.author_id!==user.id', 'eq("author_id",user.id)', 'storage.from("community-media").remove([p.image_path])', "Objava i pripadajući komentari su izbrisani."]) {
+  if (!wallJs.includes(token)) throw new Error("Član mora moći sigurno ukloniti samo vlastiti sadržaj i pripadajuću fotografiju: " + token);
+}
+const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110001_social_wall.sql"), "utf8");
+for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check", "community_groups", "community_group_members", "community_events", "community_event_attendees", "cover_image_path", "profile_cover.cover_image_path = name", "grant update (cover_image_path) on public.profiles to authenticated;", "revoke update (cover_image_path) on public.profiles from anon;", "community_add_group_owner()", "community_group_add_owner"]) {
+  if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
+}
+if (!migration.includes("with check(owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid() and gm.role='moderator')")) throw new Error("RLS pravilo ne dopušta moderatoru sigurno uređivanje njegove grupe.");
+if (migration.includes("grant select,insert,update on public.community_groups to authenticated;")) throw new Error("Nesigurno: korisnici ne smiju imati opće UPDATE ovlasti nad grupama.");
+if (!migration.includes("revoke update on public.community_groups from authenticated;") || !migration.includes("grant update (name,description,visibility,updated_at) on public.community_groups to authenticated;")) throw new Error("Nedostaju ograničene UPDATE ovlasti za uređivanje grupa.");
+const profilePage = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
+for (const token of ["profile-card", "profile-posts", "profile-cover", "profile-cover-input", "public-profile.js", "public-profile.css"]) { if (!profilePage.includes(token)) throw new Error("Javnom profilu nedostaje element: " + token); }
+const profileJs = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
+for (const token of ["ps-profile-sidebar", "racun.html", "pravila-koristenja-i-sigurnosti.html", "domoljubni-forum.html", "get_my_leaderboard_position", "profile-rank-status", "requestedId||user.id"]) {
+  if (!profilePage.includes(token) && !profileJs.includes(token)) throw new Error("Profilu nedostaje bočna navigacija ili rang-lista: " + token);
+}
+const rankMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110002_my_leaderboard_position.sql"), "utf8");
+for (const token of ["get_my_leaderboard_position", "auth.uid()", "row_number() over", "grant execute on function public.get_my_leaderboard_position(text) to authenticated"]) {
+  if (!rankMigration.includes(token)) throw new Error("Migraciji osobne rang-liste nedostaje zaštita ili funkcija: " + token);
+}
+const adminPage = fs.readFileSync(path.join(root, "stranice/administracija.html"), "utf8");
+for (const token of ['id="roles-panel"', 'id="users-list"', 'id="account-requests-panel"', 'id="account-requests-manage"']) {
+  if (!adminPage.includes(token)) throw new Error("Administraciji nedostaje upravljanje računima: " + token);
+}
+
+if (!adminJs.includes('usersTab.hidden=!ops') || !adminPage.includes('requestedTab') || !adminPage.includes(':not([hidden])')) throw new Error("Administratorska navigacija mora sakriti karticu korisnika urednicima i vratiti nedostupnu spremljenu karticu na Pregled.");
+for (const token of ["manageAccountRequests(c,u.id)", "account_lifecycle_requests", "data-account-request-status", "data-account-request-note-save", "admin_note:note||null", "accessDenied"]) {
+  if (!adminJs.includes(token)) throw new Error("Administraciji nedostaje obrada zahtjeva računa: " + token);
+}
+const lifecycleMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110003_account_lifecycle_requests.sql"), "utf8");
+for (const token of ["account_lifecycle_requests", "auth.uid()", "members submit own lifecycle requests", "administrators process lifecycle requests", "patriasoul@protonmail.com", "status in ('pending','in_review','completed','rejected')"]) {
+  if (!lifecycleMigration.includes(token)) throw new Error("Migraciji zahtjeva računa nedostaje sigurnosna provjera: " + token);
+}
+const accountPage = fs.readFileSync(path.join(root, "stranice/racun.html"), "utf8");
+for (const token of ['id="sigurnost"', 'id="deaktivacija"', 'updateUser({email})', 'updateUser({password})', "Zatraži deaktivaciju", "Zatraži brisanje računa", "account_lifecycle_requests", "loadLifecycleRequests", "administrator ne obradi zahtjev"]) {
+  if (!accountPage.includes(token)) throw new Error("Postavkama računa nedostaje funkcija: " + token);
+}
+if (!accountPage.includes("ne briše račun automatski")) throw new Error("Zahtjev za brisanje mora jasno objasniti da je potrebna administratorska obrada.");
+if (accountPage.includes('select("id,request_type,status,created_at,processed_at,admin_note")') || accountPage.includes('item.admin_note?" · Napomena: "')) throw new Error("Interna administratorska napomena ne smije se prikazivati korisniku u povijesti zahtjeva.");
+const hub = fs.readFileSync(path.join(root, "stranice/grupe-dogadjaji.html"), "utf8");
+for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "community-hub.js"]) {
+  if (!hub.includes(token)) throw new Error("Stranici grupa i događaja nedostaje element: " + token);
+}
+if (!contentByFile["assets/js/portal.js"].includes("stranice/grupe-dogadjaji.html")) throw new Error("Grupe i događaji nisu povezani u zajedničkoj navigaciji.");
+const hubJs = fs.readFileSync(path.join(root, "assets/js/community-hub.js"), "utf8");
+if (hubJs.includes('from("community_group_members").insert({group_id:data.id,user_id:user.id,role:"owner"})')) throw new Error("Vlasničko članstvo mora se stvoriti atomski kroz bazni trigger.");
+for (const token of ['data-event-action="delete"', 'action==="delete"', 'event.host_id!==user.id', 'eq("host_id",user.id)']) {
+  if (!hubJs.includes(token)) throw new Error("Organizatoru nedostaje sigurno brisanje vlastitog događaja: " + token);
+}
+const eventDeleteMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110004_event_host_delete.sql"), "utf8");
+for (const token of ['for delete to authenticated', 'using (host_id = auth.uid())', 'grant delete on public.community_events to authenticated']) {
+  if (!eventDeleteMigration.includes(token)) throw new Error("Migraciji brisanja događaja nedostaje zaštita: " + token);
+}
+for (const token of ['data-group-action="delete"', 'action==="delete"', 'group.owner_id!==user.id', 'eq("owner_id",user.id)']) {
+  if (!hubJs.includes(token)) throw new Error("Vlasniku grupe nedostaje sigurno brisanje vlastite grupe: " + token);
+}
+const groupDeleteMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110005_group_owner_delete.sql"), "utf8");
+for (const token of ['for delete to authenticated', 'using (owner_id = auth.uid())', 'grant delete on public.community_groups to authenticated']) {
+  if (!groupDeleteMigration.includes(token)) throw new Error("Migraciji brisanja grupe nedostaje zaštita: " + token);
+}
+const friendshipMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110006_friendships_profile_privacy.sql"), "utf8");
+for (const token of ["community_friendships", "sender_id=auth.uid()", "recipient_id=auth.uid()", "posts_visibility", "photos_visibility", "friends_visibility", "profile_info_visibility", "wall posts read by members", "grant select,insert,update,delete on public.community_friendships to authenticated"]) {
+  if (!friendshipMigration.includes(token)) throw new Error("Migraciji prijateljstava/privatnosti nedostaje zaštita: " + token);
+}
+const profileUi = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
+for (const token of ["profile-friend-action", "profile-message-action", "profile-friends-toggle", "profile-friends-list", "profile-friend-requests", "profile-privacy-form", "profile-suggestions-toggle", "profile-suggestions", "Dodaj Čuvara nasljeđa", "Predloži Čuvara nasljeđa"]) {
+  if (!profileUi.includes(token)) throw new Error("Profilu nedostaje prijateljstvo ili privatnost: " + token);
+}
+const profileLogic = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
+for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "ps-profile-suggestion-grid", "profile-friend-action", "profile-message-action"]) {
+  if (!profileLogic.includes(token)) throw new Error("Logici profila nedostaje prijateljstvo ili privatnost: " + token);
+}
+const friendshipNotifications = fs.readFileSync(path.join(root, "supabase/migrations/202610110008_friendship_notifications.sql"), "utf8");
+for (const token of ["user_notifications", "community_friendship_notify_insert", "community_friendship_notify_update", "friend_request", "friend_accepted", "friend_declined", "security definer", "NEW.recipient_id", "NEW.sender_id"]) {
+  if (!friendshipNotifications.includes(token)) throw new Error("Migraciji obavijesti o prijateljstvu nedostaje događaj ili zaštita: " + token);
+}
+const photoPrivacyMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110007_photo_visibility_storage.sql"), "utf8");
+for (const token of ["members read attached community images", "photos_visibility = 'public'", "photos_visibility = 'friends'", "posts_visibility = 'public'", "community_friendships", "community_user_blocks", "bucket_id = 'community-media'"]) {
+  if (!photoPrivacyMigration.includes(token)) throw new Error("Migraciji privatnosti fotografija nedostaje pravilo: " + token);
+}
+if (!photoPrivacyMigration.includes("drop policy if exists \"members read attached community images\"")) throw new Error("Migracija mora sigurno zamijeniti postojeće pravilo čitanja fotografija.");
+
+for (const token of ['friendBtn.dataset.remove', 'friendBtn.dataset.cancel', 'from("community_friendships").delete()', "Ukloni iz prijatelja", "Otkaži zahtjev"]) {
+  if (!profileLogic.includes(token)) throw new Error("Član ne može upravljati postojećim prijateljstvom ili zahtjevom: " + token);
+}
+const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
+if (!lifecycleMigration.includes(lifecycleIndex) || !lifecycleMigration.includes("where status in ('pending','in_review')")) {
+  throw new Error("Zahtjevi računa moraju imati jedinstvenu zaštitu od dvostrukih otvorenih zahtjeva.");
+}
+console.log("ZAJEDNICA QA OK — postojeće funkcije su sačuvane; zid i migracija društvenih funkcija postoje.");

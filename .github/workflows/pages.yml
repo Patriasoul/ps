@@ -2,7 +2,7 @@ name: PatriaSoul · Provjera i objava zajednice
 
 on:
   push:
-    branches: [main, cleanup-current-community-2026-10]
+    branches: [main, cleanup-current-community-2026-10, feature/cuvari-nasljeda-social-wall-v1]
   workflow_dispatch:
 
 permissions:
@@ -29,6 +29,10 @@ jobs:
           node --check worker.js
           node --check assets/js/portal.js
           node --check assets/js/auth.js
+          node --check assets/js/social-wall.js
+          node --check assets/js/community-indicators.js
+          node --check assets/js/community-hub.js
+          node --check assets/js/public-profile.js
           node --check assets/js/admin.js
           node --check assets/js/search.js
           node --check scripts/build/generate-discovery.js
@@ -81,6 +85,8 @@ jobs:
         run: |
           test -s _site/index.html
           test -s _site/stranice/domoljubni-forum.html
+          test -s _site/stranice/grupe-dogadjaji.html
+          test -s _site/stranice/profil.html
           test -s _site/stranice/poruke-obavijesti.html
           test -s _site/stranice/vrijeme.html
           test -s _site/stranice/na-danasnji-dan.html
@@ -98,6 +104,45 @@ jobs:
           path: _site
           if-no-files-found: error
           retention-days: 1
+
+  deploy-preview-worker:
+    if: github.ref == 'refs/heads/feature/cuvari-nasljeda-social-wall-v1'
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Preuzmi postavke Workera
+        uses: actions/checkout@v6
+
+      - name: Postavi Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Provjeri jesu li dostupni Cloudflare podaci
+        run: |
+          test -n "$CF_API_TOKEN" || (echo "::error::Nedostaje CLOUDFLARE_API_TOKEN"; exit 1)
+          test -n "$CF_ACCOUNT_ID" || (echo "::error::Nedostaje CLOUDFLARE_ACCOUNT_ID"; exit 1)
+
+      - name: Preuzmi provjereni portal
+        uses: actions/download-artifact@v4
+        with:
+          name: cloudflare-worker-assets
+          path: _site
+
+      - name: Objavi odvojeni pregledni portal
+        run: npx --yes wrangler@4 deploy --name ps-preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Provjeri ključne stranice pregleda
+        run: |
+          for path in /index.html /stranice/profil.html /stranice/domoljubni-forum.html /stranice/grupe-dogadjaji.html /stranice/poruke-obavijesti.html; do
+            curl --fail --silent --show-error "https://ps-preview.patriasoul.workers.dev$path" -o /dev/null
+          done
 
   deploy-cloudflare-worker:
     if: github.ref == 'refs/heads/main'

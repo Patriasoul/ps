@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Profil člana zajednice Čuvari nasljeđa.">
+<title>Profil člana — PatriaSoul</title>
+<link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/header.css"><link rel="stylesheet" href="../assets/css/navigation.css"><link rel="stylesheet" href="../assets/css/footer.css"><link rel="stylesheet" href="../assets/css/responsive.css"><link rel="stylesheet" href="../assets/css/social-wall.css?v=20261011-community-indicators-v2"><link rel="stylesheet" href="../assets/css/community-hub.css"><link rel="stylesheet" href="../assets/css/public-profile.css">
+</head>
+<body>
+<main class="ps-wall ps-hub ps-public-profile" id="ps-public-profile">
+<header class="ps-wall-hero"><div><p class="ps-wall-kicker">PATRIASOUL · ČUVARI NASLJEĐA</p><h1>Profil člana</h1><p>Upoznaj članove zajednice i njihove javne objave.</p></div><nav class="ps-wall-hero-actions" aria-label="Glavna navigacija profila"><a href="../index.html">Naslovnica</a><a href="zid-zajednice.html">Zid zajednice</a><a href="grupe-dogadjaji.html">Grupe i događaji</a></nav></header>
+<div class="ps-hub-status" id="profile-status" role="status" aria-live="polite">Učitavam profil…</div>
+<div class="ps-profile-layout">
+<aside class="ps-profile-sidebar" aria-label="Korisnički izbornik">
+<section class="ps-wall-panel ps-profile-menu"><p class="ps-wall-kicker">KORISNIČKI RAČUN</p><h2>Postavke računa</h2><a href="racun.html">✎ Uredi korisnički račun</a><a href="racun.html">♧ Lozinka i sigurnost</a><a href="racun.html">⊘ Deaktivacija ili brisanje</a></section>
+<section class="ps-wall-panel ps-profile-menu"><p class="ps-wall-kicker">PATRIASOUL ZAJEDNICA</p><h2>Pristup i pravila</h2><a href="pravila-koristenja-i-sigurnosti.html">▤ Pravila i sigurnost</a><a href="../kviz/">✦ Pristup Hrvatskom kvizu</a><a href="domoljubni-forum.html">▣ Domoljubni forum</a><a href="zid-zajednice.html">◈ Zid zajednice</a><a href="grupe-dogadjaji.html">♧ Grupe i događaji</a><a href="privatnost.html">♧ Privatnost podataka</a></section>
+<section class="ps-wall-panel ps-profile-rank"><p class="ps-wall-kicker">TVOJ REZULTAT</p><h2>Rang-lista kviza</h2><p id="profile-rank-status">Provjeravam spremljene rezultate…</p><a href="../kviz/">Otvori Hrvatski kviz →</a></section>
+</aside>
+<div class="ps-profile-main">
+<section class="ps-profile-cover" id="profile-cover" aria-label="Naslovna fotografija profila"><div class="ps-profile-cover-placeholder" id="profile-cover-placeholder"><span>ČUVARI NASLJEĐA</span><strong>Moja priča. Moje nasljeđe.</strong></div><img id="profile-cover-image" alt="Naslovna fotografija profila" hidden></section>
+<section class="ps-wall-panel ps-public-profile-card" id="profile-card" hidden><div class="ps-profile-avatar" id="profile-avatar">PS</div><div class="ps-profile-identity"><p class="ps-wall-kicker">ČLAN ZAJEDNICE</p><h2 id="profile-name"></h2><p id="profile-joined" class="ps-hub-meta"></p><form id="profile-cover-form" class="ps-profile-cover-form" hidden><label class="ps-profile-cover-upload">Promijeni naslovnu fotografiju<input id="profile-cover-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label><span id="profile-cover-file-name">JPG, PNG, WebP ili GIF · najviše 8 MB</span><button type="submit" id="profile-cover-submit">Spremi fotografiju</button></form></div></section>
+<section class="ps-wall-panel ps-profile-social-actions" id="profile-social-actions" hidden aria-label="Prijateljstva i interakcije">
+<div class="ps-profile-glow-actions">
+<button type="button" id="profile-friend-action" class="ps-profile-glow-button" hidden>✦ Dodaj Čuvara nasljeđa</button>
+<a class="ps-profile-glow-button" id="profile-message-action" href="poruke-obavijesti.html" hidden>✉ Poruka</a>
+<button type="button" id="profile-friends-toggle" class="ps-profile-glow-button">♧ Prijatelji <span id="profile-friends-count">0</span></button>
+<a class="ps-profile-glow-button" href="poruke-obavijesti.html#obavijesti">✧ Interakcije</a>
+<button type="button" id="profile-suggestions-toggle" class="ps-profile-glow-button">＋ Predloži Čuvara nasljeđa</button>
+</div>
+<div id="profile-suggestions" class="ps-profile-suggestions" hidden><p class="ps-hub-meta">Pripremam prijedloge za tebe…</p></div>
+<div id="profile-friends-list" class="ps-profile-friends-list" hidden><p class="ps-hub-meta">Učitavam prijatelje…</p></div>
+<div id="profile-friend-requests" class="ps-profile-friend-requests" hidden></div>
+</section>
+<section class="ps-wall-panel ps-profile-privacy" id="profile-privacy-panel" hidden>
+<p class="ps-wall-kicker">MOJ PROFIL · PRIVATNOST</p><h2>Što drugi mogu vidjeti?</h2>
+<p>Odaberi zasebno vidljivost objava, fotografija, popisa prijatelja i osnovnih podataka.</p>
+<form id="profile-privacy-form">
+<label>Objave <select name="posts_visibility"><option value="public">Svi članovi</option><option value="friends">Samo prijatelji</option><option value="private">Samo ja</option></select></label>
+<label>Fotografije <select name="photos_visibility"><option value="public">Svi članovi</option><option value="friends">Samo prijatelji</option><option value="private">Samo ja</option></select></label>
+<label>Popis prijatelja <select name="friends_visibility"><option value="public">Svi članovi</option><option value="friends">Samo prijatelji</option><option value="private">Samo ja</option></select></label>
+<label>Osnovni podaci <select name="profile_info_visibility"><option value="public">Svi članovi</option><option value="friends">Samo prijatelji</option><option value="private">Samo ja</option></select></label>
+<button type="submit" id="profile-privacy-save">Spremi privatnost</button><p id="profile-privacy-status" role="status"></p>
+</form>
+</section>
+<section class="ps-wall-panel"><div class="ps-wall-section-heading"><div><p class="ps-wall-kicker">JAVNI SADRŽAJ</p><h2>Objave člana</h2></div><a href="zid-zajednice.html">Natrag na zid →</a></div><div id="profile-posts" class="ps-hub-list"><p class="ps-wall-empty">Učitavam objave…</p></div></section>
+</div></div>
+</main>
+<script src="../assets/js/portal.js"></script><script src="../assets/js/auth.js?v=20261011-wall-v1"></script><script src="../assets/js/public-profile.js?v=20261011-guardian-suggestions-v1"></script><script src="../assets/js/community-indicators.js?v=20261011-indicators-v1"></script>
+</body></html>

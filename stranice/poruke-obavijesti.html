@@ -20,6 +20,7 @@
 <section class="psm-panel"><h2 id="thread-title">Odaberi razgovor</h2><div id="thread" class="thread"><div class="empty">Odaberi razgovor ili započni novu poruku.</div></div><form id="send-form" hidden><label for="message-body">Poruka</label><textarea id="message-body" maxlength="5000" required placeholder="Napiši poruku…"></textarea><button class="primary" type="submit">Pošalji poruku</button></form></section>
 </div>
 </section>
+<span id="obavijesti" aria-hidden="true"></span>
 <section id="notifications-view" hidden class="psm-panel"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><h2>Obavijesti</h2><button id="mark-all">Označi sve pročitanima</button></div><div id="notification-list">Učitavam obavijesti…</div></section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -55,7 +56,7 @@ const mm=await db.from('private_conversation_members').insert([{conversation_id:
 activeId=c.data.id;$('new-form').hidden=true;await loadConversations();await openConversation(activeId);status('')}
 async function loadNotifications(){if(!user)return;const r=await db.from('user_notifications').select('id,title,body,kind,target_url,read_at,created_at').eq('user_id',user.id).order('created_at',{ascending:false}).limit(100);if(r.error){$('notification-list').innerHTML='<div class="empty">Obavijesti se ne mogu učitati: '+esc(r.error.message)+'</div>';return}const data=r.data||[],unread=data.filter(x=>!x.read_at).length;$('notification-count').textContent=unread?'('+unread+')':'';$('notification-list').innerHTML=data.map(n=>'<article class="notice '+(!n.read_at?'unread':'')+'"><strong>'+esc(n.title)+'</strong><p>'+esc(n.body)+'</p><small>'+esc(date(n.created_at))+' · '+(!n.read_at?'Nepročitano':'Pročitano')+'</small><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">'+(n.target_url?'<a class="psm-link" href="'+esc(n.target_url)+'">Otvori</a>':'')+(!n.read_at?'<button data-read="'+n.id+'">Označi pročitanom</button>':'')+'</div></article>').join('')||'<div class="empty">Trenutačno nema obavijesti.</div>';$('notification-list').querySelectorAll('[data-read]').forEach(b=>b.addEventListener('click',async()=>{const u=await db.from('user_notifications').update({read_at:new Date().toISOString()}).eq('id',b.dataset.read).eq('user_id',user.id);if(u.error){status('Nije moguće označiti obavijest: '+u.error.message);return}await loadNotifications()}))}
 $('mark-all').addEventListener('click',async()=>{if(!user)return;const r=await db.from('user_notifications').update({read_at:new Date().toISOString()}).eq('user_id',user.id).is('read_at',null);if(r.error){status('Greška: '+r.error.message);return}await loadNotifications()});
-if(location.hash==='#obavijesti')tab('notifications');else if(location.hash==='#poruke')tab('messages');
+if(location.hash==='#obavijesti'||location.hash==='#interakcije')tab('notifications');else if(location.hash==='#poruke')tab('messages');
 init().catch(e=>status('Greška: '+e.message));
 })();
 </script>
