@@ -30,6 +30,7 @@ jobs:
           node --check assets/js/portal.js
           node --check assets/js/auth.js
           node --check assets/js/social-wall.js
+          node --check assets/js/community-indicators.js
           node --check assets/js/community-hub.js
           node --check assets/js/public-profile.js
           node --check assets/js/admin.js
