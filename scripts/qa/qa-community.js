@@ -154,7 +154,7 @@ for (const token of ["profile-friend-action", "profile-message-action", "profile
   if (!profileUi.includes(token)) throw new Error("Profilu nedostaje prijateljstvo ili privatnost: " + token);
 }
 const profileLogic = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
-for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "profile-suggestions-grid"]) {
+for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "ps-profile-suggestion-grid"]) {
   if (!profileLogic.includes(token)) throw new Error("Logici profila nedostaje prijateljstvo ili privatnost: " + token);
 }
 const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
