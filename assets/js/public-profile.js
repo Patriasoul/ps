@@ -9,12 +9,16 @@
  if(!own){
   const q=await c.from("community_friendships").select("id,sender_id,recipient_id,status").or("and(sender_id.eq."+user.id+",recipient_id.eq."+id+"),and(sender_id.eq."+id+",recipient_id.eq."+user.id+")").limit(1);
   if(!q.error)friendship=(q.data||[])[0]||null;
-  if(friendship?.status==="accepted"){friendBtn.textContent="✓ Čuvari nasljeđa · prijatelji";friendBtn.disabled=true;msg.hidden=false;}
-  else if(friendship?.status==="pending"&&friendship.sender_id===user.id){friendBtn.textContent="◷ Zahtjev je poslan";friendBtn.disabled=true;}
+  if(friendship?.status==="accepted"){friendBtn.textContent="✓ Ukloni iz prijatelja";friendBtn.dataset.remove=friendship.id;msg.hidden=false;}
+  else if(friendship?.status==="pending"&&friendship.sender_id===user.id){friendBtn.textContent="↶ Otkaži zahtjev";friendBtn.dataset.cancel=friendship.id;}
   else if(friendship?.status==="pending"&&friendship.recipient_id===user.id){friendBtn.textContent="✦ Prihvati zahtjev";friendBtn.dataset.accept=friendship.id;}
   else friendBtn.textContent="✦ Dodaj Čuvara nasljeđa";
   friendBtn.hidden=false;
-  friendBtn.addEventListener("click",async()=>{friendBtn.disabled=true;try{if(friendBtn.dataset.accept){const {error}=await c.from("community_friendships").update({status:"accepted",updated_at:new Date().toISOString()}).eq("id",friendBtn.dataset.accept).eq("recipient_id",user.id);if(error)throw error;friendBtn.textContent="✓ Čuvari nasljeđa · prijatelji";msg.hidden=false;delete friendBtn.dataset.accept;}else{const {error}=await c.from("community_friendships").insert({sender_id:user.id,recipient_id:id,status:"pending"});if(error)throw error;friendBtn.textContent="◷ Zahtjev je poslan";} }catch(e){status.textContent=e?.message||"Zahtjev nije moguće obraditi.";friendBtn.disabled=false;}});
+  friendBtn.addEventListener("click",async()=>{friendBtn.disabled=true;try{
+   if(friendBtn.dataset.accept){const {error}=await c.from("community_friendships").update({status:"accepted",updated_at:new Date().toISOString()}).eq("id",friendBtn.dataset.accept).eq("recipient_id",user.id);if(error)throw error;friendBtn.textContent="✓ Ukloni iz prijatelja";friendBtn.dataset.remove=friendship.id;msg.hidden=false;delete friendBtn.dataset.accept;}
+   else if(friendBtn.dataset.remove||friendBtn.dataset.cancel){const relationId=friendBtn.dataset.remove||friendBtn.dataset.cancel;const {error}=await c.from("community_friendships").delete().eq("id",relationId);if(error)throw error;delete friendBtn.dataset.remove;delete friendBtn.dataset.cancel;friendBtn.textContent="✦ Dodaj Čuvara nasljeđa";friendBtn.disabled=false;msg.hidden=true;return;}
+   else{const {error}=await c.from("community_friendships").insert({sender_id:user.id,recipient_id:id,status:"pending"});if(error)throw error;friendBtn.textContent="↶ Otkaži zahtjev";friendBtn.dataset.cancel=friendship?.id||"";if(!friendBtn.dataset.cancel){const lookup=await c.from("community_friendships").select("id").eq("sender_id",user.id).eq("recipient_id",id).eq("status","pending").maybeSingle();if(lookup.error)throw lookup.error;if(lookup.data)friendBtn.dataset.cancel=lookup.data.id;}}
+  }catch(e){status.textContent=e?.message||"Zahtjev nije moguće obraditi.";friendBtn.disabled=false;} });
  }
  async function loadFriends(){
   list.hidden=false;list.innerHTML='<p class="ps-hub-meta">Učitavam prijatelje…</p>';
