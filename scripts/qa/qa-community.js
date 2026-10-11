@@ -32,7 +32,7 @@ if (missing.length) {
   process.exit(1);
 }
 
-const files = ["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html", "worker.js"];
+const files = ["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html", "stranice/domoljubni-forum.html", "kviz/src/App.jsx", "worker.js"];
 const contentByFile = Object.fromEntries(files.map(file => [file, fs.readFileSync(path.join(root, file), "utf8")]));
 const stalePatterns = [
   ["index.html", /(?:clanci\/|kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
@@ -63,6 +63,14 @@ for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "man
 const wall = fs.readFileSync(path.join(root, "stranice/zid-zajednice.html"), "utf8");
 for (const token of ["ps-wall-post-form", "ps-wall-feed", "ps-wall-link-url", "ps-wall-link-title", "social-wall.css", "social-wall.js"]) {
   if (!wall.includes(token)) throw new Error("Zidu zajednice nedostaje element: " + token);
+}
+for (const [file, token] of [
+  ["stranice/domoljubni-forum.html", "data-share-topic"],
+  ["stranice/domoljubni-forum.html", "shareType"],
+  ["kviz/src/App.jsx", "Podijeli rezultat na zidu"],
+  ["kviz/src/App.jsx", "shareType"]
+]) {
+  if (!contentByFile[file].includes(token)) throw new Error("Nedostaje dijeljenje izvornog sadržaja na zidu: " + file + " · " + token);
 }
 const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110001_social_wall.sql"), "utf8");
 for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check"]) {
