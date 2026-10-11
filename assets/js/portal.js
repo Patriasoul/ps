@@ -122,10 +122,6 @@
         document.getElementById("articles-manage")?.scrollIntoView({behavior:"smooth",block:"start"});
         return;
       }
-      if (path.includes("/clanci/domovina/")) { location.href = link("kategorije/domovina/"); return; }
-      if (path.includes("/clanci/povijest/")) { location.href = link("kategorije/povijest/"); return; }
-      if (path.includes("/clanci/vjera/")) { location.href = link("kategorije/vjera/"); return; }
-      if (path.includes("/clanci/cuvari-nasljedja/")) { location.href = link("kategorije/cuvari-nasljedja/"); return; }
       location.href = link("index.html");
     });
     document.body.append(back);
