@@ -30,6 +30,8 @@ jobs:
           node --check assets/js/portal.js
           node --check assets/js/auth.js
           node --check assets/js/admin.js
+          node --check assets/js/search.js
+          node --check scripts/build/generate-discovery.js
 
       - name: Provjeri strukturu i sačuvane funkcije
         run: node scripts/qa/qa-structure.js
