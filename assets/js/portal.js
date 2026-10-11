@@ -183,26 +183,24 @@
       </div>
       <div class="ps-footer-col">
         <h3>Informacije</h3>
-        <a href="${link("stranice/urednicki-standard.html")}">Urednički standard</a>
         <a href="${link("stranice/pravila-koristenja-i-sigurnosti.html")}">Pravila korištenja i sigurnosti</a>
         <a href="${link("stranice/privatnost.html")}">Privatnost i zaštita osobnih podataka</a>
+        <a href="${link("stranice/pravila-foruma.html")}">Pravila foruma</a>
       </div>
       <div class="ps-footer-col">
         <h3>PatriaSoul</h3>
         <a href="${link("stranice/o-patriasoul.html")}">O PatriaSoul</a>
         <a href="${link("stranice/kontakt.html")}">Kontakt</a>
         <a href="${link("stranice/pretraga.html")}">Pretraži</a>
-        <a href="${link("cuvari-nasljedja/prijavi-pricu.html")}">Pošalji priču</a>
         <a href="${link("stranice/newsletter.html")}">Prati PatriaSoul</a>
       </div>
       <div class="ps-footer-col">
         <h3>Na portalu</h3>
-        <a href="${link("stranice/najnovije.html")}">Najnovije</a>
-        <a href="${link("stranice/vrijeme.html")}">Vrijeme</a>
-        <a href="${link("kategorije/domovina/")}">Domovina</a>
-        <a href="${link("kategorije/povijest/")}">Povijest</a>
-        <a href="${link("kategorije/vjera/")}">Vjera</a>
-        <a href="${link("kategorije/cuvari-nasljedja/")}">Čuvari nasljeđa</a>
+        <a href="${link("stranice/domoljubni-forum.html")}">Domoljubni forum</a>
+        <a href="${link("kviz/")}">Hrvatski kviz</a>
+        <a href="${link("stranice/poruke-obavijesti.html")}">Poruke i obavijesti</a>
+        <a href="${link("stranice/vrijeme.html")}">Vrijeme u Hrvatskoj</a>
+        <a href="${link("stranice/na-danasnji-dan.html")}">Na današnji dan</a>
       </div>
     </div>
     <div class="ps-container ps-footer-social">
