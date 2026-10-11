@@ -22,6 +22,7 @@ const required = [
   "assets/js/social-wall.js",
   "supabase/migrations/202610110001_social_wall.sql",
   "supabase/migrations/202610110002_my_leaderboard_position.sql",
+  "supabase/migrations/202610110003_account_lifecycle_requests.sql",
   "stranice/administracija.html",
   "stranice/pretraga.html",
   "kviz/index.html",
@@ -98,8 +99,12 @@ const rankMigration = fs.readFileSync(path.join(root, "supabase/migrations/20261
 for (const token of ["get_my_leaderboard_position", "auth.uid()", "row_number() over", "grant execute on function public.get_my_leaderboard_position(text) to authenticated"]) {
   if (!rankMigration.includes(token)) throw new Error("Migraciji osobne rang-liste nedostaje zaštita ili funkcija: " + token);
 }
+const lifecycleMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110003_account_lifecycle_requests.sql"), "utf8");
+for (const token of ["account_lifecycle_requests", "auth.uid()", "members submit own lifecycle requests", "administrators process lifecycle requests", "status in ('pending','in_review','completed','rejected')"]) {
+  if (!lifecycleMigration.includes(token)) throw new Error("Migraciji zahtjeva računa nedostaje sigurnosna provjera: " + token);
+}
 const accountPage = fs.readFileSync(path.join(root, "stranice/racun.html"), "utf8");
-for (const token of ['id="sigurnost"', 'id="deaktivacija"', 'updateUser({email})', 'updateUser({password})', "Zatraži deaktivaciju", "Zatraži brisanje računa", "patriasoul@protonmail.com"]) {
+for (const token of ['id="sigurnost"', 'id="deaktivacija"', 'updateUser({email})', 'updateUser({password})', "Zatraži deaktivaciju", "Zatraži brisanje računa", "account_lifecycle_requests", "loadLifecycleRequests", "administrator ne obradi zahtjev"]) {
   if (!accountPage.includes(token)) throw new Error("Postavkama računa nedostaje funkcija: " + token);
 }
 if (!accountPage.includes("ne briše račun automatski")) throw new Error("Zahtjev za brisanje mora jasno objasniti da je potrebna administratorska obrada.");
