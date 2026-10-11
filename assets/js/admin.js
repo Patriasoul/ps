@@ -68,6 +68,22 @@ async function manageSocialWall(c,canManage,currentId){
  }));
 }
 
+async function manageAccountRequests(c,currentId){
+ const box=$("#account-requests-manage");if(!box)return;
+ const r=await c.from("account_lifecycle_requests").select("id,user_id,request_type,account_email,message,status,created_at,processed_at,admin_note").order("created_at",{ascending:false}).limit(100);
+ if(r.error){box.innerHTML='<p class="ps-admin-empty">Zahtjevi računa nisu dostupni. Provjeri je li migracija 202610110003_account_lifecycle_requests.sql primijenjena na Supabase.</p>';return}
+ const rows=r.data||[];
+ if(!rows.length){box.innerHTML='<p class="ps-admin-empty">Nema zahtjeva za obradu.</p>';return}
+ const types={deactivate:"Deaktivacija računa",delete:"Brisanje računa"},statuses={pending:"Na čekanju",in_review:"U obradi",completed:"Dovršeno",rejected:"Odbijeno"};
+ box.innerHTML=rows.map(x=>'<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(types[x.request_type]||x.request_type)+'</strong><small>'+esc(x.account_email||"E-mail nije dostupan")+' · '+fmt(x.created_at)+'</small><small>Korisnički ID: '+esc(x.user_id)+' · '+esc(x.message||"")+'</small>'+(x.admin_note?'<small>Napomena: '+esc(x.admin_note)+'</small>':"")+'</div><div class="ps-admin-actions"><select data-account-request-status="'+esc(x.id)+'" data-old="'+esc(x.status)+'" aria-label="Status zahtjeva"><option value="pending" '+(x.status==="pending"?"selected":"")+'>Na čekanju</option><option value="in_review" '+(x.status==="in_review"?"selected":"")+'>U obradi</option><option value="rejected" '+(x.status==="rejected"?"selected":"")+'>Odbijen</option><option value="completed" '+(x.status==="completed"?"selected":"")+'>Dovršen</option></select></div></article>').join("");
+ box.querySelectorAll("[data-account-request-status]").forEach(el=>el.addEventListener("change",async()=>{
+  const old=el.dataset.old,next=el.value;el.disabled=true;
+  if(next==="completed"&&!window.confirm("Potvrđuješ da je zahtjev stvarno proveden izvan ove nadzorne ploče? Ova promjena samo označava zahtjev kao dovršen; ne deaktivira i ne briše račun.")){el.value=old;el.disabled=false;return}
+  try{const terminal=next==="completed"||next==="rejected";const upd={status:next,processed_at:terminal?new Date().toISOString():null,processed_by:terminal?currentId:null};const result=await c.from("account_lifecycle_requests").update(upd).eq("id",el.dataset.accountRequestStatus);if(result.error)throw result.error;await manageAccountRequests(c,currentId)}
+  catch(e){alert("Zahtjev nije ažuriran: "+(e?.message||"nepoznata greška"));el.value=old}
+  finally{el.disabled=false}
+ }));
+}
 async function load(){
  const status=$("#admin-status"),denied=$("#admin-denied"),dash=$("#admin-dashboard");
  try{
@@ -83,7 +99,7 @@ async function load(){
   const ops=role==="admin"||owner;
   status.textContent=(owner?"Vlasnik PatriaSoul · ":role==="admin"?"Administrator · ":"Urednik · ")+(profile.data?.display_name||u.email||"");
   dash.hidden=false;
-  $("#roles-panel").hidden=!owner;
+  const rolesPanel=$("#roles-panel");if(rolesPanel)rolesPanel.hidden=!owner;const requestsPanel=$("#account-requests-panel");if(requestsPanel)requestsPanel.hidden=!ops;
   const note=$("#admin-access-note");
   if(note)note.textContent=owner?"Puni pristup, uključujući upravljanje ulogama.":ops?"Moderacija zajednice i foruma.":"Upravljanje prijavljenim pričama i komentarima.";
   const [stories,usersCount,forumTopics,forumPosts,backs,deps,events]=await Promise.all([
@@ -120,6 +136,7 @@ async function load(){
   const tasks=[manageStories(c),manageSocialWall(c,canEdit,u.id)];
   if(ops)tasks.push(manageForum(c,true,u.id));else tasks.push(manageForum(c,false,u.id));
   if(owner)tasks.push(users(c,u.id));
+  if(ops)tasks.push(manageAccountRequests(c,u.id));
   const results=await Promise.allSettled(tasks);
   const failures=results.filter(r=>r.status==="rejected");
   if(failures.length){console.error("PatriaSoul admin community load errors",failures.map(r=>r.reason));set("stat-system","Dio podataka nije dostupan");set("stat-system-note","Provjeri dozvole Supabase tablica i konzolu preglednika.")}
