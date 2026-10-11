@@ -26,6 +26,7 @@ const required = [
   "supabase/migrations/202610110004_event_host_delete.sql",
   "supabase/migrations/202610110005_group_owner_delete.sql",
   "supabase/migrations/202610110006_friendships_profile_privacy.sql",
+  "supabase/migrations/202610110007_photo_visibility_storage.sql",
   "stranice/administracija.html",
   "stranice/pretraga.html",
   "kviz/index.html",
@@ -157,6 +158,12 @@ const profileLogic = fs.readFileSync(path.join(root, "assets/js/public-profile.j
 for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "ps-profile-suggestion-grid"]) {
   if (!profileLogic.includes(token)) throw new Error("Logici profila nedostaje prijateljstvo ili privatnost: " + token);
 }
+const photoPrivacyMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110007_photo_visibility_storage.sql"), "utf8");
+for (const token of ["members read attached community images", "photos_visibility = 'public'", "photos_visibility = 'friends'", "posts_visibility = 'public'", "community_friendships", "community_user_blocks", "bucket_id = 'community-media'"]) {
+  if (!photoPrivacyMigration.includes(token)) throw new Error("Migraciji privatnosti fotografija nedostaje pravilo: " + token);
+}
+if (!photoPrivacyMigration.includes("drop policy if exists \"members read attached community images\"")) throw new Error("Migracija mora sigurno zamijeniti postojeće pravilo čitanja fotografija.");
+
 const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
 if (!lifecycleMigration.includes(lifecycleIndex) || !lifecycleMigration.includes("where status in ('pending','in_review')")) {
   throw new Error("Zahtjevi računa moraju imati jedinstvenu zaštitu od dvostrukih otvorenih zahtjeva.");
