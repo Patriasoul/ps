@@ -1,23 +1,21 @@
 {
   "main": [
     "Naslovnica",
-    "Domovina",
-    "Povijest",
-    "Vjera",
-    "Čuvari nasljeđa",
-    "O PatriaSoul",
+    "Forum",
+    "Hrvatski kviz",
+    "Vrijeme u Hrvatskoj",
+    "Na današnji dan",
     "Više"
   ],
   "secondary": [
-    "Hrvatski kviz",
-    "Najnovije vijesti",
-    "Vrijeme u Hrvatskoj",
-    "Na današnji dan",
-    "Pošalji priču",
-    "Prati PatriaSoul",
-    "Pretraži",
-    "Prijava / Registracija",
+    "Poruke i obavijesti",
+    "Pretraži portal",
+    "Prijava",
+    "Registracija",
     "Moj račun",
+    "O PatriaSoul",
+    "Kontakt",
+    "Pravila foruma",
     "Administracija"
   ]
 }
