@@ -214,6 +214,26 @@ create table if not exists public.community_group_members (
 );
 create index if not exists community_group_members_user_idx on public.community_group_members(user_id,joined_at desc);
 
+-- Create the owner's membership in the same transaction as the group itself.
+create or replace function public.community_add_group_owner()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $
+begin
+  insert into public.community_group_members(group_id,user_id,role)
+  values (new.id,new.owner_id,'owner')
+  on conflict (group_id,user_id) do nothing;
+  return new;
+end;
+$;
+revoke all on function public.community_add_group_owner() from public, anon, authenticated;
+drop trigger if exists community_group_add_owner on public.community_groups;
+create trigger community_group_add_owner
+after insert on public.community_groups
+for each row execute function public.community_add_group_owner();
+
 alter table public.community_groups enable row level security;
 alter table public.community_group_members enable row level security;
 drop policy if exists "members read accessible groups" on public.community_groups;
