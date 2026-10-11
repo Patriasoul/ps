@@ -89,6 +89,15 @@ if (migration.includes("grant select,insert,update on public.community_groups to
 if (!migration.includes("revoke update on public.community_groups from authenticated;") || !migration.includes("grant update (name,description,visibility,updated_at) on public.community_groups to authenticated;")) throw new Error("Nedostaju ograničene UPDATE ovlasti za uređivanje grupa.");
 const profilePage = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
 for (const token of ["profile-card", "profile-posts", "profile-cover", "profile-cover-input", "public-profile.js", "public-profile.css"]) { if (!profilePage.includes(token)) throw new Error("Javnom profilu nedostaje element: " + token); }
+const profileJs = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
+for (const token of ["ps-profile-sidebar", "racun.html", "pravila-koristenja-i-sigurnosti.html", "domoljubni-forum.html", "get_leaderboard", "profile-rank-status"]) {
+  if (!profilePage.includes(token) && !profileJs.includes(token)) throw new Error("Profilu nedostaje bočna navigacija ili rang-lista: " + token);
+}
+const accountPage = fs.readFileSync(path.join(root, "stranice/racun.html"), "utf8");
+for (const token of ['id="sigurnost"', 'id="deaktivacija"', 'updateUser({email})', 'updateUser({password})', "Zatraži deaktivaciju", "Zatraži brisanje računa", "patriasoul@protonmail.com"]) {
+  if (!accountPage.includes(token)) throw new Error("Postavkama računa nedostaje funkcija: " + token);
+}
+if (!accountPage.includes("ne briše račun automatski")) throw new Error("Zahtjev za brisanje mora jasno objasniti da je potrebna administratorska obrada.");
 const hub = fs.readFileSync(path.join(root, "stranice/grupe-dogadjaji.html"), "utf8");
 for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "community-hub.js"]) {
   if (!hub.includes(token)) throw new Error("Stranici grupa i događaja nedostaje element: " + token);
