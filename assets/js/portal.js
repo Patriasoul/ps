@@ -48,56 +48,31 @@
       </div>
     </div></div>
     <nav class="ps-nav" aria-label="Glavna navigacija"><div class="ps-container ps-nav-inner">
-      <a class="ps-nav-direct" href="${link("index.html")}">Naslovnica</a>
-      <div class="ps-nav-group${active("/kategorije/domovina")}">
-        <a href="${link("kategorije/domovina/")}">Domovina <span>⌄</span></a>
-        <div class="ps-dropdown">
-          <a href="${link("kategorije/domovina/hrvatska-danas.html")}">Hrvatska danas</a>
-          <a href="${link("kategorije/domovina/hrvatska-stvara.html")}">Hrvatska stvara</a>
-          <a href="${link("kategorije/domovina/dijaspora.html")}">Dijaspora</a>
-          <a href="${link("kategorije/domovina/branitelji-hrvatske.html")}">Branitelji Hrvatske</a>
-          <a href="${link("kategorije/domovina/obitelj.html")}">Obitelj</a>
-        </div>
-      </div>
-      <div class="ps-nav-group${active("/kategorije/povijest")}">
-        <a href="${link("kategorije/povijest/")}">Povijest <span>⌄</span></a>
-        <div class="ps-dropdown">
-          <a href="${link("kategorije/povijest/bastina.html")}">Baština</a>
-          <a href="${link("kategorije/povijest/glagoljica.html")}">Glagoljica</a>
-          <a href="${link("kategorije/povijest/povijest-crkve.html")}">Povijest Crkve</a>
-        </div>
-      </div>
-      <div class="ps-nav-group${active("/kategorije/vjera")}">
-        <a href="${link("kategorije/vjera/")}">Vjera <span>⌄</span></a>
-        <div class="ps-dropdown ps-dropdown-wide">
-          <a href="${link("kategorije/vjera/vjera-i-zivot.html")}">Vjera i život</a>
-          <a href="${link("kategorije/vjera/biblija.html")}">Biblija</a>
-          <a href="${link("kategorije/vjera/svetista.html")}">Svetišta</a>
-          <a href="${link("kategorije/vjera/crkvena-bastina.html")}">Crkvena baština</a>
-          <a href="${link("kategorije/vjera/ljudi.html")}">Ljudi</a>
-          <a href="${link("kategorije/vjera/svjedocanstva.html")}">Svjedočanstva</a>
-          <a href="${link("kategorije/vjera/vjera-i-hrvatska-bastina.html")}">Vjera i hrvatska baština</a>
-        </div>
-      </div>
-      <a class="ps-nav-direct${active("/kategorije/cuvari-nasljedja")}" href="${link("kategorije/cuvari-nasljedja/")}">Čuvari nasljeđa</a>
-      <a class="ps-nav-direct${active("/stranice/o-patriasoul.html")}" href="${link("stranice/o-patriasoul.html")}">O PatriaSoul</a>
-      <div class="ps-nav-group ps-more${active("/stranice/")}">
-        <a href="${link("stranice/kontakt.html")}">Više <span>⌄</span></a>
+      <a class="ps-nav-direct${path.endsWith("/index.html")||path==="/"?" is-active":""}" href="${link("index.html")}">Naslovnica</a>
+      <a class="ps-nav-direct${active("/stranice/domoljubni-forum.html")}" href="${link("stranice/domoljubni-forum.html")}">Forum</a>
+      <a class="ps-nav-direct${active("/kviz")}" href="${link("kviz/")}">Hrvatski kviz</a>
+      <a class="ps-nav-direct${active("/stranice/vrijeme.html")}" href="${link("stranice/vrijeme.html")}">Vrijeme</a>
+      <a class="ps-nav-direct${active("/stranice/na-danasnji-dan.html")}" href="${link("stranice/na-danasnji-dan.html")}">Na današnji dan</a>
+      <div class="ps-nav-group${active("/stranice/")}">
+        <a href="${link("stranice/o-patriasoul.html")}">Više <span>⌄</span></a>
         <div class="ps-dropdown ps-dropdown-right">
+          <a href="${link("stranice/poruke-obavijesti.html")}">Poruke i obavijesti</a>
+          <a href="${link("stranice/pretraga.html")}">Pretraži portal</a>
+          <a href="${link("stranice/o-patriasoul.html")}">O PatriaSoul</a>
           <a href="${link("stranice/kontakt.html")}">Kontakt</a>
-          <a href="${link("stranice/prijava.html")}">Prijava / Registracija</a>
-          <a href="${link("stranice/racun.html")}">Moj račun</a>
+          <a href="${link("stranice/pravila-foruma.html")}">Pravila foruma</a>
+          <a href="${link("stranice/pravila-koristenja-i-sigurnosti.html")}">Pravila korištenja</a>
         </div>
       </div>
     </div></nav>
     <div class="ps-service"><div class="ps-container ps-service-inner">
       <span class="ps-service-label">PatriaSoul</span>
-      <a href="${link("kviz/")}">Hrvatski kviz</a>
-      <a href="${link("stranice/najnovije.html")}">Najnovije vijesti</a>
-      <a href="${link("cuvari-nasljedja/prijavi-pricu.html")}">Pošalji priču</a>
-      <a href="${link("stranice/newsletter.html")}">Prati PatriaSoul</a>
+      <a href="${link("stranice/prijava.html")}">Prijava</a>
+      <a href="${link("stranice/registracija.html")}">Registracija</a>
+      <a href="${link("stranice/racun.html")}">Moj račun</a>
+      <a href="${link("stranice/poruke-obavijesti.html")}">Poruke i obavijesti</a>
       <a href="${link("stranice/vrijeme.html")}">Vrijeme</a>
-        <a href="${link("stranice/na-danasnji-dan.html")}">Na današnji dan</a>
+      <a href="${link("stranice/na-danasnji-dan.html")}">Na današnji dan</a>
     </div></div>
   `;
   // Pristupačan gumb mobilnog izbornika; desktop raspored ostaje nepromijenjen.
