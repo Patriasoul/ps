@@ -2,9 +2,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Javni sadržaj ima kratke, kanonske URL-ove u korijenu domene.
-    // Stari /stranice/... URL-ovi ostaju podržani radi postojećih poveznica.
-    // Kategorije zadržavaju vlastitu strukturu, npr. /kategorije/domovina/.
+    // Zadrži podršku za postojeće kratke URL-ove i stare poveznice na stranice.
     const rootPageAliases = {
       "/o-patriasoul": "/stranice/o-patriasoul.html",
       "/kontakt": "/stranice/kontakt.html",
@@ -19,7 +17,6 @@ export default {
       "/pretraga": "/stranice/pretraga.html",
       "/privatnost": "/stranice/privatnost.html",
       "/vrijeme": "/stranice/vrijeme.html",
-      "/na-danasnji-dan": "/stranice/na-danasnji-dan.html",
       "/prijava": "/stranice/prijava.html",
       "/registracija": "/stranice/registracija.html",
       "/racun": "/stranice/racun.html",
