@@ -116,12 +116,6 @@
         } catch (_) {}
       }
       // Pouzdan izlaz kad je stranica otvorena izravno ili nema povijesti preglednika.
-      if (path.includes("/stranice/administracija.html")) {
-        const editor = document.getElementById("article-editor");
-        if (editor) editor.hidden = true;
-        document.getElementById("articles-manage")?.scrollIntoView({behavior:"smooth",block:"start"});
-        return;
-      }
       location.href = link("index.html");
     });
     document.body.append(back);
@@ -130,8 +124,7 @@
     document.head.append(backStyle);
   }
 
-  // Na mobitelu je naziv kategorije uvijek izravna poveznica.
-  // Strelica otvara podizbornik, tako da korisnik ne mora pogađati treba li kliknuti jednom ili dvaput.
+  // Na mobitelu strelica otvara podizbornik, a poveznice ostaju izravno dostupne.
   const positionDropdown = (group) => {
     const navRect = header.querySelector(".ps-nav").getBoundingClientRect();
     const dropdown = group.querySelector(".ps-dropdown");
