@@ -30,6 +30,7 @@ jobs:
           node --check assets/js/portal.js
           node --check assets/js/auth.js
           node --check assets/js/social-wall.js
+          node --check assets/js/community-hub.js
           node --check assets/js/admin.js
           node --check assets/js/search.js
           node --check scripts/build/generate-discovery.js
@@ -82,6 +83,7 @@ jobs:
         run: |
           test -s _site/index.html
           test -s _site/stranice/domoljubni-forum.html
+          test -s _site/stranice/grupe-dogadjaji.html
           test -s _site/stranice/poruke-obavijesti.html
           test -s _site/stranice/vrijeme.html
           test -s _site/stranice/na-danasnji-dan.html
