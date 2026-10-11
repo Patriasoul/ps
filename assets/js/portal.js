@@ -42,6 +42,7 @@
         <a class="ps-search-button" href="${link("stranice/pretraga.html")}" aria-label="Pretraži" title="Pretraži"><span class="ps-search-icon" aria-hidden="true">⌕</span><span class="ps-search-label">Pretraži</span></a>
         <a class="ps-tiktok" href="https://www.tiktok.com/@patriasoul" target="_blank" rel="noopener">TikTok</a>
         <a class="ps-quiz-button" href="${link("kviz/")}">Hrvatski kviz</a>
+        <a class="ps-forum-button" data-ps-private-link="true" href="${link("stranice/zid-zajednice.html")}" title="Otvori zid zajednice"><span aria-hidden="true">🤝</span><span>Zid zajednice</span></a>
         <a class="ps-forum-button" data-ps-private-link="true" href="${link("stranice/domoljubni-forum.html")}" title="Otvori Domoljubni forum"><span aria-hidden="true">💬</span><span>Domoljubni forum</span></a>
         <a class="ps-forum-button ps-messages-button" data-ps-private-link="true" href="${link("stranice/poruke-obavijesti.html")}" title="Privatne poruke"><span aria-hidden="true">✉</span><span>Poruke</span></a>
         <a class="ps-forum-button ps-notifications-button" data-ps-private-link="true" href="${link("stranice/poruke-obavijesti.html#obavijesti")}" title="Obavijesti"><span aria-hidden="true">♧</span><span>Obavijesti</span></a>
@@ -49,6 +50,7 @@
     </div></div>
     <nav class="ps-nav" aria-label="Glavna navigacija"><div class="ps-container ps-nav-inner">
       <a class="ps-nav-direct${path.endsWith("/index.html")||path==="/"?" is-active":""}" href="${link("index.html")}">Naslovnica</a>
+      <a class="ps-nav-direct${active("/stranice/zid-zajednice.html")}" data-ps-private-link="true" href="${link("stranice/zid-zajednice.html")}">Zid zajednice</a>
       <a class="ps-nav-direct${active("/stranice/domoljubni-forum.html")}" href="${link("stranice/domoljubni-forum.html")}">Forum</a>
       <a class="ps-nav-direct${active("/kviz")}" href="${link("kviz/")}">Hrvatski kviz</a>
       <a class="ps-nav-direct${active("/stranice/vrijeme.html")}" href="${link("stranice/vrijeme.html")}">Vrijeme</a>
@@ -56,7 +58,8 @@
       <div class="ps-nav-group${active("/stranice/")}">
         <a href="${link("stranice/o-patriasoul.html")}">Više <span>⌄</span></a>
         <div class="ps-dropdown ps-dropdown-right">
-          <a href="${link("stranice/poruke-obavijesti.html")}">Poruke i obavijesti</a>
+          <a data-ps-private-link="true" href="${link("stranice/zid-zajednice.html")}">Zid zajednice</a>
+      <a href="${link("stranice/poruke-obavijesti.html")}">Poruke i obavijesti</a>
           <a href="${link("stranice/pretraga.html")}">Pretraži portal</a>
           <a href="${link("stranice/o-patriasoul.html")}">O PatriaSoul</a>
           <a href="${link("stranice/kontakt.html")}">Kontakt</a>
