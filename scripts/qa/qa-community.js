@@ -123,4 +123,8 @@ for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "com
 if (!contentByFile["assets/js/portal.js"].includes("stranice/grupe-dogadjaji.html")) throw new Error("Grupe i događaji nisu povezani u zajedničkoj navigaciji.");
 const hubJs = fs.readFileSync(path.join(root, "assets/js/community-hub.js"), "utf8");
 if (hubJs.includes('from("community_group_members").insert({group_id:data.id,user_id:user.id,role:"owner"})')) throw new Error("Vlasničko članstvo mora se stvoriti atomski kroz bazni trigger.");
+const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
+if (!lifecycleMigration.includes(lifecycleIndex) || !lifecycleMigration.includes("where status in ('pending','in_review')")) {
+  throw new Error("Zahtjevi računa moraju imati jedinstvenu zaštitu od dvostrukih otvorenih zahtjeva.");
+}
 console.log("ZAJEDNICA QA OK — postojeće funkcije su sačuvane; zid i migracija društvenih funkcija postoje.");
