@@ -215,7 +215,7 @@ with check(owner_id=auth.uid());
 drop policy if exists "owners and moderators update groups" on public.community_groups;
 create policy "owners and moderators update groups" on public.community_groups for update to authenticated
 using(owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid() and gm.role='moderator') or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')))
-with check(owner_id=auth.uid() or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')));
+with check(owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid() and gm.role='moderator') or exists(select 1 from public.profiles p where p.id=auth.uid() and p.role in ('admin','editor')));
 drop policy if exists "members read group membership" on public.community_group_members;
 create policy "members read group membership" on public.community_group_members for select to authenticated
 using(user_id=auth.uid() or exists(select 1 from public.community_groups g where g.id=group_id and (g.visibility='public' or g.owner_id=auth.uid())));
