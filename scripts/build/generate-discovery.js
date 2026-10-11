@@ -48,7 +48,7 @@ function walk(directory) {
     const body = (html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i) || [])[1] || html;
     const text = strip(body).slice(0, 5000);
     const url = relative === "index.html" ? base : base + relative;
-    publicPages.push({ title, description, category: "PatriaSoul", url: relative, text });
+    publicPages.push({ title, description, category: "PatriaSoul", url: relative === "index.html" ? "" : relative, text });
   }
 }
 
