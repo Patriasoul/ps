@@ -85,6 +85,8 @@ for (const token of ["enable row level security", "community_posts", "community_
   if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
 }
 if (!migration.includes("with check(owner_id=auth.uid() or exists(select 1 from public.community_group_members gm where gm.group_id=id and gm.user_id=auth.uid() and gm.role='moderator')")) throw new Error("RLS pravilo ne dopušta moderatoru sigurno uređivanje njegove grupe.");
+if (migration.includes("grant select,insert,update on public.community_groups to authenticated;")) throw new Error("Nesigurno: korisnici ne smiju imati opće UPDATE ovlasti nad grupama.");
+if (!migration.includes("revoke update on public.community_groups from authenticated;") || !migration.includes("grant update (name,description,visibility,updated_at) on public.community_groups to authenticated;")) throw new Error("Nedostaju ograničene UPDATE ovlasti za uređivanje grupa.");
 const profilePage = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
 for (const token of ["profile-card", "profile-posts", "public-profile.js", "public-profile.css"]) { if (!profilePage.includes(token)) throw new Error("Javnom profilu nedostaje element: " + token); }
 const hub = fs.readFileSync(path.join(root, "stranice/grupe-dogadjaji.html"), "utf8");
