@@ -23,7 +23,7 @@ async function loadGroups(){
   db.from("community_group_members").select("group_id,role").eq("user_id",user.id)
  ]);
  if(g.error)throw g.error;if(m.error)throw m.error;groups=g.data||[];memberships=new Set((m.data||[]).map(x=>x.group_id));
- $("hub-groups").innerHTML=groups.length?groups.map(g=>'<article class="ps-hub-item"><h3>'+esc(g.name)+'</h3><p>'+esc(g.description||"Grupa za članove PatriaSoula.")+'</p><small>Osnovana '+esc(fmt(g.created_at))+' · '+(g.owner_id===user.id?"Tvoja grupa":memberships.has(g.id)?"Član si":"Otvorena grupa")+'</small><div><button type="button" data-group-action="'+(memberships.has(g.id)?"leave":"join")+'" data-id="'+esc(g.id)+'" '+(g.owner_id===user.id?'disabled title="Vlasnik grupe"':'')+'>'+(memberships.has(g.id)?"Napusti grupu":"Pridruži se")+'</button></div></article>').join(""):'<p class="ps-wall-empty">Još nema javnih grupa. Osnuj prvu grupu zajednice.</p>';
+ $("hub-groups").innerHTML=groups.length?groups.map(g=>'<article class="ps-hub-item"><h3>'+esc(g.name)+'</h3><p>'+esc(g.description||"Grupa za članove PatriaSoula.")+'</p><small>Osnovana '+esc(fmt(g.created_at))+' · '+(g.owner_id===user.id?"Tvoja grupa":memberships.has(g.id)?"Član si":"Otvorena grupa")+'</small><div>'+(g.owner_id===user.id?'<button type="button" class="secondary" data-group-action="delete" data-id="'+esc(g.id)+'">Izbriši grupu</button>':'<button type="button" data-group-action="'+(memberships.has(g.id)?"leave":"join")+'" data-id="'+esc(g.id)+'">'+(memberships.has(g.id)?"Napusti grupu":"Pridruži se")+'</button>')+'</div></article>').join(""):'<p class="ps-wall-empty">Još nema javnih grupa. Osnuj prvu grupu zajednice.</p>';
 }
 async function loadEvents(){
  const [e,a]=await Promise.all([
@@ -40,8 +40,13 @@ $("hub-group-form").addEventListener("submit",async e=>{e.preventDefault();const
 });
 $("hub-groups").addEventListener("click",async e=>{const b=e.target.closest("button[data-group-action]");if(!b||b.disabled)return;b.disabled=true;try{
  const group=groups.find(g=>g.id===b.dataset.id);if(!group)throw Error("Grupa više nije dostupna.");
- const r=b.dataset.groupAction==="join"?await db.from("community_group_members").insert({group_id:group.id,user_id:user.id,role:"member"}):await db.from("community_group_members").delete().eq("group_id",group.id).eq("user_id",user.id);
- if(r.error&&r.error.code!=="23505")throw r.error;say(b.dataset.groupAction==="join"?"Pridružio/la si se grupi.":"Napustio/la si grupu.");await loadGroups();
+ let r;const action=b.dataset.groupAction;if(action==="delete"){
+  if(group.owner_id!==user.id)throw Error("Možeš izbrisati samo vlastitu grupu.");
+  if(!confirm("Izbrisati grupu „"+group.name+"” i njezino članstvo? Radnja se ne može poništiti."))return;
+  r=await db.from("community_groups").delete().eq("id",group.id).eq("owner_id",user.id);
+ }else if(action==="join")r=await db.from("community_group_members").insert({group_id:group.id,user_id:user.id,role:"member"});
+ else r=await db.from("community_group_members").delete().eq("group_id",group.id).eq("user_id",user.id);
+ if(r.error&&r.error.code!=="23505")throw r.error;say(action==="delete"?"Grupa je izbrisana.":action==="join"?"Pridružio/la si se grupi.":"Napustio/la si grupu.");await loadGroups();
  }catch(x){say(errText(x),true)}finally{b.disabled=false}
 });
 $("hub-event-form").addEventListener("submit",async e=>{e.preventDefault();const title=$("hub-event-title").value.trim(),starts=$("hub-event-date").value;if(!title||!starts)return;
