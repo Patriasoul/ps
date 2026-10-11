@@ -23,6 +23,7 @@ const required = [
   "supabase/migrations/202610110001_social_wall.sql",
   "supabase/migrations/202610110002_my_leaderboard_position.sql",
   "supabase/migrations/202610110003_account_lifecycle_requests.sql",
+  "supabase/migrations/202610110004_event_host_delete.sql",
   "stranice/administracija.html",
   "stranice/pretraga.html",
   "kviz/index.html",
@@ -125,6 +126,13 @@ for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "com
 if (!contentByFile["assets/js/portal.js"].includes("stranice/grupe-dogadjaji.html")) throw new Error("Grupe i događaji nisu povezani u zajedničkoj navigaciji.");
 const hubJs = fs.readFileSync(path.join(root, "assets/js/community-hub.js"), "utf8");
 if (hubJs.includes('from("community_group_members").insert({group_id:data.id,user_id:user.id,role:"owner"})')) throw new Error("Vlasničko članstvo mora se stvoriti atomski kroz bazni trigger.");
+for (const token of ['data-event-action="delete"', 'action==="delete"', 'event.host_id!==user.id', 'eq("host_id",user.id)']) {
+  if (!hubJs.includes(token)) throw new Error("Organizatoru nedostaje sigurno brisanje vlastitog događaja: " + token);
+}
+const eventDeleteMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110004_event_host_delete.sql"), "utf8");
+for (const token of ['for delete to authenticated', 'using (host_id = auth.uid())', 'grant delete on public.community_events to authenticated']) {
+  if (!eventDeleteMigration.includes(token)) throw new Error("Migraciji brisanja događaja nedostaje zaštita: " + token);
+}
 const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
 if (!lifecycleMigration.includes(lifecycleIndex) || !lifecycleMigration.includes("where status in ('pending','in_review')")) {
   throw new Error("Zahtjevi računa moraju imati jedinstvenu zaštitu od dvostrukih otvorenih zahtjeva.");
