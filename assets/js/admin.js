@@ -75,7 +75,20 @@ async function manageAccountRequests(c,currentId){
  const rows=r.data||[];
  if(!rows.length){box.innerHTML='<p class="ps-admin-empty">Nema zahtjeva za obradu.</p>';return}
  const types={deactivate:"Deaktivacija računa",delete:"Brisanje računa"},statuses={pending:"Na čekanju",in_review:"U obradi",completed:"Dovršeno",rejected:"Odbijeno"};
- box.innerHTML=rows.map(x=>'<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(types[x.request_type]||x.request_type)+'</strong><small>'+esc(x.account_email||"E-mail nije dostupan")+' · '+fmt(x.created_at)+'</small><small>Korisnički ID: '+esc(x.user_id)+' · '+esc(x.message||"")+'</small>'+(x.admin_note?'<small>Napomena: '+esc(x.admin_note)+'</small>':"")+'</div><div class="ps-admin-actions"><select data-account-request-status="'+esc(x.id)+'" data-old="'+esc(x.status)+'" aria-label="Status zahtjeva"><option value="pending" '+(x.status==="pending"?"selected":"")+'>Na čekanju</option><option value="in_review" '+(x.status==="in_review"?"selected":"")+'>U obradi</option><option value="rejected" '+(x.status==="rejected"?"selected":"")+'>Odbijen</option><option value="completed" '+(x.status==="completed"?"selected":"")+'>Dovršen</option></select></div></article>').join("");
+ box.innerHTML=rows.map(x=>'<article class="ps-admin-forum-item"><div class="ps-admin-forum-copy"><strong>'+esc(types[x.request_type]||x.request_type)+'</strong><small>'+esc(x.account_email||"E-mail nije dostupan")+' · '+fmt(x.created_at)+'</small><small>Korisnički ID: '+esc(x.user_id)+' · '+esc(x.message||"")+'</small>'+'<label class="ps-admin-note-label">Interna napomena<textarea data-account-request-note="'+esc(x.id)+'" maxlength="2000" rows="2" aria-label="Interna napomena za zahtjev">'+esc(x.admin_note||"")+'</textarea></label><button type="button" class="secondary" data-account-request-note-save="'+esc(x.id)+'">Spremi napomenu</button></div><div class="ps-admin-actions"><select data-account-request-status="'+esc(x.id)+'" data-old="'+esc(x.status)+'" aria-label="Status zahtjeva"><option value="pending" '+(x.status==="pending"?"selected":"")+'>Na čekanju</option><option value="in_review" '+(x.status==="in_review"?"selected":"")+'>U obradi</option><option value="rejected" '+(x.status==="rejected"?"selected":"")+'>Odbijen</option><option value="completed" '+(x.status==="completed"?"selected":"")+'>Dovršen</option></select></div></article>').join("");
+ box.querySelectorAll("[data-account-request-note-save]").forEach(button=>button.addEventListener("click",async()=>{
+  const id=button.dataset.accountRequestNoteSave,field=box.querySelector('[data-account-request-note="'+id+'"]');
+  if(!field)return;
+  const note=field.value.trim();
+  if(note.length>2000){alert("Napomena smije imati najviše 2000 znakova.");return}
+  button.disabled=true;
+  try{
+   const result=await c.from("account_lifecycle_requests").update({admin_note:note||null}).eq("id",id);
+   if(result.error)throw result.error;
+   await manageAccountRequests(c,currentId);
+  }catch(e){alert("Napomena nije spremljena: "+(e?.message||"nepoznata greška"))}
+  finally{button.disabled=false}
+ }));
  box.querySelectorAll("[data-account-request-status]").forEach(el=>el.addEventListener("change",async()=>{
   const old=el.dataset.old,next=el.value;el.disabled=true;
   if(next==="completed"&&!window.confirm("Potvrđuješ da je zahtjev stvarno proveden izvan ove nadzorne ploče? Ova promjena samo označava zahtjev kao dovršen; ne deaktivira i ne briše račun.")){el.value=old;el.disabled=false;return}
