@@ -34,59 +34,11 @@
 </div>
 
 <div class="ps-admin-panels ps-admin-management-grid" data-admin-group="content">
-<section class="ps-admin-panel">
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">SADRŽAJ</p><h2>Upravljanje člancima</h2></div><a href="../index.html">Najnovije</a></div>
-<div id="articles-manage" class="ps-admin-list"><p>Učitavanje članaka…</p></div>
-</section>
-<section class="ps-admin-panel ps-admin-published-panel">
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">OBJAVLJENO</p><h2>Gotovi članci</h2></div><span class="ps-admin-muted">Javno dostupni članci</span></div>
-<p class="ps-admin-section-note">Kad članak objaviš, automatski se uklanja iz izrade i prikazuje ovdje.</p>
-<div id="published-articles-manage" class="ps-admin-list"><p>Učitavanje objavljenih članaka…</p></div>
-</section>
-
 </div>
 
 <section class="ps-admin-panel" data-admin-group="community">
 <div class="ps-admin-panel-head"><div><p class="ps-kicker">ČUVARI NASLJEĐA</p><h2>Prijavljene priče</h2></div><span class="ps-admin-muted">Zapisi zajednice</span></div>
 <div id="stories-manage" class="ps-admin-list"><p>Učitavanje priča…</p></div>
-</section>
-
-<section class="ps-admin-panel ps-admin-rss-drafts" id="rss-editorial-drafts" data-admin-group="ai">
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">RSS · UREDNIČKA REDAKCIJA</p><h2>Prijedlozi vijesti</h2></div><button type="button" class="ps-admin-button ps-admin-button-light" id="rss-drafts-refresh">Osvježi nacrte</button></div>
-<p class="ps-ai-lead">Automatski prikupljeni prijedlozi iz odobrenih izvora. Ovo nisu objavljeni članci. Svaki prijedlog mora se provjeriti, urednički obraditi i posebno odobriti.</p>
-<div id="rss-drafts-status" class="ps-editor-message" role="status">Učitavanje prijedloga…</div>
-<div id="rss-drafts-list" class="ps-admin-list"><p>Učitavanje RSS nacrta…</p></div>
-</section>
-
-<section class="ps-admin-panel ps-admin-editor" id="article-editor" data-admin-group="content">
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">CMS UREDNIK</p><h2>Uredi članak</h2></div><div class="ps-admin-actions"><button type="button" class="ps-admin-button ps-admin-button-light" id="article-editor-back">← Natrag na popis</button><span class="ps-admin-muted">Sprema se u portal_articles</span></div></div>
-<input id="article-id" type="hidden">
-<div class="ps-editor-grid">
-<label>Naslov<input id="article-title" type="text" maxlength="220"></label>
-<label>Rubrika<input id="article-kicker" type="text" maxlength="120"></label>
-<label>Kategorija<select id="article-category"><option value="Domovina">Domovina</option><option value="Povijest">Povijest</option><option value="Vjera">Vjera</option><option value="Čuvari nasljeđa">Čuvari nasljeđa</option></select></label>
-<label>Podkategorija<input id="article-subcategory" type="text" maxlength="120"></label>
-<label>Autor<input id="article-author" type="text" maxlength="160" value="PatriaSoul"></label>
-<label>Putanja / slug<input id="article-path" type="text" maxlength="300" placeholder="clanci/domovina/novi-clanak.html"></label>
-<label>Fotografija URL<input id="article-image-url" type="url"></label>
-<label>Alt tekst fotografije<input id="article-image-alt" type="text" maxlength="220"></label>
-<label>Status<select id="article-status"><option value="draft">Nacrt</option><option value="review">Urednička provjera</option><option value="approved">Odobreno</option><option value="scheduled">Zakazano</option><option value="published">Objavljeno</option><option value="archived">Arhivirano</option></select></label>
-<label class="ps-editor-full">Sažetak<textarea id="article-excerpt" rows="3" maxlength="500"></textarea></label>
-<label class="ps-editor-full">Tekst članka (HTML)<textarea id="article-body" rows="16"></textarea></label>
-<label class="ps-editor-full">Izvori — jedan po retku<textarea id="article-sources" rows="6" placeholder="https://..."></textarea></label>
-<details class="ps-editor-advanced"><summary><strong>Napredni podaci, provjera činjenica i SEO</strong><small>Ne moraš ih ispunjavati za svaki članak</small></summary>
-<label>Razdoblje (povijesne teme)<input id="article-period" type="text" maxlength="180" placeholder="Npr. 15. stoljeće / 1991.–1995."></label>
-<label>Mjesto / lokacija<input id="article-place" type="text" maxlength="220" placeholder="Mjesto, grad, regija"></label>
-<label>Osobe<input id="article-people" type="text" maxlength="500" placeholder="Imena osoba, odvojena zarezom"></label>
-<label>Arhivski izvor<input id="article-archive-source" type="text" maxlength="500" placeholder="Arhiv, fond, signatura, zbirka"></label>
-<label class="ps-editor-full">Napomena o spornim ili nepotvrđenim tvrdnjama<textarea id="article-claims-note" rows="3" placeholder="Jasno označi što je potvrđeno, sporno, predaja ili svjedočanstvo."></textarea></label>
-<label class="ps-editor-full">Urednička napomena / provjera činjenica<textarea id="article-editorial-note" rows="3" placeholder="Što još treba provjeriti prije objave?"></textarea></label>
-<label>SEO naslov<input id="article-seo-title" type="text" maxlength="180"></label>
-<label>Meta opis<input id="article-meta-description" type="text" maxlength="180"></label>
-<label class="ps-editor-full">SEO ključne riječi<input id="article-seo-keywords" type="text" maxlength="500" placeholder="ključna riječ, Hrvatska, povijest…"></label>
-</details>
-</div>
-<div class="ps-admin-footer-actions"><button class="ps-admin-button" id="article-save" type="button">Spremi članak</button><button class="ps-admin-button ps-admin-button-light" id="article-clear" type="button">Novi / očisti</button><span id="article-editor-message" class="ps-editor-message">Odaberi članak ili pokreni novi.</span></div>
 </section>
 
 <section class="ps-admin-panel ps-admin-forum-panel" data-admin-group="forum">
