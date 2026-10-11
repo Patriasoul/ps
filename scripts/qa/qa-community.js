@@ -61,11 +61,11 @@ for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "man
   if (!adminJs.includes(label)) throw new Error("Nedostaje administratorska funkcija zajednice: " + label);
 }
 const wall = fs.readFileSync(path.join(root, "stranice/zid-zajednice.html"), "utf8");
-for (const token of ["ps-wall-post-form", "ps-wall-feed", "social-wall.css", "social-wall.js"]) {
+for (const token of ["ps-wall-post-form", "ps-wall-feed", "ps-wall-link-url", "ps-wall-link-title", "social-wall.css", "social-wall.js"]) {
   if (!wall.includes(token)) throw new Error("Zidu zajednice nedostaje element: " + token);
 }
 const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110001_social_wall.sql"), "utf8");
-for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media"]) {
+for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check"]) {
   if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
 }
 console.log("ZAJEDNICA QA OK — postojeće funkcije su sačuvane; zid i migracija društvenih funkcija postoje.");
