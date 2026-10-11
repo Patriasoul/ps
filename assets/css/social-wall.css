@@ -94,3 +94,14 @@
 .ps-ci-count{display:inline-grid;place-items:center;min-width:21px;height:21px;padding:0 5px;border-radius:99px;background:#b51f35;color:#fff;font-size:.72rem;font-weight:900}
 .ps-ci-count[hidden]{display:none}
 @media(max-width:480px){.ps-community-indicators{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.ps-community-indicator{justify-content:center;gap:5px;padding:8px 4px;font-size:.76rem}.ps-ci-icon{width:22px;height:22px;font-size:1rem}}
+
+/* Automatski pregled poveznice na zidu i u sastavljaču objave */
+.ps-wall-link-card{display:grid;gap:8px;text-decoration:none!important;padding:0 0 12px;overflow:hidden}
+.ps-wall-link-card>span,.ps-wall-link-card>strong,.ps-wall-link-card>small,.ps-wall-link-description{margin-left:14px;margin-right:14px}
+.ps-wall-link-card>span{margin-top:12px}
+.ps-wall-link-image{display:block;width:100%;max-height:320px;aspect-ratio:16/9;object-fit:cover;background:rgba(0,0,0,.18)}
+.ps-wall-link-description{margin-top:0;margin-bottom:0;color:rgba(243,245,247,.8);font-size:.9rem;line-height:1.5}
+.ps-wall-link-preview{margin-top:12px}
+.ps-wall-link-preview[hidden]{display:none}
+.ps-wall-link-preview-loading{padding:12px;border:1px solid rgba(241,208,120,.22);border-radius:10px;color:rgba(243,245,247,.7);font-size:.86rem}
+@media(max-width:700px){.ps-wall-link-image{max-height:240px}.ps-wall-link-description{font-size:.86rem}}
