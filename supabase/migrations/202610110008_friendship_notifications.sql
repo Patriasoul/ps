@@ -26,7 +26,7 @@ begin
       'Novi zahtjev za prijateljstvo',
       actor_name || ' želi se povezati s tobom na PatriaSoul zajednici.',
       'friend_request',
-      '/Patriasoul-portal/stranice/profil.html'
+      'profil.html'
     );
     return NEW;
   end if;
@@ -49,7 +49,7 @@ begin
         else actor_name || ' trenutačno nije prihvatio/la tvoj zahtjev za prijateljstvo.'
       end,
       case when NEW.status = 'accepted' then 'friend_accepted' else 'friend_declined' end,
-      '/Patriasoul-portal/stranice/profil.html'
+      'profil.html'
     );
   end if;
 
