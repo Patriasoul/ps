@@ -67,7 +67,7 @@ $("hub-search-form").addEventListener("submit",async e=>{e.preventDefault();cons
  ]);
  for(const r of [people,postRows,groupRows,eventRows])if(r.error)throw r.error;
  const results=[
- ...(people.data||[]).map(p=>({title:p.display_name||"Član PatriaSoula",meta:"Član zajednice",href:"racun.html"})),
+ ...(people.data||[]).map(p=>({title:p.display_name||"Član PatriaSoula",meta:"Član zajednice · otvori profil",href:"profil.html?id="+encodeURIComponent(p.id)})),
  ...(postRows.data||[]).map(p=>({title:(p.content||"Objava s fotografijom").slice(0,130),meta:"Objava na zidu · "+fmt(p.created_at),href:"zid-zajednice.html"})),
  ...(groupRows.data||[]).map(g=>({title:g.name,meta:g.description||"Grupa zajednice",href:"grupe-dogadjaji.html"})),
  ...(eventRows.data||[]).map(x=>({title:x.title,meta:fmt(x.starts_at)+(x.location?" · "+x.location:""),href:"grupe-dogadjaji.html"}))
