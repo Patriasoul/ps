@@ -27,7 +27,8 @@ if (missing.length) {
 const content = Object.fromEntries(["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html"].map(p => [p, fs.readFileSync(path.join(root, p), "utf8")]));
 const stale = [
   ["index.html", /(?:clanci\/|kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
-  ["assets/js/portal.js", /(?:kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/]
+  ["assets/js/portal.js", /(?:kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
+  ["stranice/administracija.html", /(?:data-admin-tab="content"|data-admin-tab="editorial"|data-admin-tab="ai"|data-admin-tab="archive"|assets\/js\/ai-article\.js|assets\/js\/article-editor\.js)/]
 ];
 const staleFound = stale.filter(([file, regex]) => regex.test(content[file])).map(([file]) => file);
 if (staleFound.length) {
