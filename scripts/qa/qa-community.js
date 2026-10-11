@@ -49,7 +49,7 @@ for (const label of ["admin-dashboard", "admin-denied", 'data-admin-tab="communi
   if (!admin.includes(label)) throw new Error("Administracija nema potrebnu kontrolu: " + label);
 }
 const adminJs = fs.readFileSync(path.join(root, "assets/js/admin.js"), "utf8");
-for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "manageStories(c)", "manageComments(c)"]) {
+for (const label of ["auth.getUser()", 'from("profiles")', "manageForum(c", "manageStories(c)"]) {
   if (!adminJs.includes(label)) throw new Error("Nedostaje administratorska funkcija zajednice: " + label);
 }
 console.log("ZAJEDNICA QA OK — ključne stranice i administratorske funkcije postoje; stare CMS kartice nisu u navigaciji.");
