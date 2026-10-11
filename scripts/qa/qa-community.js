@@ -103,7 +103,7 @@ const adminPage = fs.readFileSync(path.join(root, "stranice/administracija.html"
 for (const token of ['id="roles-panel"', 'id="users-list"', 'id="account-requests-panel"', 'id="account-requests-manage"']) {
   if (!adminPage.includes(token)) throw new Error("Administraciji nedostaje upravljanje računima: " + token);
 }
-const adminJs = fs.readFileSync(path.join(root, "assets/js/admin.js"), "utf8");
+
 for (const token of ["manageAccountRequests(c,u.id)", "account_lifecycle_requests", "data-account-request-status", "accessDenied"]) {
   if (!adminJs.includes(token)) throw new Error("Administraciji nedostaje obrada zahtjeva računa: " + token);
 }
