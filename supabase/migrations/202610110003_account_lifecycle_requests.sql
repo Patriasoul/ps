@@ -17,7 +17,8 @@ create table if not exists public.account_lifecycle_requests (
 
 create index if not exists account_lifecycle_requests_user_idx
   on public.account_lifecycle_requests(user_id, created_at desc);
-create index if not exists account_lifecycle_requests_pending_idx
+-- Prevent concurrent duplicate open requests for the same member and request type.
+create unique index if not exists account_lifecycle_requests_pending_idx
   on public.account_lifecycle_requests(user_id, request_type)
   where status in ('pending','in_review');
 
