@@ -5,8 +5,8 @@
 <meta name="description" content="Privatna administratorska nadzorna ploča portala PatriaSoul.">
 <link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/admin.css"><link rel="stylesheet" href="../assets/css/heritage-poll-admin.css?v=20261010-1">
 <style>.ps-admin-card-action{cursor:pointer;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}.ps-admin-card-action:hover,.ps-admin-card-action:focus-visible{border-color:var(--ps-blue);box-shadow:0 10px 28px rgba(20,32,43,.12);transform:translateY(-2px);outline:none}.ps-admin-card-action:focus-visible{outline:3px solid rgba(12,50,82,.22);outline-offset:2px}.ps-admin-target-focus{outline:3px solid rgba(12,50,82,.2);outline-offset:3px;border-radius:12px;transition:outline-color .3s ease}</style></head><body><main class="ps-admin-page">
-<section class="ps-admin-hero ps-container"><div><p class="ps-kicker">PATRIASOUL · ADMINISTRACIJA</p><h1>Nadzorna ploča</h1><p class="ps-admin-lead">Privatni centar za upravljanje sadržajem, korisnicima, zajednicom, pričama i sustavom.<br><span id="admin-access-note">Provjera ovlasti…</span></p></div><div class="ps-admin-status" id="admin-status">Provjera administratorskog pristupa…</div></section>
-<section class="ps-container" id="admin-denied" hidden><div class="ps-admin-panel ps-admin-denied"><h2>Pristup nije dopušten</h2><p>Ova stranica dostupna je samo ovlaštenim članovima PatriaSoul tima. Urednik upravlja sadržajem i moderacijom, Admin administracijom, a Vlasnik ima potpuni pristup.</p><a class="ps-admin-button" href="prijava.html">Prijava</a></div></section>
+<section class="ps-admin-hero ps-container"><div><p class="ps-kicker">PATRIASOUL · ADMINISTRACIJA</p><h1>Nadzorna ploča</h1><p class="ps-admin-lead">Privatni centar za upravljanje zajednicom, forumom, korisničkim računima i sigurnošću.<br><span id="admin-access-note">Provjera ovlasti…</span></p></div><div class="ps-admin-status" id="admin-status">Provjera administratorskog pristupa…</div></section>
+<section class="ps-container" id="admin-denied" hidden><div class="ps-admin-panel ps-admin-denied"><h2>Pristup nije dopušten</h2><p>Ova stranica dostupna je samo ovlaštenim članovima PatriaSoul tima. Pristup je dostupan samo ovlaštenim urednicima i administratorima. Vlasnik ima potpuni pristup.</p><a class="ps-admin-button" href="prijava.html">Prijava</a></div></section>
 <section class="ps-container" id="admin-dashboard" hidden>
 <nav class="ps-admin-nav" aria-label="Odjeljci administracije" id="admin-module-nav">
 <button type="button" class="is-active" data-admin-tab="overview"><span>01</span><strong>Pregled</strong><small>Stanje zajednice</small></button>
@@ -31,9 +31,6 @@
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="overview" data-admin-target="system-checks" role="button" tabindex="0"><span>Zadnja objava</span><strong id="stat-deploy">—</strong><small id="stat-deploy-note">—</small></article>
 <article class="ps-admin-card ps-admin-card-wide ps-admin-card-action" data-admin-open="overview" data-admin-target="system-checks" role="button" tabindex="0"><span>Stanje sustava</span><strong id="stat-system">Provjeravam…</strong><small id="stat-system-note">Provjera ključnih podataka.</small></article>
 <article class="ps-admin-card ps-admin-card-wide ps-admin-errors ps-admin-card-action" data-admin-open="overview" data-admin-target="system-checks" role="button" tabindex="0"><span>Greške sustava</span><strong id="stat-errors">—</strong><small id="stat-errors-note">—</small></article>
-</div>
-
-<div class="ps-admin-panels ps-admin-management-grid" data-admin-group="content">
 </div>
 
 <section class="ps-admin-panel" data-admin-group="community">
