@@ -150,11 +150,11 @@ for (const token of ["community_friendships", "sender_id=auth.uid()", "recipient
   if (!friendshipMigration.includes(token)) throw new Error("Migraciji prijateljstava/privatnosti nedostaje zaštita: " + token);
 }
 const profileUi = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
-for (const token of ["profile-friend-action", "profile-message-action", "profile-friends-toggle", "profile-friends-list", "profile-friend-requests", "profile-privacy-form", "Dodaj Čuvara nasljeđa"]) {
+for (const token of ["profile-friend-action", "profile-message-action", "profile-friends-toggle", "profile-friends-list", "profile-friend-requests", "profile-privacy-form", "profile-suggestions-toggle", "profile-suggestions", "Dodaj Čuvara nasljeđa", "Predloži Čuvara nasljeđa"]) {
   if (!profileUi.includes(token)) throw new Error("Profilu nedostaje prijateljstvo ili privatnost: " + token);
 }
 const profileLogic = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
-for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\""]) {
+for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\"", "loadSuggestions()", "data-add-guardian", "profile-suggestions-grid"]) {
   if (!profileLogic.includes(token)) throw new Error("Logici profila nedostaje prijateljstvo ili privatnost: " + token);
 }
 const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
