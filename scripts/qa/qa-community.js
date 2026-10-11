@@ -104,7 +104,7 @@ for (const token of ['id="roles-panel"', 'id="users-list"', 'id="account-request
   if (!adminPage.includes(token)) throw new Error("Administraciji nedostaje upravljanje računima: " + token);
 }
 
-for (const token of ["manageAccountRequests(c,u.id)", "account_lifecycle_requests", "data-account-request-status", "accessDenied"]) {
+for (const token of ["manageAccountRequests(c,u.id)", "account_lifecycle_requests", "data-account-request-status", "data-account-request-note-save", "admin_note:note||null", "accessDenied"]) {
   if (!adminJs.includes(token)) throw new Error("Administraciji nedostaje obrada zahtjeva računa: " + token);
 }
 const lifecycleMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110003_account_lifecycle_requests.sql"), "utf8");
