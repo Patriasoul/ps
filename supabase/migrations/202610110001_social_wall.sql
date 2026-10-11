@@ -8,11 +8,17 @@ create table if not exists public.community_posts (
   author_id uuid not null references public.profiles(id) on delete cascade,
   content text not null default '',
   image_path text,
+  link_url text,
+  link_title text,
+  link_type text not null default 'link' check (link_type in ('forum','quiz','event','link')),
   status text not null default 'published' check (status in ('published','hidden','removed')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   constraint community_posts_content_check check (
-    char_length(content) <= 5000 and (char_length(btrim(content)) > 0 or image_path is not null)
+    char_length(content) <= 5000 and (char_length(btrim(content)) > 0 or image_path is not null or link_url is not null)
+  ),
+  constraint community_posts_link_url_check check (
+    link_url is null or link_url ~ '^https://(ps\.patriasoul\.workers\.dev|patriasoul\.github\.io)(/|$)'
   )
 );
 create index if not exists community_posts_feed_idx on public.community_posts(status, created_at desc);
