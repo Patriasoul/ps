@@ -14,7 +14,7 @@ async function loadBlocks(){const {data,error}=await (await db()).from("communit
 async function loadPosts(){
  feed.innerHTML='<div class="ps-wall-empty">Učitavam objave…</div>';
  const c=await db();
- const {data,error}=await c.from("community_posts").select("id,author_id,content,image_path,status,created_at,updated_at,profiles!community_posts_author_id_fkey(display_name,avatar_url),community_post_reactions(id,user_id,reaction),community_post_comments(id,author_id,content,created_at,profiles!community_post_comments_author_id_fkey(display_name,avatar_url))").eq("status","published").order("created_at",{ascending:false}).limit(40);
+ const {data,error}=await c.from("community_posts").select("id,author_id,content,image_path,link_url,link_title,link_type,status,created_at,updated_at,profiles!community_posts_author_id_fkey(display_name,avatar_url),community_post_reactions(id,user_id,reaction),community_post_comments(id,author_id,content,created_at,profiles!community_post_comments_author_id_fkey(display_name,avatar_url))").eq("status","published").order("created_at",{ascending:false}).limit(40);
  if(error)throw error;
  posts=(data||[]).filter(p=>!blocks.has(p.author_id));
  if(!posts.length){feed.innerHTML='<div class="ps-wall-empty">Još nema objava. Budi među prvima koji će podijeliti priču sa zajednicom.</div>';return}
