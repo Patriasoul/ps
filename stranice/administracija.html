@@ -23,7 +23,7 @@
 </div>
 <div class="ps-admin-grid" data-admin-group="overview">
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="community" data-admin-target="stories-manage" role="button" tabindex="0"><span>Prijavljene priče</span><strong id="stat-stories">—</strong><small>Zapisi zajednice</small></article>
-<article class="ps-admin-card ps-admin-card-action" data-admin-open="community" data-admin-target="comments-manage" role="button" tabindex="0"><span>Komentari</span><strong id="stat-comments">—</strong><small>Komentari za pregled</small></article>
+
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="forum" data-admin-target="forum-topics-manage" role="button" tabindex="0"><span>Forum · teme</span><strong id="stat-forum-topics">—</strong><small>Rasprave u forumu</small></article>
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="forum" data-admin-target="forum-topics-manage" role="button" tabindex="0"><span>Forum · objave</span><strong id="stat-forum-posts">—</strong><small>Odgovori u raspravama</small></article>
 <article class="ps-admin-card ps-admin-card-action" data-admin-open="users" data-admin-target="roles-panel" role="button" tabindex="0"><span>Korisnici</span><strong id="stat-users">—</strong><small>Profili u zajednici</small></article>
@@ -32,12 +32,6 @@
 <article class="ps-admin-card ps-admin-card-wide ps-admin-card-action" data-admin-open="overview" data-admin-target="system-checks" role="button" tabindex="0"><span>Stanje sustava</span><strong id="stat-system">Provjeravam…</strong><small id="stat-system-note">Provjera ključnih podataka.</small></article>
 <article class="ps-admin-card ps-admin-card-wide ps-admin-errors ps-admin-card-action" data-admin-open="overview" data-admin-target="system-checks" role="button" tabindex="0"><span>Greške sustava</span><strong id="stat-errors">—</strong><small id="stat-errors-note">—</small></article>
 </div>
-
-<section class="ps-admin-panel ps-admin-roles" id="roles-panel" data-admin-group="users" hidden>
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">OVLASTI</p><h2>Korisnici i uloge</h2></div><span class="ps-owner-badge">Samo vlasnik</span></div>
-<p class="ps-admin-role-note">Svaki novi račun automatski je <strong>Korisnik</strong>. Samo vlasnik može dodijeliti Urednika ili Admina. Račun <strong>patriasoul@protonmail.com</strong> ostaje vlasnik PatriaSoul.</p>
-<div id="users-list" class="ps-admin-users"><p>Učitavanje korisnika…</p></div>
-</section>
 
 <div class="ps-admin-panels ps-admin-management-grid" data-admin-group="content">
 <section class="ps-admin-panel">
@@ -57,31 +51,6 @@
 <div id="stories-manage" class="ps-admin-list"><p>Učitavanje priča…</p></div>
 </section>
 
-<section class="ps-admin-panel ps-admin-ai" id="article-ai" data-admin-group="ai">
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">AI UREDNIK</p><h2>Čuvari nasljeđa · napiši članak</h2></div><span class="ps-admin-muted">Tema može biti dovoljna</span></div>
-<p class="ps-ai-lead">Upiši samo temu. AI će predložiti naslov, rubriku, kategoriju, podkategoriju, SEO, tekst, izvore i fotografiju. Ako imaš RSS, zalijepi poveznicu i AI će ga učitati kao dodatni izvor.</p>
-<div class="ps-ai-grid">
-<label class="ps-ai-full">Tema / uputa<textarea id="ai-topic" rows="4" placeholder="Npr. Krbavska bitka 1493. — napiši opsežan, provjeren članak za PatriaSoul."></textarea></label>
-<label>RSS poveznica<input id="ai-rss-url" type="url" placeholder="https://primjer.hr/rss"></label>
-<label>Način rada<select id="ai-mode"><option value="article">Novi članak</option><option value="rss">Članak iz RSS-a</option><option value="update">Dopuna / obrada postojeće teme</option></select></label>
-</div>
-<details class="ps-ai-feed-details"><summary><strong>RSS izvori i automatsko osvježavanje</strong><small>Dodaj izvore ili promijeni popis izvora</small></summary>
-<section class="ps-ai-feed-manager">
-<div class="ps-ai-feed-head"><div><strong>Dnevni RSS pregled</strong><small>Odabrani izvori učitavaju se automatski pri otvaranju administracije. Članke biraš ti.</small></div><button class="ps-admin-button ps-admin-button-light" id="ai-rss-refresh-all" type="button">Osvježi sve</button></div>
-<div id="ai-rss-feeds" class="ps-ai-feeds"></div>
-<div class="ps-ai-feed-add"><input id="ai-rss-new-url" type="url" placeholder="Dodaj RSS poveznicu…"><button class="ps-admin-button ps-admin-button-light" id="ai-rss-add" type="button">Dodaj izvor</button></div>
-</section>
-</details>
-<div class="ps-admin-footer-actions">
-<button class="ps-admin-button" id="ai-rss-load" type="button">Učitaj odabrani RSS</button>
-<button class="ps-admin-button ps-admin-button-light" id="ai-rss-selected-generate" type="button">Napiši od odabranih</button>
-<button class="ps-admin-button" id="ai-generate" type="button">Napiši pomoću AI-ja</button>
-<span id="ai-status" class="ps-editor-message">Spreman.</span>
-</div>
-<div id="ai-rss-results" class="ps-ai-results" hidden></div>
-<div id="ai-image-results" class="ps-ai-images" hidden></div>
-</section>
-
 <section class="ps-admin-panel ps-admin-rss-drafts" id="rss-editorial-drafts" data-admin-group="ai">
 <div class="ps-admin-panel-head"><div><p class="ps-kicker">RSS · UREDNIČKA REDAKCIJA</p><h2>Prijedlozi vijesti</h2></div><button type="button" class="ps-admin-button ps-admin-button-light" id="rss-drafts-refresh">Osvježi nacrte</button></div>
 <p class="ps-ai-lead">Automatski prikupljeni prijedlozi iz odobrenih izvora. Ovo nisu objavljeni članci. Svaki prijedlog mora se provjeriti, urednički obraditi i posebno odobriti.</p>
@@ -89,7 +58,6 @@
 <div id="rss-drafts-list" class="ps-admin-list"><p>Učitavanje RSS nacrta…</p></div>
 </section>
 
-<section class="ps-admin-preview-modal" id="article-preview-modal" hidden><div class="ps-admin-preview-dialog"><div class="ps-admin-preview-head"><div><p class="ps-kicker">UREDNIČKI PREGLED</p><h2 id="article-preview-title">Pregled članka</h2><p id="article-preview-meta" class="ps-admin-muted"></p></div><button type="button" class="ps-admin-button ps-admin-button-light" id="article-preview-close">Zatvori</button></div><img id="article-preview-image" class="ps-admin-preview-image" alt="" hidden><div id="article-preview-body" class="ps-admin-preview-body"></div><div id="article-preview-sources" class="ps-admin-preview-sources"></div></div></section>
 <section class="ps-admin-panel ps-admin-editor" id="article-editor" data-admin-group="content">
 <div class="ps-admin-panel-head"><div><p class="ps-kicker">CMS UREDNIK</p><h2>Uredi članak</h2></div><div class="ps-admin-actions"><button type="button" class="ps-admin-button ps-admin-button-light" id="article-editor-back">← Natrag na popis</button><span class="ps-admin-muted">Sprema se u portal_articles</span></div></div>
 <input id="article-id" type="hidden">
@@ -121,8 +89,6 @@
 <div class="ps-admin-footer-actions"><button class="ps-admin-button" id="article-save" type="button">Spremi članak</button><button class="ps-admin-button ps-admin-button-light" id="article-clear" type="button">Novi / očisti</button><span id="article-editor-message" class="ps-editor-message">Odaberi članak ili pokreni novi.</span></div>
 </section>
 
-<section class="ps-admin-panel" data-admin-group="editorial" hidden><div class="ps-admin-panel-head"><div><p class="ps-kicker">UREĐIVAČKI TIJEK</p><h2>Od nacrta do objave</h2></div></div><p class="ps-admin-section-note">Svaki članak prolazi uredničku provjeru, provjeru činjenica i odobrenje. Činjenične i povijesne tvrdnje trebaju imati provjerljive izvore. Mišljenja i sponzorirani sadržaji moraju biti jasno označeni.</p><ol class="ps-editorial-flow"><li>Nacrt</li><li>Urednička provjera</li><li>Provjera činjenica</li><li>Odobreno</li><li>Zakazano / Objavljeno</li></ol><p class="ps-admin-muted">Detalji o razdoblju, mjestu, osobama, arhivskom izvoru i spornim tvrdnjama spremaju se uz članak u CMS metapodatke.</p></section>
-<section class="ps-admin-panel" data-admin-group="archive" hidden><div class="ps-admin-panel-head"><div><p class="ps-kicker">MEDIJSKA KNJIŽNICA I ARHIV</p><h2>Fotografije, dokumenti i arhivski materijali</h2></div></div><p class="ps-admin-section-note">Za svaku fotografiju ili dokument bilježi izvor, autora ako je poznat, datum, kontekst i prava korištenja. Arhivski materijali trebaju imati signaturu ili poveznicu na ustanovu koja ih čuva.</p><p class="ps-admin-muted">Ovaj odjeljak trenutačno prikazuje urednička pravila; zasebna knjižnica datoteka i događaja zahtijeva povezivanje tablica za medije i događaje.</p></section>
 <section class="ps-admin-panel ps-admin-forum-panel" data-admin-group="forum">
 <div class="ps-admin-panel-head"><div><p class="ps-kicker">FORUM PATRIASOUL</p><h2>Teme i moderacija foruma</h2></div><span class="ps-admin-muted">Teme, odgovori i prijave</span></div>
 <div class="ps-admin-forum-stats"><div><span>Teme</span><strong id="forum-topic-total">—</strong></div><div><span>Objave</span><strong id="forum-post-total">—</strong></div><div><span>Otvorene prijave</span><strong id="forum-report-total">—</strong></div></div>
@@ -142,16 +108,6 @@
 <div data-poll-votes class="ps-admin-list"><p>Učitavanje glasova…</p></div>
 </section>
 
-<section class="ps-admin-panel ps-admin-comments-panel" data-admin-group="community">
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">ZAJEDNICA</p><h2>Komentari</h2></div><span class="ps-admin-muted">Moderacija dostupna urednicima i administratorima</span></div>
-<div id="comments-manage" class="ps-admin-list"><p>Učitavanje komentara…</p></div>
-</section>
-
-<section class="ps-admin-panel ps-admin-overview-latest" data-admin-group="overview">
-<div class="ps-admin-panel-head"><div><p class="ps-kicker">PREGLED SADRŽAJA</p><h2>Najnoviji članci</h2></div><a href="../index.html">Otvori Najnovije ↗</a></div>
-<p class="ps-admin-section-note">Popis se učitava iz indeksa objavljenog portala, od najnovijeg prema starijem.</p>
-<div id="latest-list" class="ps-admin-list"><p>Učitavanje najnovijih članaka…</p></div>
-</section>
 <section class="ps-admin-panel ps-admin-overview-system" data-admin-group="overview"><div class="ps-admin-panel-head"><div><p class="ps-kicker">SIGURNOST</p><h2>Operativni pregled</h2></div></div><ul class="ps-admin-checks" id="system-checks"></ul></section>
 <div class="ps-admin-footer-actions ps-admin-global-actions"><a class="ps-admin-button" href="racun.html">Moj račun</a><a class="ps-admin-button ps-admin-button-light" href="../index.html">Naslovnica</a><button class="ps-admin-button ps-admin-button-light" id="refresh-admin" type="button">Osvježi podatke</button></div>
 </section></main>
