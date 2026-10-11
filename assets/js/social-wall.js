@@ -79,8 +79,8 @@ feed.addEventListener("click",async e=>{
    await refresh();
   }else if(action==="focus-comment"){article.querySelector('input[name="comment"]')?.focus()}
   else if(action==="report-post"){
-   const reason=prompt("Zašto prijavljuješ ovu objavu? (npr. uznemiravanje, neželjeni sadržaj, povreda privatnosti)");if(!reason?.trim())return;
-   const {error}=await c.from("community_post_reports").insert({reporter_id:user.id,post_id:id,reason:reason.trim().slice(0,1000)});if(error)throw error;say("Prijava je zaprimljena. Hvala što pomažeš zaštititi zajednicu.");
+   const reason=prompt("Zašto prijavljuješ ovu objavu? (upiši barem 3 znaka; npr. uznemiravanje, neželjeni sadržaj, povreda privatnosti)");if(!reason?.trim())return;const cleanReason=reason.trim().slice(0,1000);if(cleanReason.length<3){say("Razlog prijave mora sadržavati barem 3 znaka.",true);return;}
+   const {error}=await c.from("community_post_reports").insert({reporter_id:user.id,post_id:id,reason:cleanReason});if(error)throw error;say("Prijava je zaprimljena. Hvala što pomažeš zaštititi zajednicu.");
   }else if(action==="block-user"){
    if(!confirm("Blokirati ovog člana? Njegove objave više se neće prikazivati u tvom zidu."))return;
    const {error}=await c.from("community_user_blocks").insert({blocker_id:user.id,blocked_id:p.author_id});if(error&&error.code!=="23505")throw error;say("Član je blokiran.");await refresh();
