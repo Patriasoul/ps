@@ -13,6 +13,9 @@ const required = [
   "stranice/racun.html",
   "stranice/zid-zajednice.html",
   "stranice/grupe-dogadjaji.html",
+  "stranice/profil.html",
+  "assets/css/public-profile.css",
+  "assets/js/public-profile.js",
   "assets/css/community-hub.css",
   "assets/js/community-hub.js",
   "assets/css/social-wall.css",
@@ -79,6 +82,8 @@ const migration = fs.readFileSync(path.join(root, "supabase/migrations/202610110
 for (const token of ["enable row level security", "community_posts", "community_post_reports", "community_user_blocks", "community-media", "link_url", "community_posts_link_url_check", "community_groups", "community_group_members", "community_events", "community_event_attendees"]) {
   if (!migration.includes(token)) throw new Error("Migraciji društvenog zida nedostaje zaštita ili tablica: " + token);
 }
+const profilePage = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
+for (const token of ["profile-card", "profile-posts", "public-profile.js", "public-profile.css"]) { if (!profilePage.includes(token)) throw new Error("Javnom profilu nedostaje element: " + token); }
 const hub = fs.readFileSync(path.join(root, "stranice/grupe-dogadjaji.html"), "utf8");
 for (const token of ["hub-search-form", "hub-group-form", "hub-event-form", "community-hub.js"]) {
   if (!hub.includes(token)) throw new Error("Stranici grupa i događaja nedostaje element: " + token);
