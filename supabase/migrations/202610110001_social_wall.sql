@@ -269,7 +269,9 @@ drop policy if exists "members cancel their response" on public.community_event_
 create policy "members cancel their response" on public.community_event_attendees for delete to authenticated using(user_id=auth.uid());
 
 revoke all on public.community_groups,public.community_group_members,public.community_events,public.community_event_attendees from anon;
-grant select,insert,update on public.community_groups to authenticated;
+grant select,insert on public.community_groups to authenticated;
+revoke update on public.community_groups from authenticated;
+grant update (name,description,visibility,updated_at) on public.community_groups to authenticated;
 grant select,insert,delete on public.community_group_members to authenticated;
 grant select,insert,update on public.community_events to authenticated;
 grant select,insert,update,delete on public.community_event_attendees to authenticated;
