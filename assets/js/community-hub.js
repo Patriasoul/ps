@@ -34,8 +34,7 @@ async function loadEvents(){
  $("hub-events").innerHTML=events.length?events.map(e=>'<article class="ps-hub-item"><h3>'+esc(e.title)+'</h3><div class="ps-hub-meta">◷ '+esc(fmt(e.starts_at))+(e.location?' · '+esc(e.location):'')+'</div><p>'+esc(e.description||"Detalji događaja bit će objavljeni naknadno.")+'</p><small>'+(e.host_id===user.id?"Organiziraš ti":attending.has(e.id)?"Tvoj odaziv: "+(attending.get(e.id)==="going"?"Dolazim":"Zainteresiran/a"):"Događaj zajednice")+'</small><div><button type="button" data-event-action="going" data-id="'+esc(e.id)+'">'+(attending.get(e.id)==="going"?"Odaziv: dolazim ✓":"Dolazim")+'</button><button type="button" class="secondary" data-event-action="interested" data-id="'+esc(e.id)+'">'+(attending.get(e.id)==="interested"?"Zainteresiran/a ✓":"Zanima me")+'</button>'+(attending.has(e.id)?'<button type="button" class="secondary" data-event-action="cancel" data-id="'+esc(e.id)+'">Poništi odaziv</button>':'')+'</div></article>').join(""):'<p class="ps-wall-empty">Nema najavljenih događaja. Objavi prvi susret ili aktivnost.</p>';
 }
 $("hub-group-form").addEventListener("submit",async e=>{e.preventDefault();const name=$("hub-group-name").value.trim(),description=$("hub-group-desc").value.trim();if(!name)return;
- const b=e.submitter;b.disabled=true;try{const {data,error}=await db.from("community_groups").insert({owner_id:user.id,name,description,visibility:"public"}).select("id").single();if(error)throw error;
- const joined=await db.from("community_group_members").insert({group_id:data.id,user_id:user.id,role:"owner"});if(joined.error)throw joined.error;
+ const b=e.submitter;b.disabled=true;try{const {error}=await db.from("community_groups").insert({owner_id:user.id,name,description,visibility:"public"});if(error)throw error;
  e.target.reset();say("Grupa je osnovana.");await loadGroups();
  }catch(x){say(errText(x),true)}finally{b.disabled=false}
 });
