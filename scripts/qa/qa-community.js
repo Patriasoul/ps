@@ -104,6 +104,7 @@ for (const token of ['id="roles-panel"', 'id="users-list"', 'id="account-request
   if (!adminPage.includes(token)) throw new Error("Administraciji nedostaje upravljanje računima: " + token);
 }
 
+if (!adminJs.includes('usersTab.hidden=!ops') || !adminPage.includes('requestedTab') || !adminPage.includes(':not([hidden])')) throw new Error("Administratorska navigacija mora sakriti karticu korisnika urednicima i vratiti nedostupnu spremljenu karticu na Pregled.");
 for (const token of ["manageAccountRequests(c,u.id)", "account_lifecycle_requests", "data-account-request-status", "data-account-request-note-save", "admin_note:note||null", "accessDenied"]) {
   if (!adminJs.includes(token)) throw new Error("Administraciji nedostaje obrada zahtjeva računa: " + token);
 }
