@@ -149,8 +149,11 @@ grant select, insert on public.community_post_reports to authenticated;
 grant update (status, reviewed_by, reviewed_at, moderation_note) on public.community_post_reports to authenticated;
 grant select, insert, delete on public.community_user_blocks to authenticated;
 
+-- Profilna naslovna fotografija pohranjuje se kao putanja u postojećem profilu.
+alter table public.profiles add column if not exists cover_image_path text;
+
 -- Private image bucket. Images are visible only when attached to a published post,
--- or to the member who uploaded them.
+-- referenced as a member's cover image, or owned by the current member.
 insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
 values ('community-media','community-media',false,8388608,array['image/jpeg','image/png','image/webp','image/gif'])
 on conflict (id) do update set
@@ -168,6 +171,10 @@ using (
   bucket_id = 'community-media'
   and (
     (storage.foldername(name))[1] = auth.uid()::text
+    or exists (
+      select 1 from public.profiles profile_cover
+      where profile_cover.cover_image_path = name
+    )
     or exists (
       select 1 from public.community_posts p
       where p.image_path = name and p.status = 'published'
