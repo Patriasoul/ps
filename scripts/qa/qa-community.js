@@ -25,6 +25,7 @@ const required = [
   "supabase/migrations/202610110003_account_lifecycle_requests.sql",
   "supabase/migrations/202610110004_event_host_delete.sql",
   "supabase/migrations/202610110005_group_owner_delete.sql",
+  "supabase/migrations/202610110006_friendships_profile_privacy.sql",
   "stranice/administracija.html",
   "stranice/pretraga.html",
   "kviz/index.html",
@@ -143,6 +144,18 @@ for (const token of ['data-group-action="delete"', 'action==="delete"', 'group.o
 const groupDeleteMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110005_group_owner_delete.sql"), "utf8");
 for (const token of ['for delete to authenticated', 'using (owner_id = auth.uid())', 'grant delete on public.community_groups to authenticated']) {
   if (!groupDeleteMigration.includes(token)) throw new Error("Migraciji brisanja grupe nedostaje zaštita: " + token);
+}
+const friendshipMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110006_friendships_profile_privacy.sql"), "utf8");
+for (const token of ["community_friendships", "sender_id=auth.uid()", "recipient_id=auth.uid()", "posts_visibility", "photos_visibility", "friends_visibility", "profile_info_visibility", "wall posts read by members", "grant select,insert,update,delete on public.community_friendships to authenticated"]) {
+  if (!friendshipMigration.includes(token)) throw new Error("Migraciji prijateljstava/privatnosti nedostaje zaštita: " + token);
+}
+const profileUi = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
+for (const token of ["profile-friend-action", "profile-message-action", "profile-friends-toggle", "profile-friends-list", "profile-friend-requests", "profile-privacy-form", "Dodaj Čuvara nasljeđa"]) {
+  if (!profileUi.includes(token)) throw new Error("Profilu nedostaje prijateljstvo ili privatnost: " + token);
+}
+const profileLogic = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
+for (const token of ["community_friendships", "setupSocial(c,id)", "profile-privacy-form", "posts_visibility", "friends_visibility", "status:\"accepted\"", "status:\"declined\""]) {
+  if (!profileLogic.includes(token)) throw new Error("Logici profila nedostaje prijateljstvo ili privatnost: " + token);
 }
 const lifecycleIndex = "create unique index if not exists account_lifecycle_requests_pending_idx";
 if (!lifecycleMigration.includes(lifecycleIndex) || !lifecycleMigration.includes("where status in ('pending','in_review')")) {
