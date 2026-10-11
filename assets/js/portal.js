@@ -51,6 +51,7 @@
     <nav class="ps-nav" aria-label="Glavna navigacija"><div class="ps-container ps-nav-inner">
       <a class="ps-nav-direct${path.endsWith("/index.html")||path==="/"?" is-active":""}" href="${link("index.html")}">Naslovnica</a>
       <a class="ps-nav-direct${active("/stranice/zid-zajednice.html")}" data-ps-private-link="true" href="${link("stranice/zid-zajednice.html")}">Zid zajednice</a>
+      <a class="ps-nav-direct${active("/stranice/grupe-dogadjaji.html")}" data-ps-private-link="true" href="${link("stranice/grupe-dogadjaji.html")}">Grupe i događaji</a>
       <a class="ps-nav-direct${active("/stranice/domoljubni-forum.html")}" href="${link("stranice/domoljubni-forum.html")}">Forum</a>
       <a class="ps-nav-direct${active("/kviz")}" href="${link("kviz/")}">Hrvatski kviz</a>
       <a class="ps-nav-direct${active("/stranice/vrijeme.html")}" href="${link("stranice/vrijeme.html")}">Vrijeme</a>
@@ -59,6 +60,7 @@
         <a href="${link("stranice/o-patriasoul.html")}">Više <span>⌄</span></a>
         <div class="ps-dropdown ps-dropdown-right">
           <a data-ps-private-link="true" href="${link("stranice/zid-zajednice.html")}">Zid zajednice</a>
+          <a data-ps-private-link="true" href="${link("stranice/grupe-dogadjaji.html")}">Grupe i događaji</a>
       <a href="${link("stranice/poruke-obavijesti.html")}">Poruke i obavijesti</a>
           <a href="${link("stranice/pretraga.html")}">Pretraži portal</a>
           <a href="${link("stranice/o-patriasoul.html")}">O PatriaSoul</a>
@@ -193,6 +195,7 @@
       <div class="ps-footer-col">
         <h3>Na portalu</h3>
         <a href="${link("stranice/domoljubni-forum.html")}">Domoljubni forum</a>
+        <a data-ps-private-link="true" href="${link("stranice/grupe-dogadjaji.html")}">Grupe i događaji</a>
         <a href="${link("kviz/")}">Hrvatski kviz</a>
         <a href="${link("stranice/poruke-obavijesti.html")}">Poruke i obavijesti</a>
         <a href="${link("stranice/vrijeme.html")}">Vrijeme u Hrvatskoj</a>
