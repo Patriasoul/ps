@@ -40,7 +40,7 @@ async function init(){
   if(shareUrl){
    $("ps-wall-link-url").value=shareUrl;
    $("ps-wall-link-title").value=shareParams.get("shareTitle")||"";
-   const kind=shareParams.get("shareType");$("ps-wall-link-type").value=["forum","quiz","event"].includes(kind)?kind:"link";
+   
    $("ps-wall-post-content").value=shareParams.get("shareText")||"";
   }
   await refresh();
@@ -51,8 +51,8 @@ form.addEventListener("submit",async e=>{
  e.preventDefault();if(!user)return;
  const content=$("ps-wall-post-content").value.trim(),file=imageInput.files?.[0],rawLink=$("ps-wall-link-url").value.trim(),linkTitle=$("ps-wall-link-title").value.trim(),linkType=$("ps-wall-link-type").value;
  let link_url=null;
- if(rawLink){try{const parsed=new URL(rawLink);const allowedHosts=[location.host,"ps.patriasoul.workers.dev","patriasoul.github.io"];
-  if(parsed.protocol!=="https:"||!allowedHosts.includes(parsed.host)){say("Dopuštene su HTTPS poveznice na PatriaSoul portal ili hrvatski kviz.",true);return}
+ if(rawLink){try{const parsed=new URL(rawLink);
+  if(parsed.protocol!=="https:"){say("Radi sigurnosti dopuštene su samo HTTPS poveznice.",true);return}
   link_url=parsed.href;
  }catch{say("Upiši ispravnu poveznicu.",true);return}}
  if(!content&&!file&&!link_url){say("Upiši tekst, odaberi fotografiju ili dodaj poveznicu.",true);return}
@@ -61,7 +61,7 @@ form.addEventListener("submit",async e=>{
  try{
   const c=await db();let image_path=null;
   if(file){const ext=({ "image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/gif":"gif"})[file.type];image_path=user.id+"/posts/"+crypto.randomUUID()+"."+ext;const {error}=await c.storage.from("community-media").upload(image_path,file,{contentType:file.type,upsert:false});if(error)throw error}
-  const {error}=await c.from("community_posts").insert({author_id:user.id,content,image_path,link_url,link_title:linkTitle||null,link_type:link_url?linkType:"link",status:"published"});if(error)throw error;
+  const {error}=await c.from("community_posts").insert({author_id:user.id,content,image_path,link_url,link_title:linkTitle||null,link_type:"link",status:"published"});if(error)throw error;
   form.reset();$("ps-wall-image-name").textContent="Bez fotografije";say("Objava je dodana.");await refresh();
  }catch(err){console.error(err);say(err.message||"Objava nije spremljena. Provjeri je li migracija baze primijenjena.",true)}finally{submit.disabled=false}
 });
