@@ -16,6 +16,7 @@ const required = [
   "kviz/index.html",
   "assets/js/portal.js",
   "assets/js/auth.js",
+  "assets/js/admin.js",
   "data/navigation.json"
 ];
 const missing = required.filter(p => !fs.existsSync(path.join(root, p)));
@@ -23,7 +24,7 @@ if (missing.length) {
   console.error("ZAJEDNICA QA FAIL — nedostaju datoteke:", missing);
   process.exit(1);
 }
-const content = Object.fromEntries(["index.html", "assets/js/portal.js", "data/navigation.json"].map(p => [p, fs.readFileSync(path.join(root, p), "utf8")]));
+const content = Object.fromEntries(["index.html", "assets/js/portal.js", "data/navigation.json", "stranice/administracija.html"].map(p => [p, fs.readFileSync(path.join(root, p), "utf8")]));
 const stale = [
   ["index.html", /(?:clanci\/|kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/],
   ["assets/js/portal.js", /(?:kategorije\/|stranice\/najnovije\.html|cuvari-nasljedja\/prijavi-pricu\.html)/]
@@ -38,4 +39,8 @@ if (!Array.isArray(nav.main) || !Array.isArray(nav.secondary)) throw new Error("
 for (const label of ["Forum", "Hrvatski kviz", "Poruke i obavijesti", "Vrijeme", "Na današnji dan"]) {
   if (!content["index.html"].includes(label)) throw new Error("Naslovnica nema sačuvanu funkciju: " + label);
 }
-console.log("ZAJEDNICA QA OK — ključne stranice postoje, navigacija ne vodi na obrisane članke/kategorije.");
+const admin = content["stranice/administracija.html"];
+for (const label of ["admin-dashboard", "admin-denied", "data-admin-tab=\\"community\\"", "data-admin-tab=\\"forum\\"", "data-admin-tab=\\"users\\""]) {
+  if (!admin.includes(label)) throw new Error("Administracija nema potrebnu kontrolu: " + label);
+}
+console.log("ZAJEDNICA QA OK — ključne stranice postoje, stare uredničke kartice uklonjene su iz navigacije.");
