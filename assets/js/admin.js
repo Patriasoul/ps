@@ -52,8 +52,8 @@ async function manageSocialWall(c,canManage,currentId){
   const old=el.dataset.old;el.disabled=true;
   try{
    if(el.value==="action_taken"){
-    const p=postMap.get((reports.data||[]).find(r=>r.id===el.dataset.wallReportStatus)?.post_id);
-    if(p&&p.status==="published"){const hide=await c.from("community_posts").update({status:"hidden",updated_at:new Date().toISOString()}).eq("id",p.id);if(hide.error)throw hide.error}
+    const report=(reports.data||[]).find(r=>r.id===el.dataset.wallReportStatus);
+    if(report?.post_id){const hide=await c.from("community_posts").update({status:"hidden",updated_at:new Date().toISOString()}).eq("id",report.post_id);if(hide.error)throw hide.error}
    }
    const r=await c.from("community_post_reports").update({status:el.value,reviewed_by:currentId,reviewed_at:new Date().toISOString()}).eq("id",el.dataset.wallReportStatus);if(r.error)throw r.error;
    await manageSocialWall(c,canManage,currentId);
