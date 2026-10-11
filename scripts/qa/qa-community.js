@@ -21,6 +21,7 @@ const required = [
   "assets/css/social-wall.css",
   "assets/js/social-wall.js",
   "supabase/migrations/202610110001_social_wall.sql",
+  "supabase/migrations/202610110002_my_leaderboard_position.sql",
   "stranice/administracija.html",
   "stranice/pretraga.html",
   "kviz/index.html",
@@ -90,8 +91,12 @@ if (!migration.includes("revoke update on public.community_groups from authentic
 const profilePage = fs.readFileSync(path.join(root, "stranice/profil.html"), "utf8");
 for (const token of ["profile-card", "profile-posts", "profile-cover", "profile-cover-input", "public-profile.js", "public-profile.css"]) { if (!profilePage.includes(token)) throw new Error("Javnom profilu nedostaje element: " + token); }
 const profileJs = fs.readFileSync(path.join(root, "assets/js/public-profile.js"), "utf8");
-for (const token of ["ps-profile-sidebar", "racun.html", "pravila-koristenja-i-sigurnosti.html", "domoljubni-forum.html", "get_leaderboard", "profile-rank-status", "requestedId||user.id"]) {
+for (const token of ["ps-profile-sidebar", "racun.html", "pravila-koristenja-i-sigurnosti.html", "domoljubni-forum.html", "get_my_leaderboard_position", "profile-rank-status", "requestedId||user.id"]) {
   if (!profilePage.includes(token) && !profileJs.includes(token)) throw new Error("Profilu nedostaje bočna navigacija ili rang-lista: " + token);
+}
+const rankMigration = fs.readFileSync(path.join(root, "supabase/migrations/202610110002_my_leaderboard_position.sql"), "utf8");
+for (const token of ["get_my_leaderboard_position", "auth.uid()", "row_number() over", "grant execute on function public.get_my_leaderboard_position(text) to authenticated"]) {
+  if (!rankMigration.includes(token)) throw new Error("Migraciji osobne rang-liste nedostaje zaštita ili funkcija: " + token);
 }
 const accountPage = fs.readFileSync(path.join(root, "stranice/racun.html"), "utf8");
 for (const token of ['id="sigurnost"', 'id="deaktivacija"', 'updateUser({email})', 'updateUser({password})', "Zatraži deaktivaciju", "Zatraži brisanje računa", "patriasoul@protonmail.com"]) {
