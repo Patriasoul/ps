@@ -1,41 +1,30 @@
 # PatriaSoul
 
-**Hrvatska. Povijest. Znanje. Identitet.**
+PatriaSoul je interaktivna zajednica usmjerena na hrvatsko znanje, kvizove, razgovor i čuvanje nasljeđa.
 
-Novi, čisto organizirani PatriaSoul portal. Stari repozitorij `Patriasoul/Patriasoul-portal` ostaje netaknut kao izvor i sigurnosna kopija.
+## Glavne funkcije
 
-## Organizacija
+- `kviz/` — React/Vite aplikacija: Hrvatski kviz, Dnevni kviz, Brani svoj grad, korisnički račun, rezultati, XP, rang-lista i zajednički komentari.
+- `stranice/domoljubni-forum.html` — forum koji koristi Supabase.
+- `stranice/poruke-obavijesti.html` — privatne poruke i obavijesti korisnika.
+- `stranice/prijava.html`, `registracija.html`, `racun.html` — korisnički računi.
+- `stranice/vrijeme.html` — vremenska stranica.
+- `stranice/na-danasnji-dan.html` — dnevni povijesni podaci.
+- `cuvari-nasljedja/prijavi-pricu.html` — prijava priče ili uspomene.
+- `stranice/administracija.html` — ulazna ploča za ovlaštene administratore.
 
-- `index.html` — jedina naslovnica
-- `stranice/` — stalne stranice: O PatriaSoul, Kontakt, Najnovije, Pretraga, prijava i registracija
-- `kategorije/` — kategorije i njihove podstranice
-- `clanci/` — svih 75 članaka, razvrstanih po tematskim cjelinama
-- `cuvari-nasljedja/` — posebni dio Čuvari nasljeđa
-- `kviz/` — Hrvatski kviz, sada dio istog repozitorija
-- `assets/` — zajednički CSS, JavaScript i vizualni materijali
-- `data/` — strukturirani podaci portala
-- `scripts/qa/` — automatske provjere strukture, članaka, slika i linkova
-- `.github/workflows/pages.yml` — GitHub Pages objava
+## Razvoj i objava
 
-## Pravilo organizacije
+Kviz se gradi naredbama `npm install` i `npm run build` iz mape `kviz/`. GitHub Actions provjerava strukturu, gradi kviz i objavljuje statičke datoteke putem Cloudflare Workera.
 
-Ako nešto ne radi, tražimo problem u njegovom dijelu projekta:
+Za objavu su potrebne GitHub Actions tajne `CLOUDFLARE_API_TOKEN` i `CLOUDFLARE_ACCOUNT_ID`.
 
-- sadržaj članka → `clanci/`
-- kategorija → `kategorije/`
-- stalna stranica → `stranice/`
-- kviz → `kviz/`
-- dizajn → `assets/css/`
-- ponašanje → `assets/js/`
-- podaci → `data/`
-- QA → `scripts/qa/`
+## Sigurnost
 
-## Uredničko načelo
+Klijentska provjera administratorske uloge služi samo za prikaz sučelja; pristup osjetljivim podacima mora biti ograničen Supabase RLS pravilima i sigurnim RPC funkcijama. Nikada ne stavljati service-role ključeve u klijentske datoteke.
 
-> PatriaSoul ne nabraja Hrvatsku. PatriaSoul istražuje, provjerava i pripovijeda njezine priče.
+## Načela
 
-Činjenica prije senzacije. Izvor prije tvrdnje. Sjećanje ima svoje mjesto, ali jasno razlikujemo činjenicu, tumačenje, svjedočanstvo i predaju.
-
-## Hrvatski kviz
-
-Kviz je dio istog projekta. Zadržava React/Vite aplikaciju i Supabase integraciju iz izvornog `Patriasoul/kviz` projekta, ali se objavljuje unutar `/kviz/` novog portala.
+- Kviz, korisnički računi, forum, privatne poruke i obavijesti ostaju sačuvani.
+- Stari sustav članaka i kategorijskih stranica uklanja se iz aktivne strukture.
+- Promjene se provjeravaju na zasebnoj grani prije spajanja u `main`.
