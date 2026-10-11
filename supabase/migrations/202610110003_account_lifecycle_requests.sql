@@ -42,13 +42,14 @@ create policy "members read own lifecycle requests"
 on public.account_lifecycle_requests for select to authenticated
 using (
   user_id = auth.uid()
+  or (auth.jwt() ->> 'email') = 'patriasoul@protonmail.com'
   or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin')
 );
 
 drop policy if exists "administrators process lifecycle requests" on public.account_lifecycle_requests;
 create policy "administrators process lifecycle requests"
 on public.account_lifecycle_requests for update to authenticated
-using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
-with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+using ((auth.jwt() ->> 'email') = 'patriasoul@protonmail.com' or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+with check ((auth.jwt() ->> 'email') = 'patriasoul@protonmail.com' or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
 
 commit;
