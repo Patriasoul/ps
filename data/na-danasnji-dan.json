@@ -1,7 +1,7 @@
 {
   "source": "Hrvatska povijesna referenca",
   "source_url": "https://www.index.hr/kalendar",
-  "updated_at": "2026-10-11T10:09:44.020Z",
+  "updated_at": "2026-10-12T11:06:05.612Z",
   "dates": {
     "01-01": {
       "date": "01-01",
@@ -2026,48 +2026,52 @@
     },
     "02-09": {
       "date": "02-09",
-      "source": "Index Kalendar",
-      "source_url": "https://www.index.hr/kalendar?datum=0209",
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
       "events": [
         {
-          "year": 1945,
-          "text": "Kraj Drugog svjetskog rata"
+          "year": 1573,
+          "text": "Presudna bitka između plemića i seljačke vojske pod vodstvom Matije Gupca kod Stubičkih Toplica, kojom je seljačka buna propala"
         },
         {
-          "year": 1666,
-          "text": "Požar u Londonu LONDON je 1666. godine izgorio u potpunosti."
+          "year": 1621,
+          "text": "Kardinal Alessandro Ludovisi izabran za papu i uzeo je ime Grgur XV."
         },
         {
-          "year": 1856,
-          "text": "Pokolj u Tianjingu U KINI se doga&#x111;a sukob me&#x111;u redovima pobunjenika."
+          "year": 1825,
+          "text": "Elektori u SAD-u izabrali Johna Quincyja Adamsa za novog američkog predsjednika kojem će mandat početi 4. ožujka"
         },
         {
-          "year": 1686,
-          "text": "Osmanlije potjerani iz Budima nakon 145 godina DANA 2. rujna 1686. godine vojska Svete lige osvojila je Budim, dana&#x161;nji dio Budimpe&#x161;te, nakon vi&#x161;e od dva mjeseca te&#x161;ke opsade."
+          "year": 1861,
+          "text": "Predstavnici konvencije u gradu Montgomery proglasili su Jeffersona Davisa privremenim predsjednikom Konfederativnih Država Amerike"
         },
         {
-          "year": 1969,
-          "text": "Žestoki komunist potukao je i ponizio Amerikance do nogu. Pobjedu nije živ dočekao"
+          "year": 1895,
+          "text": "Odbojka je izumljena na YMCA-u u Holyokeu, Massachusetts"
         },
         {
-          "year": 1966,
-          "text": "Salma Hayek"
+          "year": 1900,
+          "text": "Dwight Davis utemeljio tenisko natjecanje Davisov kup"
         },
         {
-          "year": 1964,
-          "text": "Keanu Reeves"
+          "year": 1934,
+          "text": "Stvoren Balkanski pakt"
         },
         {
-          "year": 1969,
-          "text": "1969."
+          "year": 1938,
+          "text": "Velika tragedija u Sretnicama kad je u požaru izgorjelo 29 svatova. [http://www.brotnjo.info/2019/02/09/prije-81-godinu-vatra-je-na-sretnicama-progutala-29-svatova/ Brotnjo.info] Župa Kruševo: Prije 81 godinu vatra je na Sretnicama progutala 29 svatova, 9. veljače 2019. (pristupljeno 16. travnja 2019.)"
         },
         {
-          "year": 1973,
-          "text": "1973."
+          "year": 1943,
+          "text": "Drugi svjetski rat: završila je bitka kod Guadalcanala na Solomonskim otocima"
         },
         {
-          "year": 1921,
-          "text": "1921."
+          "year": 1968,
+          "text": "Nizozemska princeza Beatrix otvorila podzemnu željeznicu Rotterdamu."
+        },
+        {
+          "year": 2018,
+          "text": "U Pyeongchangu otvorene su Zimske olimpijske igre"
         }
       ]
     },
@@ -2479,24 +2483,32 @@
     },
     "02-20": {
       "date": "02-20",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
+      "source": "Index Kalendar",
+      "source_url": "https://www.index.hr/kalendar?datum=0220",
       "events": [
         {
-          "year": 1935,
-          "text": "Vrbske žrtve; režim Kraljevine Jugoslavije mučki ubio hrvatske seljake iz Gornje Vrbe i Ruščiće u Slavonskom Brodu"
+          "year": 2000,
+          "text": "Milenijski bug ili Y2K problem"
         },
         {
-          "year": 1951,
-          "text": "Meteorit težak 1,9 kg pao je u Molunatu, 40 km od Dubrovnika. Dobio je službeni naziv \"Dubrovnik\"."
+          "year": 1863,
+          "text": "Lincoln objavio dokument o ukidanju ropstva ABRAHAM Lincoln, &#x161;esnaesti predsjednik Sjedinjenih Ameri&#x10D;kih Dr&#x17E;ava, ostao je zapam&#x107;en kao jedna od najzna&#x10D;ajnijih figura u povijesti."
         },
         {
-          "year": 1960,
-          "text": "The Rocking Kings sviraju s tada 17-godišnjim gitaristom Jamesom Marshallom Hendrixom (kasnije poznat kao Jimi), u njegovu rodnom gradu Seattleu u Washington Hallu. Jimi svira na svojoj prvoj gitari Supro Ozark."
+          "year": 2023,
+          "text": "Hrvatska prestaje koristiti kunu, uvodi se euro JEDAN od glavnih razloga za prelazak na euro bio je gospodarski."
         },
         {
-          "year": 1986,
-          "text": "Silvio Berlusconi kupio talijanski nogometni klub AC Milan"
+          "year": 1989,
+          "text": "Stupa na snagu Montrealski sporazum MONTREALSKI protokol me&#x111;unarodni je sporazum kojim je rije&#x161;en problem ozonskih rupa."
+        },
+        {
+          "year": 1527,
+          "text": "Cetinski sabor NA CETINSKOM saboru hrvatsko je plemstvo izabralo novog kralja, Ferdinanda Habsbur&#x161;kog."
+        },
+        {
+          "year": 1999,
+          "text": "Uveden euro UVO&#x110;ENJE eura jedan je od najva&#x17E;nijih ekonomskih i politi&#x10D;kih projekata u modernoj povijesti Europe."
         }
       ]
     },
@@ -10759,36 +10771,36 @@
     },
     "10-09": {
       "date": "10-09",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
+      "source": "Index Kalendar",
+      "source_url": "https://www.index.hr/kalendar?datum=1009",
       "events": [
         {
-          "year": 1806,
-          "text": "Nakon šest godina gradnje, u Brigu (kanton Wallis) u Švicarskoj pušten je u promet alpski prijelaz, Simplon-cesta, prvi od onih čiju je gradnju potaknuo Napoleon, a 65 km duga cesta trabala je olakšati prijelaz preko Alpa."
+          "year": 1976,
+          "text": "Sudar aviona iznad Vrbovca"
         },
         {
-          "year": 1934,
-          "text": "u Marseillesu ubijen jugoslavenski kralj Aleksandar I. Karađorđević."
+          "year": 1987,
+          "text": "Premijera filma \"Gospodari pakla\" CLIVE Barker nije znao ni razliku me&#x111;u objektivima, a njegov redateljski prvijenac postao je horor klasik."
         },
         {
-          "year": 1940,
-          "text": "Drugi svjetski rat: Njemački Luftwaffe bombardirao je Katedralu sv. Pavla u sklopu Bitke za Britaniju."
+          "year": 2001,
+          "text": "Prevara na Milijunašu CHARLES Ingram postao je svjetski poznat nakon prevare na Milijuna&#x161;u."
         },
         {
-          "year": 1970,
-          "text": "U Kambodži je predsjednik parlamenta In Tam objavio ukidanje monarhije."
+          "year": 1990,
+          "text": "Prva epizoda serije \"Princ iz Bel-Aira\" KULTNA humoristi&#x10D;na serija postala je televizijski fenomen i ostavila velik trag u pop-kulturi."
         },
         {
-          "year": 1974,
-          "text": "Švicarska zrakoplovna tvrtka Swiss Air prevezla je na jug stotine tisuća lastavica kako bi ih spasila od nenadane rane hladnoće."
+          "year": 1993,
+          "text": "Počelo prikazivanje serije \"Dosjei X\" ISTINA je negdje vani, a pri&#x10D;a o tome kako je nastala kultna serija jo&#x161; je zanimljivija."
         },
         {
-          "year": 1989,
-          "text": "Više od 70 000 prosvjednika u Leipzigu prosvjedovalo protiv istočnonjemačkog režima, čime je najavljen i njegov konačni pad. (Vidi: Ponedjeljski prosvjedi)"
+          "year": 2009,
+          "text": "Na male ekrane stigli \"Vampirski dnevnici\" VAMPIRI, ljubavni trokuti i mra&#x10D;ne tajne pretvorili su seriju u pop-kulturni fenomen."
         },
         {
-          "year": 2019,
-          "text": "napad na sinagogu u Halleu (Njemačka)"
+          "year": 1977,
+          "text": "U Francuskoj posljednja osoba ubijena giljotinom GILJOTINA, taj stra&#x161;ni stroj za smaknu&#x107;e, dugo je bila sinonim za revolucionarnu pravdu i dr&#x17E;avnu okrutnost."
         }
       ]
     },
@@ -13033,12 +13045,20 @@
       "source_url": "https://www.index.hr/kalendar?datum=1210",
       "events": [
         {
-          "year": 2005,
-          "text": "Napad na navijače BiH BILA je to veoma va&#x17E;na utakmica za odlazak na Svjetsko prvenstvo."
-        },
-        {
           "year": 1492,
           "text": "Kolumbo otkrio Ameriku NAKON godina neuspjeha u dobivanju potpore za svoje planove, 1492. godine &#x161;panjolski katoli&#x10D;ki monarsi, kralj Ferdinand i kraljica Izabela, kona&#x10D;no su odobrili njegovu ekspediciju."
+        },
+        {
+          "year": 2018,
+          "text": "Premijera serije \"Prokletstvo kuće Hill\" SERIJA je dobila brojne pohvale zbog glume i jezive atmosfere."
+        },
+        {
+          "year": 2012,
+          "text": "U kina stigao film \"Zla kob\" FILM je ostvario velik komercijalni uspjeh i dobio nastavak 2015. godine."
+        },
+        {
+          "year": 2005,
+          "text": "Napad na navijače BiH BILA je to veoma va&#x17E;na utakmica za odlazak na Svjetsko prvenstvo."
         },
         {
           "year": 1999,
@@ -13047,34 +13067,6 @@
         {
           "year": 1739,
           "text": "Počeo rat zbog Jenkinsonovog uha RAT ZBOG Jenkinsova uha (engl. War of Jenkins' Ear) bio je oru&#x17E;ani sukob izme&#x111;u Kraljevine Velike Britanije i &#x160;panjolskog Carstva, zapo&#x10D;et 1739. godine."
-        },
-        {
-          "year": 2007,
-          "text": "Al Gore dobio Nobelovu nagradu za mir DANA 12. listopada 2007. godine, biv&#x161;i potpredsjednik Sjedinjenih Ameri&#x10D;kih Dr&#x17E;ava Al Gore dobio je Nobelovu nagradu za mir."
-        },
-        {
-          "year": 1955,
-          "text": "Buran život Ante Gotovine - od Legije stranaca do uzgoja tune"
-        },
-        {
-          "year": 1955,
-          "text": "Ante Gotovina"
-        },
-        {
-          "year": 1868,
-          "text": "1951."
-        },
-        {
-          "year": 1537,
-          "text": "1553."
-        },
-        {
-          "year": 1870,
-          "text": "1870."
-        },
-        {
-          "year": 1320,
-          "text": "1320."
         }
       ]
     },
