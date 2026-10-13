@@ -1,7 +1,7 @@
 {
   "source": "Hrvatska povijesna referenca",
   "source_url": "https://www.index.hr/kalendar",
-  "updated_at": "2026-10-12T11:06:05.612Z",
+  "updated_at": "2026-10-13T10:48:19.768Z",
   "dates": {
     "01-01": {
       "date": "01-01",
@@ -2360,24 +2360,32 @@
     },
     "02-15": {
       "date": "02-15",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
+      "source": "Index Kalendar",
+      "source_url": "https://www.index.hr/kalendar?datum=0215",
       "events": [
         {
-          "year": 1573,
-          "text": "U Zagrebu je pogubljen Ambroz Gubec, vođa seljačke bune."
+          "year": 2000,
+          "text": "Milenijski bug ili Y2K problem"
         },
         {
-          "year": 1942,
-          "text": "U snažnom vojnom udaru Japanci su osvojili Singapur, nakon čega je zarobljeno više od 80 000 indijskih, australskih i britanskih vojnika."
+          "year": 1863,
+          "text": "Lincoln objavio dokument o ukidanju ropstva ABRAHAM Lincoln, &#x161;esnaesti predsjednik Sjedinjenih Ameri&#x10D;kih Dr&#x17E;ava, ostao je zapam&#x107;en kao jedna od najzna&#x10D;ajnijih figura u povijesti."
         },
         {
-          "year": 1991,
-          "text": "Osnovana je 164. brigada HV, Starigrad iz sastava 112. brigade"
+          "year": 2023,
+          "text": "Hrvatska prestaje koristiti kunu, uvodi se euro JEDAN od glavnih razloga za prelazak na euro bio je gospodarski."
         },
         {
-          "year": 1997,
-          "text": "Osnovan Hrvatski auto i karting savez, nakon razdvajanja Hrvatskog auto i moto športskog saveza (HAMŠS) na Hrvatski auto i karting savez i Hrvatski motociklistički savez."
+          "year": 1989,
+          "text": "Stupa na snagu Montrealski sporazum MONTREALSKI protokol me&#x111;unarodni je sporazum kojim je rije&#x161;en problem ozonskih rupa."
+        },
+        {
+          "year": 1527,
+          "text": "Cetinski sabor NA CETINSKOM saboru hrvatsko je plemstvo izabralo novog kralja, Ferdinanda Habsbur&#x161;kog."
+        },
+        {
+          "year": 1999,
+          "text": "Uveden euro UVO&#x110;ENJE eura jedan je od najva&#x17E;nijih ekonomskih i politi&#x10D;kih projekata u modernoj povijesti Europe."
         }
       ]
     },
@@ -2410,50 +2418,8 @@
     },
     "02-17": {
       "date": "02-17",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
-      "events": [
-        {
-          "year": 1854,
-          "text": "Britanija je priznala nezavisnost Slobodne Države Oranje u današnjoj Provinciji Slobodna Država, Južna Afrika"
-        },
-        {
-          "year": 1895,
-          "text": "Balet Labuđe jezero prvi je put izveden u cijelosti s glazbom Čajkovskog u Sankt Peterburgu, Rusija"
-        },
-        {
-          "year": 1960,
-          "text": "The Everly Brothers potpisuju milijun dolara vrijedan ugovor s izdavačkom kućom Warner Brothers Recordsom (izvorno samo filmskom kompanijom, dok nije postala veliki multimedijalni konglomerat)."
-        },
-        {
-          "year": 2008,
-          "text": "Kosovo proglasilo neovisnost od Srbije."
-        },
-        {
-          "year": 2024,
-          "text": "Hrvatska vaterpolska reprezentacija osvojila Svjetsko prvenstvo u Dohi 2024. pobjedom nad Italijom rezultatom 15:13."
-        }
-      ]
-    },
-    "02-18": {
-      "date": "02-18",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
-      "events": [
-        {
-          "year": 1358,
-          "text": "U Zadru sklopljen glasoviti Zadarski mir između Mletačke Republike i ugarsko-hrvatskog kralja Ludovika I. Anžuvinca kojim su se Mlečani odrekli Dalmacije."
-        },
-        {
-          "year": 2008,
-          "text": "Afganistan postao prva država koja je priznala nezavisnost Kosova."
-        }
-      ]
-    },
-    "02-19": {
-      "date": "02-19",
       "source": "Index Kalendar",
-      "source_url": "https://www.index.hr/kalendar?datum=0219",
+      "source_url": "https://www.index.hr/kalendar?datum=0217",
       "events": [
         {
           "year": 2000,
@@ -2478,6 +2444,96 @@
         {
           "year": 1999,
           "text": "Uveden euro UVO&#x110;ENJE eura jedan je od najva&#x17E;nijih ekonomskih i politi&#x10D;kih projekata u modernoj povijesti Europe."
+        }
+      ]
+    },
+    "02-18": {
+      "date": "02-18",
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1358,
+          "text": "U Zadru sklopljen glasoviti Zadarski mir između Mletačke Republike i ugarsko-hrvatskog kralja Ludovika I. Anžuvinca kojim su se Mlečani odrekli Dalmacije."
+        },
+        {
+          "year": 2008,
+          "text": "Afganistan postao prva država koja je priznala nezavisnost Kosova."
+        }
+      ]
+    },
+    "02-19": {
+      "date": "02-19",
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1291,
+          "text": "Potpisan sporazum iz Tarascona."
+        },
+        {
+          "year": 1594,
+          "text": "Sigismund III., kralj Poljsko-litavske Unije, okrunjen je za kralja Švedske."
+        },
+        {
+          "year": 1674,
+          "text": "Treći englesko-nizozemski rat završio je potpisivanjem Westminsterskog sporazuma."
+        },
+        {
+          "year": 1826,
+          "text": "Rodio se Matija Mesić, povjesničar i prvi rektor zagrebačkog sveučilišta."
+        },
+        {
+          "year": 1910,
+          "text": "Manchester United odigrao prvu utakmicu na Old Traffordu."
+        },
+        {
+          "year": 1935,
+          "text": "Sibinjske žrtve; u sibinjskom kraju režim Kraljevine Jugoslavije ubio hrvatske seljake."
+        },
+        {
+          "year": 1939,
+          "text": "Talijanske vojne jedinice u Adis Abebi počinile masakr u znak odmazde zbog neuspjelog atentata na potkralja maršala Grazianija."
+        },
+        {
+          "year": 1942,
+          "text": "Zračni napadi na Darwin, glavni grad Sjevernog Teritorija, Australija uništili su 242 bombardera i lovaca japanske carske mornarice."
+        },
+        {
+          "year": 1942,
+          "text": "Potpisana je U.S. Executive Order 9066, odobrivši premještaj i zatvaranje 112.000 japanskih Amerikanaca."
+        },
+        {
+          "year": 1945,
+          "text": "Započela bitka za Iwo Jimu."
+        },
+        {
+          "year": 1982,
+          "text": "Probni let Boeinga 757."
+        },
+        {
+          "year": 1986,
+          "text": "U okviru sovjetskog svemirskog programa lansirana je svemirska postaja Mir, prva dugoročna istraživačka postaja u svemiru."
+        },
+        {
+          "year": 1990,
+          "text": "osnovan Istarski demokratski sabor."
+        },
+        {
+          "year": 1996,
+          "text": "Institut za suvremenu povijest postao dio Hrvatskog instituta za povijest."
+        },
+        {
+          "year": 1999,
+          "text": "Posljednji koncert Animatora u klubu Kulušić."
+        },
+        {
+          "year": 2002,
+          "text": "Objavljen album Don't Worry About Me Joeyja Ramonea."
+        },
+        {
+          "year": 2020,
+          "text": "Zoran Milanović prisegnuo za Predsjednika Republike Hrvatske."
         }
       ]
     },
@@ -2907,8 +2963,8 @@
           "text": "2005."
         },
         {
-          "year": 2017,
-          "text": "2017."
+          "year": 1992,
+          "text": "1992."
         }
       ]
     },
@@ -8453,12 +8509,12 @@
           "text": "1973."
         },
         {
-          "year": 2013,
-          "text": "2013."
-        },
-        {
           "year": 1860,
           "text": "1860."
+        },
+        {
+          "year": 2013,
+          "text": "2013."
         }
       ]
     },
