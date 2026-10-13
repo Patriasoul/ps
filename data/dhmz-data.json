@@ -1,6 +1,6 @@
 {
   "source": "DHMZ",
-  "updated_at": "2026-10-13T06:50:03.393097+00:00",
+  "updated_at": "2026-10-13T16:58:40.231412+00:00",
   "warnings": [
     {
       "day": "today",
@@ -710,21 +710,21 @@
   ],
   "rainfall_text": [],
   "adriatic_text": [
-    "Izvješće Službe Pomorskog meteorološkog centra Split DHMZ-a dana 13.10.2026. u 06 sati",
-    "Mjestimice udari bure i sjevernog vjetra 35-60, a u noći mjestimice i do 70 čvorova. U noći na srednjem te južnom Jadranu more ponegdje 5. Još u početku na otvorenom moru srednjeg i južnog Jadrana mogući neverini.",
-    "Plitka ciklona premješta se preko Jadrana na jugoistok.",
+    "Izvješće Službe Pomorskog meteorološkog centra Split DHMZ-a dana 13.10.2026. u 19 sati",
+    "Mjestimice udari bure i sjevernog, još u početku pa ponovno sutra poslijepodne na otvorenom moru južnog Jadrana prolazno i sjeverozapadnog vjetra 35-60, na srednjem i južnom Jadranu ponegdje i do 70 čvorova. Na otvorenom moru srednjeg i južnog Jadrana ponegdje moguće more 5.",
+    "Sa sjeverozapada prema Jadranu jača anticiklonalni greben.",
     "Vremenska prognoza za Jadran za prvih 12 sati",
-    "Bura, poslijepodne i sjeverni vjetar, 12-28, a podno Velebita bura mjestimice i do 32 čvora. Vjetar zapadno od Istre postupno u slabljenju i okretanju na sjeverni i sjeverozapadni 4-14 čvorova. More 3-4, poslijepodne zapadno od Istre u smirivanju na 2-3. Na sjevernom Jadranu pretežno vedro, a južnije još u početku na otvorenom moru uz povećanu naoblaku, ponegdje kiša ili pljuskovi s grmljavinom.",
-    "Pojačana do vrlo jaka, a na srednjem te južnom Jadranu mjestimice i olujna bura te sjeverni vjetar. More umjereno valovito i valovito, na otvorenom srednjeg te južnog Jadrana ponegdje i jače valovito. Pretežno vedro, mjestimice s umjerenom naoblakom."
+    "Bura i sjeverni, na otvorenom moru južnog Jadrana još u početku i sjeverozapadni vjetar 12-26, u noći mjestimice na srednjem i južnom Jadranu do 34 čvora. Zapadno od Istre, u drugom dijelu noći i na preostalom dijelu sjevernog Jadrana bura i sjeverni vjetar u slabljenju na 4-14, podno Velebita do 18 čvorova. More 3-4, na otvorenom moru srednjeg i južnog Jadrana mjestimice moguće i 5, a na sjevernom Jadranu u smirivanju na 2-3. Vidljivost 20 km. Pretežno vedro, samo ponegdje umjerena naoblaka.",
+    "Slaba do umjerena, mjestimice pojačana, na srednjem još u početku i jaka, a na južnom Jadranu i vrlo jaka bura i sjeverni vjetar. Poslijepodne na otvorenom moru slab do umjeren, na srednjem i pojačan, na južnom Jadranu mjestimice i jak sjeverozapadni vjetar. More umjereno valovito i valovito, na otvorenom moru južnog, još u početku i srednjeg Jadrana ponegdje i valovito, a na sjevernom Jadranu malo do umjereno valovito. Pretežno vedro, samo ponegdje umjerena naoblaka."
   ],
   "sailors_text": [
-    "VREMENSKO IZVJEŠĆE, dan 13.10.2026 u 06:00 sati",
-    "Mjestimice udari NE i N vjetra 35-60, a u noći mjestimice i do 70 čvorova. U noći na srednjem te južnom Jadranu more ponegdje 5. Još u početku na otvorenom moru srednjeg i južnog Jadrana mogući neverini.",
-    "Plitka ciklona premješta se preko Jadrana na jugoistok.",
-    "Vremenska prognoza za sljedeća 24 sata, vrijedi do: 14.10.2026 u 06 sati",
-    "Vjetar NE, poslijepodne i N, 12-26, a podno Velebita mjestimice i do 32 čvora. Vjetar zapadno od Istre postupno u slabljenju i okretanju na NW i N 4-14 čvorova. More 3-4, poslijepodne zapadno od Istre u smirivanju na 2-3. Vidljivost 20 km. Pretežno vedro, mjestimice s prolaznom umjerenom naoblakom.",
-    "Vjetar NE, poslijepodne i N 12-26, u noći mjestimice i do 34 čvora. More 3-4, u noći na otvorenom ponegdje moguće 5. Vidljivost 20 km. Postupno razvedravanje. Još u početku na otvorenom moru ponegdje uz kišu ili pljuskove s grmljavinom.",
-    "Vjetar NE, poslijepodne i N 14-28, u noći mjestimice i do 36 čvorova. More 3-4, u noći na otvorenom ponegdje moguće 5. Vidljivost 20 km. Postupno razvedravanje. Još u početku na otvorenom moru ponegdje uz kišu ili pljuskove s grmljavinom."
+    "VREMENSKO IZVJEŠĆE, dan 13.10.2026 u 18:00 sati",
+    "Mjestimice udari NE i N, još u početku pa ponovno sutra poslijepodne na otvorenom moru južnog Jadrana prolazno i NW vjetra 35-60, na srednjem i južnom Jadranu ponegdje i do 70 čvorova. Na otvorenom moru srednjeg i južnog Jadrana ponegdje moguće more 5.",
+    "Sa sjeverozapada prema Jadranu jača anticiklonalni greben.",
+    "Vremenska prognoza za sljedeća 24 sata, vrijedi do: 14.10.2026 u 18 sati",
+    "Vjetar NE i N 12-26, zapadno od Istre 4-14 čvorova, sutra u slabljenju, a prema sredini dana u okretanju na NW 4-14, podno Velebita do 18 čvorova. More 3-4, zapadno od Istre, sutra i drugdje u smirivanju na 2-3. Vidljivost 20 km. Pretežno vedro, ponegdje umjerena naoblaka.",
+    "Vjetar NE i N 12-26, u noći i ujutro mjestimice i do 32 čvora. Prema sredini dana vjetar NE i N u slabljenju, a na otvorenom moru u okretanju na NW 10-20 čvorova. More 3-4, u noći i prijepodne na otvorenom ponegdje moguće 5. Vidljivost 20 km. Pretežno vedro, ponegdje umjerena naoblaka.",
+    "Vjetar NE i N, još u početku pa ponovno sutra poslijepodne na otvorenom moru i NW 14-28, u noći i prijepodne mjestimice i do 36 čvorova. More 3-4, na otvorenom ponegdje moguće 5. Vidljivost 20 km. Pretežno vedro, ponegdje umjerena naoblaka."
   ],
   "croatia_forecast_text": []
 }
