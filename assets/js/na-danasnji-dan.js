@@ -1,6 +1,6 @@
 (() => {
 "use strict";
-const DATA_URL = "../data/na-danasnji-dan.json";
+const DATA_URL = "/data/na-danasnji-dan.json";
 const $ = (s) => document.querySelector(s);
 const pad = (n) => String(n).padStart(2,"0");
 const hrMonths = ["siječnja","veljače","ožujka","travnja","svibnja","lipnja","srpnja","kolovoza","rujna","listopada","studenoga","prosinca"];
