@@ -24,12 +24,12 @@
 <div class="ps-account-actions">
 <a href="../index.html">Naslovnica</a>
 <a href="../index.html">Najnovije</a>
-<a href="/prijava/" id="logout-link">Odjavi se</a>
+<a href="/stranice/prijava.html" id="logout-link">Odjavi se</a>
 </div>
 </div>
 <div id="account-login" hidden>
 <p>Za pregled računa morate biti prijavljeni.</p>
-<a href="/prijava/">Prijavi se</a>
+<a href="/stranice/prijava.html">Prijavi se</a>
 </div>
 </section>
 </main>
@@ -66,7 +66,7 @@
   document.getElementById("logout-link").addEventListener("click",async e=>{
    e.preventDefault();
    await PatriaSoulAuth.signOut();
-   location.href="/prijava/";
+   location.href="/stranice/prijava.html";
   });
  }catch(err){status.textContent="Prijava se nije mogla provjeriti. Pokušajte ponovno.";console.error(err)}
 })();
