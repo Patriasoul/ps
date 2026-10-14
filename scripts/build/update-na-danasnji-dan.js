@@ -164,7 +164,7 @@ async function fetchIndex(month,day){
     const url=INDEX+pad(day)+pad(month);
     const html=await fetchText(url);
     const plain=clean(html).toLowerCase();
-    const expected=(pad(day)+". "+MONTHS[month-1]).toLowerCase();
+    const expected=(Number(day)+". "+MONTHS[month-1]).toLowerCase();
     if(!plain.includes(expected)) return [];
     return parseIndexEvents(html);
   }catch(_){
