@@ -18,7 +18,7 @@
   const path = location.pathname;
   const authReady = (() => {
     if (window.PatriaSoulAuth) return Promise.resolve(window.PatriaSoulAuth);
-    const authSrc = new URL("auth.js?v=20261007-6", script?.src || location.href).href;
+    const authSrc = new URL("auth.js?v=20261014-1", script?.src || location.href).href;
     return new Promise((resolve, reject) => {
       const existing = document.querySelector("script[data-ps-auth]");
       if (existing) { existing.addEventListener("load", () => resolve(window.PatriaSoulAuth)); existing.addEventListener("error", reject); return; }
