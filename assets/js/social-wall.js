@@ -142,10 +142,17 @@ form.addEventListener("submit",async e=>{
 $("ps-wall-refresh").addEventListener("click",refresh);
 feed.addEventListener("click",async e=>{
  const button=e.target.closest("button[data-action]");if(!button)return;
+ const action=button.dataset.action;
+ // Emoji selection is a local UI action: handle it before database/auth work.
+ if(action==="comment-emoji-picker"){
+  const f=button.closest(".ps-wall-comment-form"),input=f?.querySelector('textarea[name="comment"]');
+  if(input){toggleEmojiPicker(button,input)}
+  return;
+ }
  const article=button.closest("[data-post-id]"),id=article?.dataset.postId,p=posts.find(x=>x.id===id);if(!p)return;
  button.disabled=true;
  try{
-  const c=await db(),action=button.dataset.action;
+  const c=await db();
   if(action==="react"){
    const existing=(p.community_post_reactions||[]).find(r=>r.user_id===user.id);
    if(existing){const {error}=await c.from("community_post_reactions").delete().eq("id",existing.id);if(error)throw error}
