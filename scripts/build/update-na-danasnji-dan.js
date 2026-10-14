@@ -161,7 +161,11 @@ async function fetchWikipedia(page,month,day){
 
 async function fetchIndex(month,day){
   try{
-    const html=await fetchText(INDEX+pad(month)+pad(day));
+    const url=INDEX+pad(day)+pad(month);
+    const html=await fetchText(url);
+    const plain=clean(html).toLowerCase();
+    const expected=(pad(day)+". "+MONTHS[month-1]).toLowerCase();
+    if(!plain.includes(expected)) return [];
     return parseIndexEvents(html);
   }catch(_){
     return [];
@@ -176,7 +180,7 @@ async function fetchPage(page){
   if(wiki.length) return {events:wiki,source:"Hrvatska Wikipedija",source_url:"https://hr.wikipedia.org/"};
 
   const index=await fetchIndex(month,day);
-  if(index.length) return {events:index,source:"Index Kalendar",source_url:INDEX+pad(month)+pad(day)};
+  if(index.length) return {events:index,source:"Index Kalendar",source_url:INDEX+pad(day)+pad(month)};
 
   return {events:[],source:"",source_url:""};
 }
