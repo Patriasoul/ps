@@ -132,3 +132,13 @@
 .ps-wall-emoji-popover:not(:has(em-emoji-picker)){padding:14px}
 .ps-wall-comment-tools .ps-wall-emoji-button{padding:4px 8px;font-size:.74rem}
 @media(max-width:480px){.ps-wall-emoji-popover{right:-6px;width:min(320px,calc(100vw - 28px));height:390px}}
+
+/* Lokalni emoji izbornik: ne ovisi o CDN-u */
+.ps-wall-emoji-popover{display:flex;flex-direction:column;gap:8px;padding:10px}
+.ps-wall .ps-wall-emoji-search{flex:0 0 auto;width:100%;padding:9px 10px;border:1px solid rgba(255,255,255,.16);border-radius:7px;background:#050912;color:#f3f5f7;font:inherit}
+.ps-wall-emoji-tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:4px}
+.ps-wall .ps-wall-emoji-tabs button{flex:0 0 auto;padding:6px 8px;border:1px solid rgba(255,255,255,.13);border-radius:6px;background:rgba(255,255,255,.05);color:#f3f5f7;font-size:.72rem}
+.ps-wall .ps-wall-emoji-tabs button.is-active{border-color:var(--ps-theme-gold,#f1d078);color:var(--ps-theme-gold,#f1d078);background:rgba(241,208,120,.1)}
+.ps-wall-emoji-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;overflow-y:auto;align-content:start;min-height:0;flex:1}
+.ps-wall .ps-wall-emoji-item{display:grid;place-items:center;min-width:0;aspect-ratio:1;padding:2px;border:0;border-radius:5px;background:transparent;color:#fff;font-size:1.35rem;line-height:1}
+.ps-wall .ps-wall-emoji-item:hover,.ps-wall .ps-wall-emoji-item:focus-visible{background:rgba(241,208,120,.15);outline:1px solid rgba(241,208,120,.45)}
