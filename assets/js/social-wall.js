@@ -3,37 +3,39 @@ const root=document.getElementById("ps-wall");if(!root||root.dataset.ready)retur
 const $=id=>document.getElementById(id),status=$("ps-wall-status"),feed=$("ps-wall-feed"),composer=$("ps-wall-composer"),form=$("ps-wall-post-form"),submit=$("ps-wall-post-submit"),imageInput=$("ps-wall-post-image");
 let client=null,user=null,profile=null,blocks=new Set(),posts=[];
 const linkMetaCache=new Map();
-let emojiElementModule=null,emojiDataModule=null;
-async function loadEmojiPicker(){
- if(!emojiElementModule)emojiElementModule=import("https://esm.sh/emoji-mart@5.6.0/element?bundle");
- if(!emojiDataModule)emojiDataModule=import("https://esm.sh/@emoji-mart/data@1.2.1?bundle");
- const [,dataModule]=await Promise.all([emojiElementModule,emojiDataModule]);
- return dataModule.default||dataModule;
-}
+const emojiGroups=[
+ {name:"Česta uporaba",items:"😀 😃 😄 😁 😆 😅 😂 🙂 🙃 😉 😊 😍 🥰 😘 😎 🤔 🤗 😢 😭 😡 🙏 👏 👍 👎 ❤️ 🧡 💛 💚 💙 💜 🤍 🖤 💯 ✨ 🎉"},
+ {name:"Lica",items:"😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🫢 🫣 🤫 🤔 🫡 🤐 🤨 😐 😑 😶 🫥 😏 😒 🙄 😬 🤥 😔 🫠 😴 🤤 😪 😮‍💨 😵‍💫 🤯 😎 🤓 🧐 😕 🫤 🙁 ☹️ 😮 😯 😲 😳 🥺 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💀 ☠️ 💩 🤡 👻 👽 🤖"},
+ {name:"Ruke i ljudi",items:"👋 🤚 🖐️ ✋ 🖖 🫱 🫲 🫳 🫴 👌 🤌 🤏 ✌️ 🤞 🫰 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 🫶 👐 🤲 🙏 ✍️ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 👃 🧠 🫀 🫁 🦷 🦴 👀 👁️ 👅 👄"},
+ {name:"Životinje i priroda",items:"🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐵 🙈 🙉 🙊 🐔 🐧 🐦 🦅 🦆 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🪱 🦋 🐌 🐞 🐜 🪰 🪲 🦟 🦗 🕷️ 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦞 🦀 🐠 🐟 🐬 🐳 🦈 🐊 🐅 🐆 🦓 🦍 🦧 🐘 🦛 🦏 🐪 🦒 🦘 🦬 🐄 🐎 🐖 🐑 🐐 🦌 🐕 🐈 🐓 🦃 🦚 🦜 🦢 🪿 🐇 🦝 🦨 🦡 🦫 🦦 🦥 🐁 🐀 🐿️ 🦔 🌵 🎄 🌲 🌳 🌴 🪵 🌱 🌿 ☘️ 🍀 🎍 🪴 🎋 🍃 🍂 🍁 🍄 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻"},
+ {name:"Hrana i piće",items:"🍏 🍎 🍐 🍊 🍋 🍌 🍉 🍇 🍓 🫐 🍈 🍒 🍑 🥭 🍍 🥥 🥝 🍅 🫒 🥑 🍆 🥔 🥕 🌽 🌶️ 🫑 🥒 🥬 🥦 🧄 🧅 🍄 🥜 🌰 🍞 🥐 🥖 🫓 🥨 🥯 🥞 🧇 🧀 🍖 🍗 🥩 🥓 🍔 🍟 🍕 🌭 🥪 🌮 🌯 🫔 🥙 🧆 🥚 🍳 🥘 🍲 🫕 🥣 🥗 🍿 🧈 🧂 🥫 🍱 🍘 🍙 🍚 🍛 🍜 🍝 🍠 🍢 🍣 🍤 🍥 🥮 🍡 🥟 🥠 🥡 🍦 🍧 🍨 🍩 🍪 🎂 🍰 🧁 🥧 🍫 🍬 🍭 🍮 🍯 🍼 🥛 ☕ 🫖 🍵 🧃 🥤 🧋 🍶 🍺 🍻 🥂 🍷 🥃 🍸 🍹 🧉"},
+ {name:"Putovanja i mjesta",items:"🚗 🚕 🚙 🚌 🚎 🏎️ 🚓 🚑 🚒 🚐 🛻 🚚 🚛 🚜 🛵 🏍️ 🚲 🛴 🛹 🚏 🛣️ 🛤️ 🚦 🚥 🚧 ⚓ 🛟 ⛵ 🚤 🛳️ ⛴️ 🚢 ✈️ 🛩️ 🛫 🛬 🪂 💺 🚁 🚟 🚠 🚡 🚀 🛸 🏠 🏡 🏢 🏬 🏭 🏰 🏯 🏟️ 🗽 🗼 🏕️ ⛺ 🏖️ 🏝️ 🏜️ 🌋 ⛰️ 🏔️ 🗻 🏞️ 🌅 🌄 🌠 🎇 🎆 🌇 🌆 🏙️ 🌃 🌉 🌌"},
+ {name:"Aktivnosti",items:"⚽ 🏀 🏈 ⚾ 🥎 🎾 🏐 🏉 🎱 🏓 🏸 🏒 🏑 🥍 🏏 🪃 🥅 ⛳ 🪁 🏹 🎣 🤿 🥊 🥋 🎽 🛹 🛼 🛷 ⛸️ 🥌 🎿 ⛷️ 🏂 🏋️ 🤼 🤸 ⛹️ 🤺 🤾 🏌️ 🏇 🧘 🏄 🏊 🤽 🚣 🧗 🚵 🚴 🏆 🥇 🥈 🥉 🏅 🎖️ 🏵️ 🎗️ 🎫 🎟️ 🎪 🤹 🎭 🩰 🎨 🎬 🎤 🎧 🎼 🎹 🥁 🪘 🎷 🎺 🎸 🪕 🎻 🎲 ♟️ 🎯 🎳 🎮 🎰 🧩"},
+ {name:"Predmeti i simboli",items:"💡 🔦 🕯️ 🪔 🧯 🛒 🎁 🎈 🎀 🎊 🎉 🪄 🧸 🪅 🪩 🪆 📱 💻 🖥️ 🖨️ ⌨️ 🖱️ 🖲️ 💽 💾 💿 📀 📷 📸 📹 🎥 📺 📻 🎙️ ⏰ 🕰️ ⌚ 📡 🔋 🪫 🔌 💰 💳 💎 ⚖️ 🔧 🔨 ⚒️ 🛠️ ⛏️ 🪓 🪚 🔩 ⚙️ 🧰 🪛 🔒 🔓 🔑 🗝️ 🛡️ ⚔️ 🗡️ 🪦 ⚰️ 🪧 🚪 🪞 🪟 🛏️ 🛋️ 🚿 🛁 🧴 🧻 🧼 🪥 🧽 🧹 🧺 🧯 🧷 🧵 🪡 🧶 🪢 📚 📖 📝 ✏️ 🖊️ 🖋️ 🖌️ 🖍️ 📌 📍 ✂️ 📎 🖇️ 📐 📏 🗃️ 📅 📆 🗓️ 📇 📈 📉 📊 📋 📁 📂 🗂️ 🔍 🔎 🔗"},
+ {name:"Zastave",items:"🇭🇷 🇧🇦 🇸🇮 🇷🇸 🇲🇪 🇲🇰 🇦🇱 🇪🇺 🇺🇸 🇬🇧 🇩🇪 🇫🇷 🇮🇹 🇪🇸 🇵🇹 🇺🇦 🇵🇱 🇨🇿 🇸🇰 🇦🇹 🇨🇭 🇭🇺 🇬🇷 🇹🇷 🇮🇪 🇮🇸 🇳🇴 🇸🇪 🇫🇮 🇩🇰 🇳🇱 🇧🇪 🇱🇺 🇷🇴 🇧🇬 🇯🇵 🇰🇷 🇨🇳 🇮🇳 🇦🇺 🇳🇿 🇨🇦 🇲🇽 🇧🇷 🇦🇷 🇿🇦 🇺🇳"}
+];
 function insertAtCursor(input,value){
  const start=input.selectionStart??input.value.length,end=input.selectionEnd??input.value.length;
  input.setRangeText(value,start,end,"end");input.focus();
 }
-async function toggleEmojiPicker(button,input){
+function toggleEmojiPicker(button,input){
  const existing=button.parentElement.querySelector(".ps-wall-emoji-popover");
  if(existing){existing.remove();button.setAttribute("aria-expanded","false");return}
  document.querySelectorAll(".ps-wall-emoji-popover").forEach(el=>el.remove());
  document.querySelectorAll('[data-action="post-emoji-picker"],[data-action="comment-emoji-picker"]').forEach(el=>el.setAttribute("aria-expanded","false"));
  const popover=document.createElement("div");popover.className="ps-wall-emoji-popover";popover.setAttribute("role","dialog");popover.setAttribute("aria-label","Odaberi emoji");
  button.parentElement.classList.add("ps-wall-emoji-anchor");button.parentElement.append(popover);button.setAttribute("aria-expanded","true");
- popover.textContent="Učitavam emoji…";
- try{
-  const data=await loadEmojiPicker();
-  if(!popover.isConnected)return;
-  const picker=document.createElement("em-emoji-picker");
-  picker.setAttribute("locale","en");picker.setAttribute("theme","dark");picker.setAttribute("preview-position","none");picker.setAttribute("skin-tone-position","none");
-  picker.data=data;
-  picker.addEventListener("emoji-click",event=>{
-   const emoji=event.detail?.unicode||event.detail?.emoji?.unicode||event.detail?.emoji?.native;
-   if(emoji){insertAtCursor(input,emoji);popover.remove();button.setAttribute("aria-expanded","false")}
-  });
-  popover.replaceChildren(picker);
- }catch(error){console.error("Emoji Mart se nije mogao učitati:",error);popover.textContent="Emoji se trenutačno ne mogu učitati. Pokušaj ponovno."}
+ const search=document.createElement("input");search.type="search";search.className="ps-wall-emoji-search";search.placeholder="Traži emoji…";search.setAttribute("aria-label","Pretraži emoji");
+ const tabs=document.createElement("div");tabs.className="ps-wall-emoji-tabs";
+ const grid=document.createElement("div");grid.className="ps-wall-emoji-grid";grid.setAttribute("role","list");
+ let activeGroup=0;
+ const render=()=>{tabs.replaceChildren();emojiGroups.forEach((group,index)=>{const tab=document.createElement("button");tab.type="button";tab.textContent=group.name;tab.className=index===activeGroup?"is-active":"";tab.addEventListener("click",()=>{activeGroup=index;render()});tabs.append(tab)});
+ const query=search.value.trim().toLocaleLowerCase("hr");
+ const items=emojiGroups[activeGroup].items.split(/\s+/).filter(Boolean);
+ const filtered=query?emojiGroups.flatMap(g=>g.items.split(/\s+/).filter(Boolean)).filter((emoji,index,all)=>all.indexOf(emoji)===index&&emoji.includes(query)):items;
+ grid.replaceChildren();filtered.forEach(emoji=>{const item=document.createElement("button");item.type="button";item.className="ps-wall-emoji-item";item.textContent=emoji;item.title=emoji;item.setAttribute("aria-label",emoji);item.addEventListener("click",()=>{insertAtCursor(input,emoji);popover.remove();button.setAttribute("aria-expanded","false")});grid.append(item)});
+ };
+ search.addEventListener("input",render);popover.append(search,tabs,grid);render();
 }
 const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initials=name=>String(name||"PS").trim().split(/\s+/).slice(0,2).map(s=>s[0]||"").join("").toUpperCase();
