@@ -1,7 +1,7 @@
 {
   "source": "Hrvatska povijesna referenca",
   "source_url": "https://www.index.hr/kalendar",
-  "updated_at": "2026-10-14T12:45:31.273Z",
+  "updated_at": "2026-10-15T08:27:26.273Z",
   "dates": {
     "01-01": {
       "date": "01-01",
@@ -1339,42 +1339,9 @@
     },
     "01-27": {
       "date": "01-27",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
-      "events": [
-        {
-          "year": 1416,
-          "text": "Dubrovačka Republika zabranila trgovinu robljem na svom području."
-        },
-        {
-          "year": 1888,
-          "text": "Osnovan je National Geographic Society, izdavač časopisa National Geographic."
-        },
-        {
-          "year": 1924,
-          "text": "Predsjednik Vlade Nikola Pašić i ministar vanjskih poslova Momčilo Ninčić sa strane Kraljevine SHS i predsjednik Vlade Benito Mussolini sa strane Kraljevine Italije potpisali Rimske ugovore, kojima je Rijeka predana Italiji i materijalizirana D'Annunzijeva talijanska okupacija."
-        },
-        {
-          "year": 1945,
-          "text": "Sovjetska Crvena armija ušla u Auschwitz-Birkenau u Poljskoj gdje pronalazi sabirni logor u kojem je ubijeno preko milijun ljudi. Tada oslobođeno 7.500 zatvorenika koji su uspjeli preživjeti strahote tog logora."
-        },
-        {
-          "year": 1951,
-          "text": "Započela su nuklearna testiranja na Nevada Test Siteu s bombom od jedne kilotone bačenom na Frenchman Flats."
-        },
-        {
-          "year": 1967,
-          "text": "U svemirskoj letjelici Apollo 1, koju je uništio požar u Svemirskom centru Kennedy, poginuli su astronauti Gus Grissom, Edward White i Roger Chaffee."
-        },
-        {
-          "year": 1973,
-          "text": "Potpisan je Pariški mirovni sporazum kako bi se završio Vijetnamski rat."
-        },
-        {
-          "year": 2008,
-          "text": "Charles, princ od Walesa postao najdugovječnijim nasljednikom trona u britanskoj povijesti. Titulu prijestolonasljednika dobio je na današnji dan 1969. godine."
-        }
-      ]
+      "source": "PatriaSoul",
+      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
+      "events": []
     },
     "01-28": {
       "date": "01-28",
@@ -1661,9 +1628,66 @@
     },
     "02-02": {
       "date": "02-02",
-      "source": "PatriaSoul",
-      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
-      "events": []
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 962,
+          "text": "Papa Ivan XII. okrunio je Otona I. Velikog za cara Svetog Rimskog Carstva, prvog nakon gotovo 40 godina."
+        },
+        {
+          "year": 1536,
+          "text": "Utemeljen Buenos Aires."
+        },
+        {
+          "year": 1653,
+          "text": "Osnovan Novi Amsterdam, kasnije nazvan New York."
+        },
+        {
+          "year": 1848,
+          "text": "Kraj Američko-meksičkog rata."
+        },
+        {
+          "year": 1933,
+          "text": "Adolf Hitler raspustio njemački parlament."
+        },
+        {
+          "year": 1935,
+          "text": "U Poljskoj je prvi put upotrijebljen poligraf."
+        },
+        {
+          "year": 1943,
+          "text": "Završena je bitka za Staljingrad u kojoj je Crvena armija zarobila 91.000 umornih i izgladnjelih njemačkih vojnika."
+        },
+        {
+          "year": 1945,
+          "text": "Drugi svjetski rat: Konferencija na Jalti (Krim)."
+        },
+        {
+          "year": 1971,
+          "text": "U SAD-u je zabranjeno reklamiranje cigareta na radiju i televiziji."
+        },
+        {
+          "year": 1972,
+          "text": "Britansko veleposlanstvo u Dublinu uništeno je u prosvjedima nakon Krvave nedjelje."
+        },
+        {
+          "year": 1983,
+          "text": "Papa Ivan Pavao II. proglasio Franju Kuharića kardinalom"
+        },
+        {
+          "year": 1989,
+          "text": "Posljednje sovjetske trupe napustile Kabul – završena devetogodišnja sovjetska vojna intervencija/okupacija Afganistana."
+        },
+        {
+          "year": 2003,
+          "text": "Hrvatska rukometna reprezentacija pobjedom nad Njemačkom rezultatom 34:31 osvojila svoje prvo svjetsko rukometno prvenstvo."
+        },
+        {
+          "year": 2025,
+          "text": "Hrvatska rukometna reprezentacija porazom od Danske rezultatom 26:32 u finalu svjetskoga prvenstva osvojila srebrno odličje. [https://www.index.hr/mobile/sport/clanak/hrvatska-danska-2632-hrvatska-osvojila-srebro-na-svjetskom-prvenstvu/2637882.aspx HRVATSKA - DANSKA 26:32 Hrvatska osvojila srebro na Svjetskom prvenstvu]"
+        }
+      ]
     },
     "02-03": {
       "date": "02-03",
@@ -1895,9 +1919,38 @@
     },
     "02-07": {
       "date": "02-07",
-      "source": "PatriaSoul",
-      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
-      "events": []
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1497,
+          "text": "\"Lomača taštine\" - tal. Falo delle Vanita; engl. Bonfire of the Vanities - javno spaljivanje mnoštva predmeta kao simbola luksuza i taštine (perika, parfema, slika, drevnih rukopisa), koje su provele pristaše dominikanskog svećenika Girolama Savonarole, kratkotrajnog vladara Republike Firenze, koncem 15. stoljeća."
+        },
+        {
+          "year": 1783,
+          "text": "Završila opsada Gilbraltara"
+        },
+        {
+          "year": 1942,
+          "text": "Drugi svjetski rat: Divlji ustaše pobile oko 2300 Srba u Drakuliću, Šargovcu, Motikama i rudniku Rakovac pored Banje Luke"
+        },
+        {
+          "year": 1964,
+          "text": "The Beatles su stigli u prvi posjet SAD-u. Oko četiri tisuće poklonika i dvjestotinjak dočekalo ih je u Zračnoj luci JFK, u New Yorku. Dva dana kasnije nastupili su u čuvenom Ed Sullivan Showu, prvom televizijskom nastupu uživo u SAD-u, u prijenosu kojega je navodno vidjelo oko 40% Amerikanaca, tj. oko 73 milijuna ljudi."
+        },
+        {
+          "year": 1971,
+          "text": "U Švicarskoj su žene dobile pasivno i aktivno pravo glasa na saveznoj razini."
+        },
+        {
+          "year": 1974,
+          "text": "Grenada, otočna država na jugoistoku Karipskog mora, sjeverno od Venezuele i Trinidada i Tobaga te južno od Svetog Vincenta i Grenadina, osamostalila se od Ujedinjenog Kraljevstva."
+        },
+        {
+          "year": 1992,
+          "text": "Ugovor o Europskoj uniji, poznatiji kao Ugovor iz Maastrichta, potpisan u ovom nizozemskom gradu, označio je uspostavljanje Europske unije, a stupio je na snagu 1. siječnja 1993. potpisalo ga je dvanaest članica tadašnje Europske zajednice."
+        }
+      ]
     },
     "02-08": {
       "date": "02-08",
@@ -1940,54 +1993,9 @@
     },
     "02-09": {
       "date": "02-09",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
-      "events": [
-        {
-          "year": 1573,
-          "text": "Presudna bitka između plemića i seljačke vojske pod vodstvom Matije Gupca kod Stubičkih Toplica, kojom je seljačka buna propala"
-        },
-        {
-          "year": 1621,
-          "text": "Kardinal Alessandro Ludovisi izabran za papu i uzeo je ime Grgur XV."
-        },
-        {
-          "year": 1825,
-          "text": "Elektori u SAD-u izabrali Johna Quincyja Adamsa za novog američkog predsjednika kojem će mandat početi 4. ožujka"
-        },
-        {
-          "year": 1861,
-          "text": "Predstavnici konvencije u gradu Montgomery proglasili su Jeffersona Davisa privremenim predsjednikom Konfederativnih Država Amerike"
-        },
-        {
-          "year": 1895,
-          "text": "Odbojka je izumljena na YMCA-u u Holyokeu, Massachusetts"
-        },
-        {
-          "year": 1900,
-          "text": "Dwight Davis utemeljio tenisko natjecanje Davisov kup"
-        },
-        {
-          "year": 1934,
-          "text": "Stvoren Balkanski pakt"
-        },
-        {
-          "year": 1938,
-          "text": "Velika tragedija u Sretnicama kad je u požaru izgorjelo 29 svatova. [http://www.brotnjo.info/2019/02/09/prije-81-godinu-vatra-je-na-sretnicama-progutala-29-svatova/ Brotnjo.info] Župa Kruševo: Prije 81 godinu vatra je na Sretnicama progutala 29 svatova, 9. veljače 2019. (pristupljeno 16. travnja 2019.)"
-        },
-        {
-          "year": 1943,
-          "text": "Drugi svjetski rat: završila je bitka kod Guadalcanala na Solomonskim otocima"
-        },
-        {
-          "year": 1968,
-          "text": "Nizozemska princeza Beatrix otvorila podzemnu željeznicu Rotterdamu."
-        },
-        {
-          "year": 2018,
-          "text": "U Pyeongchangu otvorene su Zimske olimpijske igre"
-        }
-      ]
+      "source": "PatriaSoul",
+      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
+      "events": []
     },
     "02-10": {
       "date": "02-10",
@@ -2117,66 +2125,9 @@
     },
     "02-12": {
       "date": "02-12",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
-      "events": [
-        {
-          "year": 1502,
-          "text": "Vasco da Gama krenuo na svoje drugo putovanje prema Indiji"
-        },
-        {
-          "year": 1689,
-          "text": "Britanski parlament donio zaključak kako je kralj Jakov II., nakon što je pobjegao u Francusku, abdicirao te je (parlament) proglasio Mariju II. za novu englesku kraljicu"
-        },
-        {
-          "year": 1818,
-          "text": "Čile je pod vodstvom generala Bernardoa O'Higginsa formalno proglasio nezavisnost od Španjolske"
-        },
-        {
-          "year": 1832,
-          "text": "Ekvador anektirao Otočje Galápagos"
-        },
-        {
-          "year": 1909,
-          "text": "Osnovano je National Association for the Advancement of Colored People, jedno od najstarijih i najutjecajnijih organizacija za građanska prava u SAD-u."
-        },
-        {
-          "year": 1912,
-          "text": "Abdicirao posljednji kineski car Pu Yi"
-        },
-        {
-          "year": 1924,
-          "text": "Premjerno izvedena Rapsodija u plavom Georgea Gershwina"
-        },
-        {
-          "year": 1948,
-          "text": "Održavanjem prve sjednice Narodnog odbora grad Rijeka je ponovno ujedinjen (Rijeka i Sušak) i osnovan je Kotar Rijeka."
-        },
-        {
-          "year": 1960,
-          "text": "Chuck Berry u studiju 'Chess' snima \"Bye, Bye Johnny\", \"Jaguar And Thunderbird\", \"Drifting Blues\" i druge skladbe."
-        },
-        {
-          "year": 1961,
-          "text": "Lansirana sonda Venera 1"
-        },
-        {
-          "year": 2001,
-          "text": "NEAR Shoemaker spustio se na Eros, postavši prva svemirska letjelica koja je sletjela na neki asteroid"
-        },
-        {
-          "year": 2002,
-          "text": "U Haagu počelo suđenje bivšem predsjedniku Jugoslavije Slobodanu Miloševiću"
-        },
-        {
-          "year": 2010,
-          "text": "U kanadskom Vancouveru započele XXI. Zimske olimpijske igre."
-        },
-        {
-          "year": 2016,
-          "text": "Povijesni susret pape Franje i moskovskog patrijarha Kirila na Kubi"
-        }
-      ]
+      "source": "PatriaSoul",
+      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
+      "events": []
     },
     "02-13": {
       "date": "02-13",
@@ -2215,9 +2166,62 @@
     },
     "02-14": {
       "date": "02-14",
-      "source": "PatriaSoul",
-      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
-      "events": []
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1663,
+          "text": "Kanada postala francuska kraljevska provincija"
+        },
+        {
+          "year": 1876,
+          "text": "Elisha Gray i Alexander Graham Bell neovisno su jedan o drugome prijavili patent za telefon"
+        },
+        {
+          "year": 1919,
+          "text": "Izbio Poljsko-sovjetski rat koji su povele Sovjetska Rusija i Sovjetska Ukrajina protiv Druge poljske republike i Ukrajinske Narodne Republike. Taj rat je uključivao dvije spektakularne bitke: poljsku Kijevsku ofanzivu u proljeće 1920. i Bitku kod Varšave u kolovozu 1920. godine. Rat je završio potpisivanjem Mira u Rigi 1921."
+        },
+        {
+          "year": 1943,
+          "text": "Sovjetska Crvena armija u Drugom svjetskom ratu oslobodila Rostov od Nijemaca"
+        },
+        {
+          "year": 1989,
+          "text": "U orbiti je smješten prvi satelit u satelitskoj konstelaciji Globalnog pozicijskog sustava"
+        },
+        {
+          "year": 1990,
+          "text": "Voyager 1 je uslikao Zemlju s udaljenosti od 6 milijardi kilometara (Pale Blue Dot)."
+        },
+        {
+          "year": 1997,
+          "text": "Međunarodno arbitražno povjerenstvo donijelo odluku da sporno područje grada Brčko u Bosni bude stavljeno pod međunarodni nadzor do ožujka 1998."
+        },
+        {
+          "year": 2000,
+          "text": "Skupština tadašnje NK Croatie tajnim glasovanjem donosi odluku o povratku imena Dinamo."
+        },
+        {
+          "year": 2002,
+          "text": "prva hrvatska medalja na Zimskim olimpijskim igrama – zlato u skijaškoj kombinaciji za žene u Salt Lake Cityu – Janica Kostelić"
+        },
+        {
+          "year": 2004,
+          "text": "Kanal 5, hrvatska komercijalna televizijska postaja počela s emitiranjem programa."
+        },
+        {
+          "year": 2006,
+          "text": "prva muška hrvatska medalja na Zimskim olimpijskim igrama – srebro u skijaškoj kombinaciji u Torinu – Ivica Kostelić"
+        },
+        {
+          "year": 2014,
+          "text": "U Rijeci je osnovana Velika nacionalna loža Hrvatske"
+        },
+        {
+          "year": 2020,
+          "text": "prvi smrtni slučaj COVID-19 bolesti u Europi je zabilježen u Francuskoj."
+        }
+      ]
     },
     "02-15": {
       "date": "02-15",
@@ -2313,9 +2317,78 @@
     },
     "02-19": {
       "date": "02-19",
-      "source": "PatriaSoul",
-      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
-      "events": []
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1291,
+          "text": "Potpisan sporazum iz Tarascona."
+        },
+        {
+          "year": 1594,
+          "text": "Sigismund III., kralj Poljsko-litavske Unije, okrunjen je za kralja Švedske."
+        },
+        {
+          "year": 1674,
+          "text": "Treći englesko-nizozemski rat završio je potpisivanjem Westminsterskog sporazuma."
+        },
+        {
+          "year": 1826,
+          "text": "Rodio se Matija Mesić, povjesničar i prvi rektor zagrebačkog sveučilišta."
+        },
+        {
+          "year": 1910,
+          "text": "Manchester United odigrao prvu utakmicu na Old Traffordu."
+        },
+        {
+          "year": 1935,
+          "text": "Sibinjske žrtve; u sibinjskom kraju režim Kraljevine Jugoslavije ubio hrvatske seljake."
+        },
+        {
+          "year": 1939,
+          "text": "Talijanske vojne jedinice u Adis Abebi počinile masakr u znak odmazde zbog neuspjelog atentata na potkralja maršala Grazianija."
+        },
+        {
+          "year": 1942,
+          "text": "Zračni napadi na Darwin, glavni grad Sjevernog Teritorija, Australija uništili su 242 bombardera i lovaca japanske carske mornarice."
+        },
+        {
+          "year": 1942,
+          "text": "Potpisana je U.S. Executive Order 9066, odobrivši premještaj i zatvaranje 112.000 japanskih Amerikanaca."
+        },
+        {
+          "year": 1945,
+          "text": "Započela bitka za Iwo Jimu."
+        },
+        {
+          "year": 1982,
+          "text": "Probni let Boeinga 757."
+        },
+        {
+          "year": 1986,
+          "text": "U okviru sovjetskog svemirskog programa lansirana je svemirska postaja Mir, prva dugoročna istraživačka postaja u svemiru."
+        },
+        {
+          "year": 1990,
+          "text": "osnovan Istarski demokratski sabor."
+        },
+        {
+          "year": 1996,
+          "text": "Institut za suvremenu povijest postao dio Hrvatskog instituta za povijest."
+        },
+        {
+          "year": 1999,
+          "text": "Posljednji koncert Animatora u klubu Kulušić."
+        },
+        {
+          "year": 2002,
+          "text": "Objavljen album Don't Worry About Me Joeyja Ramonea."
+        },
+        {
+          "year": 2020,
+          "text": "Zoran Milanović prisegnuo za Predsjednika Republike Hrvatske."
+        }
+      ]
     },
     "02-20": {
       "date": "02-20",
@@ -8090,12 +8163,12 @@
           "text": "2021."
         },
         {
-          "year": 1876,
-          "text": "1917."
-        },
-        {
           "year": 1932,
           "text": "1973."
+        },
+        {
+          "year": 1975,
+          "text": "Charlize Theron"
         }
       ]
     },
@@ -8669,12 +8742,8 @@
           "text": "Kraj Iransko-iračkog rata DANA 20. kolovoza 1988. stupio je na snagu prekid vatre izme&#x111;u Irana i Iraka, &#x10D;ime su zavr&#x161;ene gotovo osam godina borbi u jednom od najkrvavijih ratova druge polovice 20. stolje&#x107;a."
         },
         {
-          "year": 1860,
-          "text": "Smatrao je da Njemačka nije dovoljno kažnjena pa okupirao najbogatiju pokrajinu"
-        },
-        {
-          "year": 1860,
-          "text": "1934."
+          "year": 1663,
+          "text": "Pomogao je carici da dođe na vlast, pobijedio Osmanlije i bio hrvatski ban 30 godina"
         },
         {
           "year": 1663,
@@ -8683,6 +8752,10 @@
         {
           "year": 1941,
           "text": "2006."
+        },
+        {
+          "year": 1974,
+          "text": "Amy Adams"
         }
       ]
     },
@@ -8900,12 +8973,12 @@
           "text": "1967."
         },
         {
-          "year": 1900,
-          "text": "1900."
-        },
-        {
           "year": 2001,
           "text": "2001."
+        },
+        {
+          "year": 1900,
+          "text": "1900."
         }
       ]
     },
@@ -11057,20 +11130,20 @@
           "text": "Uhićen Vladko Maček"
         },
         {
-          "year": 1999,
-          "text": "U kina je stigao Fight Club KADA je 15. listopada 1999. godine u kina stigao Klub boraca (Fight Club), svijet filma nije znao &#x161;to ga je sna&#x161;lo."
+          "year": 533,
+          "text": "Belizar ukida Vandalsko Kraljevstvo NA DANA&#x160;NJI dan bizantski vojskovo&#x111;a Belizar ukida Vandalsko Kraljevstvo."
         },
         {
-          "year": 1944,
-          "text": "Stranka strelastog križa preuzima vlast u Mađarskoj STRANKA strelastog kri&#x17E;a (Nyilaskeresztes P&#xE1;rt &#x2013; Hungarista Mozgalom), osnovana 1935. godine pod vodstvom Ferenca Sz&#xE1;lasija, bila je najekstremniji fa&#x161;isti&#x10D;ki pokret u tada&#x161;njoj Ma&#x111;arskoj."
+          "year": 1999,
+          "text": "U kina je stigao Fight Club KADA je 15. listopada 1999. godine u kina stigao Klub boraca (Fight Club), svijet filma nije znao &#x161;to ga je sna&#x161;lo."
         },
         {
           "year": 1951,
           "text": "Počela se prikazivati serija I Love Lucy 15. LISTOPADA 1951. godine na ameri&#x10D;kom televizijskom kanalu CBS premijerno je prikazana serija I Love Lucy."
         },
         {
-          "year": 533,
-          "text": "Belizar ukida Vandalsko Kraljevstvo NA DANA&#x160;NJI dan bizantski vojskovo&#x111;a Belizar ukida Vandalsko Kraljevstvo."
+          "year": 1944,
+          "text": "Stranka strelastog križa preuzima vlast u Mađarskoj STRANKA strelastog kri&#x17E;a (Nyilaskeresztes P&#xE1;rt &#x2013; Hungarista Mozgalom), osnovana 1935. godine pod vodstvom Ferenca Sz&#xE1;lasija, bila je najekstremniji fa&#x161;isti&#x10D;ki pokret u tada&#x161;njoj Ma&#x111;arskoj."
         },
         {
           "year": 1997,
@@ -11081,20 +11154,20 @@
           "text": "Gorbačov dobio Nobelovu nagradu za mir GODINE 1990. svjetsku je pa&#x17E;nju privukla vijest da je Mihail Gorba&#x10D;ov dobio Nobelovu nagradu za mir. Odluka je donesena 15. listopada te godine, a &#x160;vedski odbor istaknuo je da je Gorba&#x10D;ov \"odigrao klju&#x10D;nu ulogu u okon&#x10D;anju Hladnog rata\"."
         },
         {
-          "year": 1872,
-          "text": "Je li ovo bila prva predsjednica SAD-a?"
-        },
-        {
-          "year": 1872,
-          "text": "1961."
+          "year": 1934,
+          "text": "Smatrao je da Njemačka nije dovoljno kažnjena pa okupirao najbogatiju pokrajinu"
         },
         {
           "year": 1844,
           "text": "1900."
         },
         {
-          "year": 1946,
-          "text": "1946."
+          "year": 1872,
+          "text": "1961."
+        },
+        {
+          "year": 1934,
+          "text": "1934."
         },
         {
           "year": 1917,
@@ -14135,16 +14208,16 @@
           "text": "2024."
         },
         {
-          "year": 1961,
-          "text": "1961."
-        },
-        {
           "year": 1959,
           "text": "1959."
         },
         {
           "year": 2025,
           "text": "2025."
+        },
+        {
+          "year": 1961,
+          "text": "1961."
         }
       ]
     },
