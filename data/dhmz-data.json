@@ -1,11 +1,11 @@
 {
   "source": "DHMZ",
-  "updated_at": "2026-10-15T04:45:56.207669+00:00",
+  "updated_at": "2026-10-15T11:35:08.342748+00:00",
   "warnings": [
     {
       "day": "today",
       "event": "Žuto upozorenje za vjetar",
-      "description": "Tijekom noći i jutra, te ponovo navečer ponegdje umjereno jaka bura. Najjači udari vjetra 35-40 čvorova  (65-75 km/h)",
+      "description": "Mjestimice pojačana bura. Najjači udari vjetra 35-40 čvorova  (65-75 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -25,7 +25,7 @@
     {
       "day": "today",
       "event": "Žuto upozorenje za vjetar",
-      "description": "Tijekom noći i jutra, te ponovo navečer ponegdje umjereno jaka bura. Najjači udari vjetra 35-40 čvorova  (65-75 km/h)",
+      "description": "Mjestimice pojačana bura. Najjači udari vjetra 35-40 čvorova  (65-75 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -35,7 +35,7 @@
     {
       "day": "today",
       "event": "Žuto upozorenje za vjetar",
-      "description": "Tijekom noći i jutra, te ponovo navečer jaka, mjestimice i vrlo jaka bura. Najjači udari vjetra 35-60 čvorova  (65-110 km/h)",
+      "description": "Tijekom noći i jutra, te ponovo navečer jaka, mjestimice jaka bura. Najjači udari vjetra 35-45 čvorova  (65-85 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -55,7 +55,7 @@
     {
       "day": "today",
       "event": "Yellow wind warning",
-      "description": "During the night and morning,  and again in the evening locally fresh NE wind. Maximum wind gusts 35-40 knots (65-75 km/h)",
+      "description": "Locally fresh NE wind. Maximum wind gusts 35-40 knots (65-75 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -75,7 +75,7 @@
     {
       "day": "today",
       "event": "Yellow wind warning",
-      "description": "During the night and morning,  and again in the evening locally fresh NE wind. Maximum wind gusts 35-40 knots (65-75 km/h)",
+      "description": "Locally fresh NE wind maximum wind gusts 35-40 knots (65-75 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -85,7 +85,7 @@
     {
       "day": "today",
       "event": "Yellow wind warning",
-      "description": "During the night and morning,  and again in the evening strong, locally near gale NE wind. Maximum wind gusts 35-60 knots (65-110 km/h)",
+      "description": "During the night and morning,  and again in the evening strong NE wind. Maximum wind gusts 35-45 knots (65-85 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -135,7 +135,7 @@
     {
       "day": "day_after_tomorrow",
       "event": "Žuto upozorenje za vjetar",
-      "description": "Pojačana, mjestimice jaka bura. Najjači udari vjetra 35-45 čvorova  (65-85 km/h)",
+      "description": "Mjestimice pojačana bura. Najjači udari vjetra 35-45 čvorova  (65-85 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -145,7 +145,7 @@
     {
       "day": "day_after_tomorrow",
       "event": "Žuto upozorenje za vjetar",
-      "description": "Pojačana, mjestimice jaka bura. Najjači udari vjetra 35-45 čvorova  (65-85 km/h)",
+      "description": "Mjestimice pojačana bura. Najjači udari vjetra 35-45 čvorova  (65-85 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -185,7 +185,7 @@
     {
       "day": "day_after_tomorrow",
       "event": "Yellow wind warning",
-      "description": "Fresh, locally strong NE wind. Maximum wind gusts 35-45 knots (65-85 km/h)",
+      "description": "Locally fresh wind. Maximum wind gusts 35-45 knots (65-85 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -195,7 +195,7 @@
     {
       "day": "day_after_tomorrow",
       "event": "Yellow wind warning",
-      "description": "Fresh, locally strong NE wind. Maximum wind gusts 35-45 knots (65-85 km/h)",
+      "description": "Locally fresh wind. Maximum wind gusts 35-45 knots (65-85 km/h)",
       "severity": "Moderate",
       "urgency": "Future",
       "areas": [
@@ -430,19 +430,17 @@
   ],
   "rainfall_text": [],
   "adriatic_text": [
-    "Izvješće Službe Pomorskog meteorološkog centra Split DHMZ-a dana 15.10.2026. u 06 sati",
-    "Mjestimice udari bure 35-45, još u početku pa ponovno u noći podno Biokova do 55 čvorova. Još u početku na krajnjem jugu Jadrana moguće more 5.",
+    "Izvješće Službe Pomorskog meteorološkog centra Split DHMZ-a dana 15.10.2026. u 12 sati",
     "Vremenska prognoza za Jadran za prvih 12 sati",
-    "Bura i sjeverni, poslijepodne sjeverozapadni vjetar 10-20, na južnom Jadranu još u početku bura do 24, a podno Biokova 12-28 čvorova. Na sjevernom Jadranu tiho ili uglavnom bura i sjeverozapadni vjetar 4-14, još u početku podno Velebita bura 8-18, mjestimice do 24 čvora. More 1-2, na srednjem Jadranu, još u početku i podno Velebita 2-3, na južnom 3-4, a još u početku na krajnjem jugu mjestimice i 5. Vidljivost 20 km. Pretežno vedro, samo ponegdje umjerena naoblaka.",
-    "Slaba do umjerena, mjestimice pojačana bura i sjeverni vjetar, podno Velebita i na južnom Jadranu i jaka, podno Biokova mjestimice i vrlo jaka bura. U noći na otvorenom moru, još u početku i drugdje slab do umjeren, na srednjem i južnom Jadranu i pojačan sjeverozapadni vjetar. More mirno ili malo valovito, podno Velebita i na srednjem Jadranu i umjereno valovito, a na južnom Jadranu ponegdje i valovito. Pretežno vedro, samo ponegdje umjerena naoblaka."
+    "Sjeverozapadni vjetar 4-14, na južnom i dijelu srednjeg Jadrana do 20 čvorova. U noći bura 8-18, na južnom, dijelu srednjeg Jadrana, te na širem senjskom području do 24 čvora. Na krajnjem sjeveru Jadrana uglavnom tiho. More 2-3, na otvorenom dijelu južnog Jadrana 3-4. Vidljivost 20 km. Umjereno oblačno.",
+    "Slaba do umjerena, na južnom i dijelu srednjeg Jadrana, te na širem senjskom području mjestimice jaka bura. Bura će na sjevernom i dijelu srednjeg Jadrana oslabiti na slabu, podno Velebita mjestimice umjerenu. More malo do umjereno valovito, na otvorenom dijelu južnog Jadrana ponegdje valovito. Malo do umjereno oblačno, na krajnjem sjeveru Jadrana je moguća sumaglica."
   ],
   "sailors_text": [
-    "VREMENSKO IZVJEŠĆE, dan 15.10.2026 u 06:00 sati",
-    "Mjestimice udari NE vjetra 35-45, još u početku pa ponovno u noći podno Biokova do 55 čvorova. Još u početku na krajnjem jugu Jadrana moguće more 5.",
-    "Vremenska prognoza za sljedeća 24 sata, vrijedi do: 16.10.2026 u 06 sati",
-    "Tiho ili uglavnom vjetar NE, na otvorenom i NW 4-14, još u početku pa ponovno u noći podno Velebita NE 8-18, mjestimice do 24 čvora. More 1-2, još u početku pa ponovno u noći podno Velebita 2-3. Vidljivost 20 km. Pretežno vedro, samo ponegdje umjerena naoblaka.",
-    "Vjetar NE i N 10-20, još u početku pa ponovno u noći podno Biokova NE 12-28 čvorova. Tijekom noći na otvorenom moru, a poslijepodne i drugdje NW vjetar 10-20 čvorova. More 2-3. Vidljivost 20 km. Pretežno vedro, samo ponegdje umjerena naoblaka.",
-    "Vjetar NE i N 10-20, još u početku pa ponovno u noći NE do 24 čvora. Tijekom noći na otvorenom moru, a poslijepodne i drugdje NW vjetar 10-20 čvorova. More 3-4, još u početku na jugu područja moguće 5. Vidljivost 20 km. Pretežno vedro, samo ponegdje umjerena naoblaka."
+    "VREMENSKO IZVJEŠĆE, dan 15.10.2026 u 12:00 sati",
+    "Vremenska prognoza za sljedeća 24 sata, vrijedi do: 16.10.2026 u 12 sati",
+    "NW vjetar 4-12 čvorova. Jugoistočno od Istre NE vjetar u jačanju na 6-16, podno Velebita samo mjestimice do 22 čvora, uglavnom na širem senjskom području, sutra će slabiti na 4-12, na širem senjskom području do 18 čvorova. More 1-2, podno Velebita 2-3. Vidljivost 20 km, na krajnjem sjeveru je u noći i ujutro moguće 2-4 km zbog sumaglice. Umjereno oblačno.",
+    "NW vjetar 10-20 čvorova. U noći i sutra ujutro uz obalu NE vjetar 8-18, podno Biokova i na jugu područja do 24 čvora. More 2-3, na jugu područja je moguće 4. Vidljivost 20 km. Malo do umjereno oblačno.",
+    "NW vjetar 10-20 čvorova. U noći i sutra ujutro uz obalu NE vjetar 12-24 čvora. More 2-3, otvorenom 3-4. Vidljivost 20 km. Malo do umjereno oblačno, u noći i sutra na jugu područja pretežno vedro."
   ],
   "croatia_forecast_text": []
 }
