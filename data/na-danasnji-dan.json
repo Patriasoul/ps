@@ -1,7 +1,7 @@
 {
   "source": "Hrvatska povijesna referenca",
   "source_url": "https://www.index.hr/kalendar",
-  "updated_at": "2026-10-15T08:27:26.273Z",
+  "updated_at": "2026-10-16T08:20:15.474Z",
   "dates": {
     "01-01": {
       "date": "01-01",
@@ -1339,9 +1339,42 @@
     },
     "01-27": {
       "date": "01-27",
-      "source": "PatriaSoul",
-      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
-      "events": []
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1416,
+          "text": "Dubrovačka Republika zabranila trgovinu robljem na svom području."
+        },
+        {
+          "year": 1888,
+          "text": "Osnovan je National Geographic Society, izdavač časopisa National Geographic."
+        },
+        {
+          "year": 1924,
+          "text": "Predsjednik Vlade Nikola Pašić i ministar vanjskih poslova Momčilo Ninčić sa strane Kraljevine SHS i predsjednik Vlade Benito Mussolini sa strane Kraljevine Italije potpisali Rimske ugovore, kojima je Rijeka predana Italiji i materijalizirana D'Annunzijeva talijanska okupacija."
+        },
+        {
+          "year": 1945,
+          "text": "Sovjetska Crvena armija ušla u Auschwitz-Birkenau u Poljskoj gdje pronalazi sabirni logor u kojem je ubijeno preko milijun ljudi. Tada oslobođeno 7.500 zatvorenika koji su uspjeli preživjeti strahote tog logora."
+        },
+        {
+          "year": 1951,
+          "text": "Započela su nuklearna testiranja na Nevada Test Siteu s bombom od jedne kilotone bačenom na Frenchman Flats."
+        },
+        {
+          "year": 1967,
+          "text": "U svemirskoj letjelici Apollo 1, koju je uništio požar u Svemirskom centru Kennedy, poginuli su astronauti Gus Grissom, Edward White i Roger Chaffee."
+        },
+        {
+          "year": 1973,
+          "text": "Potpisan je Pariški mirovni sporazum kako bi se završio Vijetnamski rat."
+        },
+        {
+          "year": 2008,
+          "text": "Charles, princ od Walesa postao najdugovječnijim nasljednikom trona u britanskoj povijesti. Titulu prijestolonasljednika dobio je na današnji dan 1969. godine."
+        }
+      ]
     },
     "01-28": {
       "date": "01-28",
@@ -1993,9 +2026,54 @@
     },
     "02-09": {
       "date": "02-09",
-      "source": "PatriaSoul",
-      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
-      "events": []
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1573,
+          "text": "Presudna bitka između plemića i seljačke vojske pod vodstvom Matije Gupca kod Stubičkih Toplica, kojom je seljačka buna propala"
+        },
+        {
+          "year": 1621,
+          "text": "Kardinal Alessandro Ludovisi izabran za papu i uzeo je ime Grgur XV."
+        },
+        {
+          "year": 1825,
+          "text": "Elektori u SAD-u izabrali Johna Quincyja Adamsa za novog američkog predsjednika kojem će mandat početi 4. ožujka"
+        },
+        {
+          "year": 1861,
+          "text": "Predstavnici konvencije u gradu Montgomery proglasili su Jeffersona Davisa privremenim predsjednikom Konfederativnih Država Amerike"
+        },
+        {
+          "year": 1895,
+          "text": "Odbojka je izumljena na YMCA-u u Holyokeu, Massachusetts"
+        },
+        {
+          "year": 1900,
+          "text": "Dwight Davis utemeljio tenisko natjecanje Davisov kup"
+        },
+        {
+          "year": 1934,
+          "text": "Stvoren Balkanski pakt"
+        },
+        {
+          "year": 1938,
+          "text": "Velika tragedija u Sretnicama kad je u požaru izgorjelo 29 svatova. [http://www.brotnjo.info/2019/02/09/prije-81-godinu-vatra-je-na-sretnicama-progutala-29-svatova/ Brotnjo.info] Župa Kruševo: Prije 81 godinu vatra je na Sretnicama progutala 29 svatova, 9. veljače 2019. (pristupljeno 16. travnja 2019.)"
+        },
+        {
+          "year": 1943,
+          "text": "Drugi svjetski rat: završila je bitka kod Guadalcanala na Solomonskim otocima"
+        },
+        {
+          "year": 1968,
+          "text": "Nizozemska princeza Beatrix otvorila podzemnu željeznicu Rotterdamu."
+        },
+        {
+          "year": 2018,
+          "text": "U Pyeongchangu otvorene su Zimske olimpijske igre"
+        }
+      ]
     },
     "02-10": {
       "date": "02-10",
@@ -2125,9 +2203,66 @@
     },
     "02-12": {
       "date": "02-12",
-      "source": "PatriaSoul",
-      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
-      "events": []
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
+      "events": [
+        {
+          "year": 1502,
+          "text": "Vasco da Gama krenuo na svoje drugo putovanje prema Indiji"
+        },
+        {
+          "year": 1689,
+          "text": "Britanski parlament donio zaključak kako je kralj Jakov II., nakon što je pobjegao u Francusku, abdicirao te je (parlament) proglasio Mariju II. za novu englesku kraljicu"
+        },
+        {
+          "year": 1818,
+          "text": "Čile je pod vodstvom generala Bernardoa O'Higginsa formalno proglasio nezavisnost od Španjolske"
+        },
+        {
+          "year": 1832,
+          "text": "Ekvador anektirao Otočje Galápagos"
+        },
+        {
+          "year": 1909,
+          "text": "Osnovano je National Association for the Advancement of Colored People, jedno od najstarijih i najutjecajnijih organizacija za građanska prava u SAD-u."
+        },
+        {
+          "year": 1912,
+          "text": "Abdicirao posljednji kineski car Pu Yi"
+        },
+        {
+          "year": 1924,
+          "text": "Premjerno izvedena Rapsodija u plavom Georgea Gershwina"
+        },
+        {
+          "year": 1948,
+          "text": "Održavanjem prve sjednice Narodnog odbora grad Rijeka je ponovno ujedinjen (Rijeka i Sušak) i osnovan je Kotar Rijeka."
+        },
+        {
+          "year": 1960,
+          "text": "Chuck Berry u studiju 'Chess' snima \"Bye, Bye Johnny\", \"Jaguar And Thunderbird\", \"Drifting Blues\" i druge skladbe."
+        },
+        {
+          "year": 1961,
+          "text": "Lansirana sonda Venera 1"
+        },
+        {
+          "year": 2001,
+          "text": "NEAR Shoemaker spustio se na Eros, postavši prva svemirska letjelica koja je sletjela na neki asteroid"
+        },
+        {
+          "year": 2002,
+          "text": "U Haagu počelo suđenje bivšem predsjedniku Jugoslavije Slobodanu Miloševiću"
+        },
+        {
+          "year": 2010,
+          "text": "U kanadskom Vancouveru započele XXI. Zimske olimpijske igre."
+        },
+        {
+          "year": 2016,
+          "text": "Povijesni susret pape Franje i moskovskog patrijarha Kirila na Kubi"
+        }
+      ]
     },
     "02-13": {
       "date": "02-13",
@@ -2317,101 +2452,15 @@
     },
     "02-19": {
       "date": "02-19",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
-      "events": [
-        {
-          "year": 1291,
-          "text": "Potpisan sporazum iz Tarascona."
-        },
-        {
-          "year": 1594,
-          "text": "Sigismund III., kralj Poljsko-litavske Unije, okrunjen je za kralja Švedske."
-        },
-        {
-          "year": 1674,
-          "text": "Treći englesko-nizozemski rat završio je potpisivanjem Westminsterskog sporazuma."
-        },
-        {
-          "year": 1826,
-          "text": "Rodio se Matija Mesić, povjesničar i prvi rektor zagrebačkog sveučilišta."
-        },
-        {
-          "year": 1910,
-          "text": "Manchester United odigrao prvu utakmicu na Old Traffordu."
-        },
-        {
-          "year": 1935,
-          "text": "Sibinjske žrtve; u sibinjskom kraju režim Kraljevine Jugoslavije ubio hrvatske seljake."
-        },
-        {
-          "year": 1939,
-          "text": "Talijanske vojne jedinice u Adis Abebi počinile masakr u znak odmazde zbog neuspjelog atentata na potkralja maršala Grazianija."
-        },
-        {
-          "year": 1942,
-          "text": "Zračni napadi na Darwin, glavni grad Sjevernog Teritorija, Australija uništili su 242 bombardera i lovaca japanske carske mornarice."
-        },
-        {
-          "year": 1942,
-          "text": "Potpisana je U.S. Executive Order 9066, odobrivši premještaj i zatvaranje 112.000 japanskih Amerikanaca."
-        },
-        {
-          "year": 1945,
-          "text": "Započela bitka za Iwo Jimu."
-        },
-        {
-          "year": 1982,
-          "text": "Probni let Boeinga 757."
-        },
-        {
-          "year": 1986,
-          "text": "U okviru sovjetskog svemirskog programa lansirana je svemirska postaja Mir, prva dugoročna istraživačka postaja u svemiru."
-        },
-        {
-          "year": 1990,
-          "text": "osnovan Istarski demokratski sabor."
-        },
-        {
-          "year": 1996,
-          "text": "Institut za suvremenu povijest postao dio Hrvatskog instituta za povijest."
-        },
-        {
-          "year": 1999,
-          "text": "Posljednji koncert Animatora u klubu Kulušić."
-        },
-        {
-          "year": 2002,
-          "text": "Objavljen album Don't Worry About Me Joeyja Ramonea."
-        },
-        {
-          "year": 2020,
-          "text": "Zoran Milanović prisegnuo za Predsjednika Republike Hrvatske."
-        }
-      ]
+      "source": "PatriaSoul",
+      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
+      "events": []
     },
     "02-20": {
       "date": "02-20",
-      "source": "Hrvatska Wikipedija",
-      "source_url": "https://hr.wikipedia.org/",
-      "events": [
-        {
-          "year": 1935,
-          "text": "Vrbske žrtve; režim Kraljevine Jugoslavije mučki ubio hrvatske seljake iz Gornje Vrbe i Ruščiće u Slavonskom Brodu"
-        },
-        {
-          "year": 1951,
-          "text": "Meteorit težak 1,9 kg pao je u Molunatu, 40 km od Dubrovnika. Dobio je službeni naziv \"Dubrovnik\"."
-        },
-        {
-          "year": 1960,
-          "text": "The Rocking Kings sviraju s tada 17-godišnjim gitaristom Jamesom Marshallom Hendrixom (kasnije poznat kao Jimi), u njegovu rodnom gradu Seattleu u Washington Hallu. Jimi svira na svojoj prvoj gitari Supro Ozark."
-        },
-        {
-          "year": 1986,
-          "text": "Silvio Berlusconi kupio talijanski nogometni klub AC Milan"
-        }
-      ]
+      "source": "PatriaSoul",
+      "source_url": "https://patriasoul.github.io/Patriasoul-portal-v2/",
+      "events": []
     },
     "02-21": {
       "date": "02-21",
@@ -5069,48 +5118,56 @@
     },
     "05-29": {
       "date": "05-29",
-      "source": "Index Kalendar",
-      "source_url": "https://www.index.hr/kalendar?datum=2905",
+      "source": "Hrvatska Wikipedija",
+      "source_url": "https://hr.wikipedia.org/",
       "events": [
         {
           "year": 1453,
-          "text": "Pad Carigrada"
+          "text": "Poslije duge opsade, turska vojska, sa sultanom Mehmedom II. na čelu, zauzela Carigrad (Konstantinopol, Istanbul), prijestolnicu nekada moćnog Bizantskog carstva, a tada je poginuo i posljednji bizantski car Konstantin XI. Paleolog."
         },
         {
-          "year": 1985,
-          "text": "Heyselska tragedija 29. SVIBNJA 1985. nogometni svijet do&#x17E;ivio je jedan od svojih najmra&#x10D;nijih trenutaka."
-        },
-        {
-          "year": 2009,
-          "text": "Premijerno prikazan Pixarov film Up KADA je 29. svibnja 2009. godine premijerno prikazan Pixarov film Up, malo tko je mogao pretpostaviti da &#x107;e pri&#x10D;a o starcu koji leti ku&#x107;i na balonima postati jedan od najemotivnijih i najvoljenijih animiranih filmova svih vremena."
-        },
-        {
-          "year": 1990,
-          "text": "Jeljcin postao prvi čovjek Rusije OVA FUNKCIJA poslu&#x17E;ila mu je kao politi&#x10D;ka odsko&#x10D;na daska &#x2014; ve&#x107; sljede&#x107;e godine, u lipnju 1991., Jeljcin je izabran za prvog predsjednika Ruske Federacije na neposrednim izborima."
-        },
-        {
-          "year": 526,
-          "text": "Potres uništio bizantski grad Antiohiju ANTIOHIJA je u 6. stolje&#x107;u bila jedan od najva&#x17E;nijih gradova isto&#x10D;nog Sredozemlja."
-        },
-        {
-          "year": 363,
-          "text": "Bitka pod zidinama Ktezifonta KADA je rimski car Julijan u prolje&#x107;e 363. godine poveo vojsku na istok, cilj nije bio skroman. Htio je u&#x10D;initi ono o &#x10D;emu su rimski vladari sanjali stolje&#x107;ima: duboko prodrijeti u Perziju, slomiti mo&#x107; Sasanidskog Carstva i mo&#x17E;da osvojiti Ktezifont."
-        },
-        {
-          "year": 1959,
-          "text": "Bio je zvijezda u usponu dok nije rekao tko je zapravo"
-        },
-        {
-          "year": 1959,
-          "text": "Rupert Everett"
-        },
-        {
-          "year": 1504,
-          "text": "1573."
+          "year": 1867,
+          "text": "Nagodbom je od Habsburškog Carstva stvorena Austro-Ugarska."
         },
         {
           "year": 1903,
-          "text": "2003."
+          "text": "U Beogradu ubijeni kralj Aleksandar Obrenović i njegova žena Draga Mašin."
+        },
+        {
+          "year": 1914,
+          "text": "U sudaru britanskog putničkog broda \"Carica Irske\" i norveškog teretnjaka \"Storstat\" na rijeci St. Lawrence, u Kanadi, poginulo najmanje 1.012 ljudi."
+        },
+        {
+          "year": 1927,
+          "text": "U Zagrebu je osnovana Velika simbolička loža \"Libertas\"."
+        },
+        {
+          "year": 1929,
+          "text": "Prvi zvučni film u boji \"On with the Show\" prikazan u New Yorku."
+        },
+        {
+          "year": 1953,
+          "text": "Novozelandski planinar Edmund Hillary i Nepalac Tenzing Norgay osvojili najviši planinski vrh na zemlji Mount Everest (8.848 metara) na Himalajima i time postali prvi ljudi u povijesti planinarstva koji su se popeli na \"krov svijeta\"."
+        },
+        {
+          "year": 1953,
+          "text": "Osnovano je Zagrebačko dramsko kazalište, današnje Dramsko kazalište Gavella."
+        },
+        {
+          "year": 1982,
+          "text": "Papa Ivan Pavao II. postaje prvi papa koji je posjetio Katedralu u Canterburyju."
+        },
+        {
+          "year": 1985,
+          "text": "Na stadionu \"Heysel\" u Bruxellesu, neposredno prije početka finalne utakmice Kupa europskih prvaka u nogometu između Liverpoola i Juventusa, došlo do vandalskog napada navijača iz Engleske na talijanske navijače, pri čemu je poginulo 39 Talijana i povrijeđeno više od 400 ljudi."
+        },
+        {
+          "year": 1999,
+          "text": "Hrvatska odbila zahtjev Haaškog suda za pokretanje istrage o zločinima počinjenim nad srpskim civilima u operaciji \"Oluja\" u kolovozu 1995. godine."
+        },
+        {
+          "year": 2008,
+          "text": "Proglašen Nacionalni park Una."
         }
       ]
     },
@@ -11189,24 +11246,20 @@
           "text": "Objavljeno otkriće planeta Alpha Centauri Bb DANA 16. listopada 2012. godine, znanstvenici su objavili otkri&#x107;e planeta Alpha Centauri Bb, tada najbli&#x17E;eg poznatog egzoplaneta, udaljenog oko 4,37 svjetlosnih godina."
         },
         {
-          "year": 1956,
-          "text": "Mađarski glumac koji je dao lice Drakuli i postao legenda horora"
-        },
-        {
-          "year": 1854,
-          "text": "1900."
+          "year": 1793,
+          "text": "Marija Antoaneta - priče i mitovi o najpoznatijoj europskoj kraljici"
         },
         {
           "year": 1908,
           "text": "1985."
         },
         {
-          "year": 1801,
-          "text": "1859."
+          "year": 1962,
+          "text": "2010."
         },
         {
-          "year": 1956,
-          "text": "1956."
+          "year": 1801,
+          "text": "1859."
         },
         {
           "year": 1793,
@@ -11215,6 +11268,10 @@
         {
           "year": 2007,
           "text": "2007."
+        },
+        {
+          "year": 1991,
+          "text": "1991."
         }
       ]
     },
@@ -11381,16 +11438,16 @@
           "text": "Bila je strah i trepet Jugoslavije, nakon raspada životarila je u bijedi"
         },
         {
-          "year": 1882,
-          "text": "1956."
-        },
-        {
           "year": 1770,
           "text": "1855."
         },
         {
           "year": 1770,
           "text": "1856."
+        },
+        {
+          "year": 1780,
+          "text": "1825."
         },
         {
           "year": 2013,
@@ -13132,16 +13189,12 @@
           "text": "Premijerno prikazan horor-triler Misery MISERY, psiholo&#x161;ki horor-triler nastao prema istoimenom romanu Stephena Kinga, premijeru je imao 30. studenoga 1990., a danas se smatra jednim od najboljih filmova svog &#x17E;anra."
         },
         {
-          "year": 1900,
-          "text": "Talentom je došao do svjetske slave. Uništilo ga je konzervativno društvo"
+          "year": 1957,
+          "text": "Bila je velika naša književnica i novinarka, ali i žestoki borac za emancipaciju"
         },
         {
           "year": 1885,
           "text": "1960."
-        },
-        {
-          "year": 1900,
-          "text": "1900."
         },
         {
           "year": 1957,
@@ -13150,6 +13203,10 @@
         {
           "year": 1718,
           "text": "1718."
+        },
+        {
+          "year": 2013,
+          "text": "2013."
         }
       ]
     },
